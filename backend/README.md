@@ -31,10 +31,14 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 cd backend
 ```
 
-### 2. Cài đặt dependencies
+### 2. Cài đặt dependencies và activate virtual environment
 
 ```bash
 uv sync
+```
+
+```bash
+source .venv/bin/acitvate
 ```
 
 ### 3. Khởi động server development
