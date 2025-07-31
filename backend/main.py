@@ -1,9 +1,9 @@
 import os
 from fastapi import FastAPI, UploadFile, File, Depends, HTTPException, Header
 from sqlalchemy.orm import Session
-from database import SessionLocal, engine
-from database import Base
-from models import FileMetadata
+from .routes.database import SessionLocal, engine
+from .routes.database import Base
+from .routes.models import FileMetadata
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
@@ -11,10 +11,10 @@ from typing import List
 import firebase_admin
 from firebase_admin import credentials, auth, firestore
 
-
 # Khởi tạo Firebase Admin SDK bằng biến môi trường
 from dotenv import load_dotenv
 load_dotenv()
+
 service_account_info = {
     "type": "service_account",
     "project_id": os.getenv("GOOGLE_PROJECT_ID"),
