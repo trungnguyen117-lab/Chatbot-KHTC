@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>KHTC-UET - Quản lý tài liệu</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px;
+    }
+    .container {
+      max-width: 800px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    #roleInfo {
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    .btn-primary, .btn-success {
+      border-radius: 30px;
+    }
+    table {
+      margin-top: 20px;
+    }
+    thead {
+      background-color: #2980b9;
+      color: white;
+    }
+    tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container text-center">
+    <h2>🏢 KHTC-UET - Quản lý Tài liệu</h2>
+    <button class="btn btn-primary" onclick="loginWithGoogle()">Google Login</button>
+    <p id="roleInfo"></p>
+
+    <div id="uploadSection" style="display:none;">
+      <h4 class="mt-4">Upload File (Admin only)</h4>
+      <input type="file" id="fileInput" accept=".pdf,.doc,.docx" class="form-control mt-2" />
+      <button class="btn btn-success mt-2" onclick="uploadFile()">Upload</button>
+      <p id="uploadResult" class="text-danger"></p>
+    </div>
+
+    <button class="btn btn-outline-secondary mt-4" id="getBtn" onclick="getFiles()" style="display:none;">Xem danh sách File 📂</button>
+
+    <table class="table table-striped" id="fileTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Tên File</th>
+          <th>Đường dẫn</th>
+          <th>Thời gian</th>
+        </tr>
+      </thead>
+      <tbody id="fileTableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDwhqypZ4fU6wJCRwTN3JnclJlcQS1xGas",
+      authDomain: "sso-project-dce86.firebaseapp.com",
+      projectId: "sso-project-dce86",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    function renderUI(role) {
+      const roleInfo = document.getElementById("roleInfo");
+      roleInfo.innerText = role === "admin"
+        ? "🔑 Vai trò: Admin"
+        : "👤 Vai trò: User";
+      document.getElementById("uploadSection").style.display = role === "admin" ? "block" : "none";
+      document.getElementById("getBtn").style.display = "inline-block";
+    }
+
+    async function loginWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        const result = await firebase.auth().signInWithPopup(provider);
+        const user = result.user;
+        const token = await user.getIdToken(true);
+        localStorage.setItem("firebase_token", token);
+        const res = await fetch("http://127.0.0.1:8000/whoami", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (!res.ok) return alert("Lỗi: " + JSON.stringify(data));
+        renderUI(data.role);
+      } catch (e) {
+        alert("Lỗi đăng nhập: " + e.message);
+      }
+    }
+
+    async function uploadFile() {
+      const file = document.getElementById("fileInput").files[0];
+      if (!file) return alert("Chọn file trước.");
+      const user = firebase.auth().currentUser;
+      if (!user) return alert("Chưa login.");
+      const token = await user.getIdToken(true);
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("http://127.0.0.1:8000/upload/", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      });
+      const data = await res.json();
+      document.getElementById("uploadResult").innerText = res.ok ? "✔️ Upload thành công!" : "❌ " + JSON.stringify(data);
+    }
+
+    async function getFiles() {
+      const token = localStorage.getItem("firebase_token");
+      if (!token) return alert("Chưa login");
+      const res = await fetch("http://127.0.0.1:8000/files/", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) return alert("Lỗi: " + JSON.stringify(data));
+      const table = document.getElementById("fileTable");
+      const tbody = document.getElementById("fileTableBody");
+      tbody.innerHTML = "";
+      data.forEach((file) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${file.filename}</td>
+          <td>${file.file_path}</td>
+          <td>${new Date(file.uploaded_at).toLocaleString("vi-VN")}</td>
+        `;
+        tbody.appendChild(row);
+      });
+      table.style.display = "table";
+    }
+  </script>
+</body>
+</html>
