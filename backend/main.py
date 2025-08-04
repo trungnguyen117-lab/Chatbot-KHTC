@@ -1,58 +1,67 @@
 import os
+from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, Depends, HTTPException, Header
-from sqlalchemy.orm import Session
-from .routes.database import SessionLocal, engine
-from .routes.database import Base
-from .routes.models import FileMetadata
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
 from typing import List
+
+from .routes.database import Base, SessionLocal, engine
+from .routes.models import FileMetadata
 
 # Firebase
 import firebase_admin
 from firebase_admin import credentials, auth, firestore
 
-# Khởi tạo Firebase Admin SDK bằng biến môi trường
+# Load env
 from dotenv import load_dotenv
-load_dotenv()
+env_path = Path(__file__).resolve().parent.parent / ".env"
+load_dotenv(dotenv_path=env_path)
 
-service_account_info = {
-    "type": "service_account",
-    "project_id": os.getenv("GOOGLE_PROJECT_ID"),
-    "private_key_id": os.getenv("GOOGLE_PRIVATE_KEY_ID"),
-    "private_key": os.getenv("GOOGLE_PRIVATE_KEY").replace('\\n', '\n'),
-    "client_email": os.getenv("GOOGLE_CLIENT_EMAIL"),
-    "client_id": os.getenv("GOOGLE_CLIENT_ID"),
-    "auth_uri": os.getenv("GOOGLE_AUTH_URI"),
-    "token_uri": os.getenv("GOOGLE_TOKEN_URI"),
-    "auth_provider_x509_cert_url": os.getenv("GOOGLE_AUTH_PROVIDER_X509_CERT_URL"),
-    "client_x509_cert_url": os.getenv("GOOGLE_CLIENT_X509_CERT_URL"),
-    "universe_domain": os.getenv("GOOGLE_UNIVERSE_DOMAIN"),
-}
-cred = credentials.Certificate(service_account_info)
-firebase_admin.initialize_app(cred)
-firestore_client = firestore.client()
+# ✅ Init Firebase
+def init_firebase():
+    private_key = os.getenv("GOOGLE_PRIVATE_KEY")
+    if not private_key:
+        raise RuntimeError("Missing GOOGLE_PRIVATE_KEY in .env")
 
-# 📂 Thư mục lưu file upload
+    service_account_info = {
+        "type": "service_account",
+        "project_id": os.getenv("GOOGLE_PROJECT_ID"),
+        "private_key_id": os.getenv("GOOGLE_PRIVATE_KEY_ID"),
+        "private_key": private_key.replace('\\n', '\n'),
+        "client_email": os.getenv("GOOGLE_CLIENT_EMAIL"),
+        "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+        "auth_uri": os.getenv("GOOGLE_AUTH_URI"),
+        "token_uri": os.getenv("GOOGLE_TOKEN_URI"),
+        "auth_provider_x509_cert_url": os.getenv("GOOGLE_AUTH_PROVIDER_X509_CERT_URL"),
+        "client_x509_cert_url": os.getenv("GOOGLE_CLIENT_X509_CERT_URL"),
+        "universe_domain": os.getenv("GOOGLE_UNIVERSE_DOMAIN"),
+    }
+    cred = credentials.Certificate(service_account_info)
+    firebase_admin.initialize_app(cred)
+    return firestore.client()
+
+firestore_client = init_firebase()
+
+# 📂 Folder lưu file
 UPLOAD_DIR = "uploaded_files"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# 🚀 Khởi tạo FastAPI
+# 🚀 FastAPI app
 app = FastAPI()
 
-# 🌐 Cho phép CORS từ frontend
-frontend_origin = os.getenv("FRONTEND_ORIGIN", "http://127.0.0.1:5501")
+# 🌐 CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[frontend_origin],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"],  # Cho phép tất cả origins trong môi trường development
+    allow_credentials=False,  # Tắt credentials vì không cần thiết
+    allow_methods=["*"],  # Cho phép tất cả methods
+    allow_headers=["*"],  # Cho phép tất cả headers
 )
 
-# 📦 Tạo bảng metadata nếu chưa có
+# 🔧 DB init
 Base.metadata.create_all(bind=engine)
 
-# 🛠 Dependency mở session DB
+# 🛠 Get DB session
 def get_db():
     db = SessionLocal()
     try:
@@ -60,14 +69,19 @@ def get_db():
     finally:
         db.close()
 
-# ✅ Xác thực người dùng bằng Firebase ID Token + Tự động tạo role nếu chưa có
+# ✅ Xác thực Firebase + Tạo role nếu chưa có
 async def get_current_user(authorization: str = Header(...)):
     if not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Thiếu Bearer token")
+        raise HTTPException(status_code=401, detail="Missing Bearer token")
 
     token = authorization.split(" ")[1]
     try:
-        decoded_token = auth.verify_id_token(token)
+        # Thêm check_revoked=False và tolerance=60s để tránh lỗi thời gian
+        decoded_token = auth.verify_id_token(
+            token,
+            check_revoked=False,
+            clock_skew_seconds=60
+        )
         uid = decoded_token["uid"]
         email = decoded_token.get("email")
 
@@ -77,24 +91,17 @@ async def get_current_user(authorization: str = Header(...)):
         if doc.exists:
             role = doc.to_dict().get("role", "user")
         else:
-            # 🔧 Nếu chưa có role -> mặc định là "user" và lưu lại
             role = "user"
-            doc_ref.set({
-                "role": role,
-                "email": email
-            })
+            doc_ref.set({"role": role, "email": email})
 
-        return {
-            "uid": uid,
-            "email": email,
-            "role": role
-        }
+        return {"uid": uid, "email": email, "role": role}
 
     except Exception as e:
-        print("❌ Lỗi xác thực:", e)
-        raise HTTPException(status_code=401, detail="Token không hợp lệ")
+        print(f"[❌] Firebase error: {e}")
+        raise HTTPException(status_code=401, detail="Invalid Firebase token")
 
-# ✅ API Upload - chỉ cho phép Admin
+
+# ✅ Upload file (admin only)
 @app.post("/upload/")
 async def upload_file(
     file: UploadFile = File(...),
@@ -102,16 +109,16 @@ async def upload_file(
     user=Depends(get_current_user),
 ):
     if user["role"] != "admin":
-        raise HTTPException(status_code=403, detail="Chỉ admin mới được upload")
+        raise HTTPException(status_code=403, detail="Only admin can upload files")
 
-    file_location = os.path.join(UPLOAD_DIR, file.filename)
-    with open(file_location, "wb") as f:
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    with open(file_path, "wb") as f:
         f.write(await file.read())
 
     metadata = FileMetadata(
         file_name=file.filename,
-        file_path=file_location,
-        file_size=os.path.getsize(file_location),
+        file_path=file_path,
+        file_size=os.path.getsize(file_path),
     )
     db.add(metadata)
     db.commit()
@@ -123,16 +130,7 @@ async def upload_file(
         "filename": metadata.file_name
     }
 
-# ✅ API lấy thông tin người dùng hiện tại
-@app.get("/whoami")
-async def whoami(user=Depends(get_current_user)):
-    return {
-        "uid": user["uid"],
-        "email": user["email"],
-        "role": user["role"]
-    }
-
-# ✅ API lấy danh sách file (ai cũng truy cập được)
+# ✅ Ai cũng xem được danh sách file
 @app.get("/files/")
 async def list_files(db: Session = Depends(get_db)):
     files = db.query(FileMetadata).all()
@@ -146,3 +144,12 @@ async def list_files(db: Session = Depends(get_db)):
         }
         for f in files
     ]
+
+# ✅ API kiểm tra người dùng
+@app.get("/whoami")
+async def whoami(user=Depends(get_current_user)):
+    return user
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to KHTC Chatbot API"}

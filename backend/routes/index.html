@@ -86,46 +86,139 @@
       document.getElementById("getBtn").style.display = "inline-block";
     }
 
+    let isLoggingIn = false;
     async function loginWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider();
+      const loginButton = document.querySelector('.btn-primary');
+      
+      // Kiểm tra xem có đang trong quá trình đăng nhập không
+      if (isLoggingIn) {
+        console.log("Đang trong quá trình đăng nhập, vui lòng đợi...");
+        return;
+      }
+      
       try {
-        const result = await firebase.auth().signInWithPopup(provider);
-        const user = result.user;
-        const token = await user.getIdToken(true);
-        localStorage.setItem("firebase_token", token);
-        const res = await fetch("http://127.0.0.1:8000/whoami", {
-          headers: { Authorization: `Bearer ${token}` },
+        isLoggingIn = true; // Đánh dấu đang trong quá trình đăng nhập
+        loginButton.disabled = true; // Vô hiệu hóa nút đăng nhập
+        loginButton.textContent = 'Đang đăng nhập...';
+        
+        console.log("Bắt đầu đăng nhập với Google...");
+        
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('email');
+        provider.setCustomParameters({
+          prompt: 'select_account'
         });
+        
+        const result = await firebase.auth().signInWithPopup(provider);
+        if (!result || !result.user) {
+          throw new Error("Không nhận được thông tin người dùng từ Google");
+        }
+        const user = result.user;
+        console.log("Đăng nhập Google thành công, đang lấy token...");
+        
+        const token = await user.getIdToken(true);
+        console.log("Đã lấy được token:", token.substring(0, 20) + "...");
+        localStorage.setItem("firebase_token", token);
+        
+        console.log("Đang gọi API whoami...");
+        const res = await fetch("http://127.0.0.1:8000/whoami", {
+          method: "GET",
+          headers: { 
+            "Authorization": `Bearer ${token}`
+          },
+          mode: 'cors'
+        });
+        
+        console.log("Kết quả API:", res.status, res.statusText);
         const data = await res.json();
-        if (!res.ok) return alert("Lỗi: " + JSON.stringify(data));
+        console.log("Dữ liệu trả về:", data);
+        
+        if (!res.ok) {
+          throw new Error(JSON.stringify(data));
+        }
         renderUI(data.role);
       } catch (e) {
+        console.error("Chi tiết lỗi:", e);
         alert("Lỗi đăng nhập: " + e.message);
+      } finally {
+        // Luôn reset trạng thái và nút sau khi hoàn thành
+        isLoggingIn = false;
+        loginButton.disabled = false;
+        loginButton.textContent = 'Google Login';
+      }
+    }
+
+    async function downloadFile(filePath, filename) {
+      try {
+        const token = localStorage.getItem("firebase_token");
+        if (!token) {
+          throw new Error("Vui lòng đăng nhập lại");
+        }
+        const res = await fetch(`http://127.0.0.1:8000/download${filePath}`, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+        if (!res.ok) {
+          throw new Error("Không thể tải file");
+        }
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+      } catch (error) {
+        console.error("Lỗi tải file:", error);
+        alert(error.message);
       }
     }
 
     async function uploadFile() {
       const file = document.getElementById("fileInput").files[0];
       if (!file) return alert("Chọn file trước.");
-      const user = firebase.auth().currentUser;
-      if (!user) return alert("Chưa login.");
-      const token = await user.getIdToken(true);
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await fetch("http://127.0.0.1:8000/upload/", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-      });
+      
+      try {
+        const token = localStorage.getItem("firebase_token");
+        if (!token) {
+          throw new Error("Vui lòng đăng nhập lại");
+        }
+        
+        const formData = new FormData();
+        formData.append("file", file);
+        const res = await fetch("http://127.0.0.1:8000/upload/", {
+          method: "POST",
+          headers: { 
+            "Authorization": `Bearer ${token}`
+          },
+          body: formData
+        });
       const data = await res.json();
-      document.getElementById("uploadResult").innerText = res.ok ? "✔️ Upload thành công!" : "❌ " + JSON.stringify(data);
+      if (!res.ok) {
+        throw new Error(data.detail || "Lỗi upload file");
+      }
+      document.getElementById("uploadResult").innerText = "✔️ Upload thành công!";
+      document.getElementById("fileInput").value = ""; // Reset file input
+      getFiles(); // Tự động refresh danh sách file
+    } catch (error) {
+      console.error("Lỗi upload:", error);
+      document.getElementById("uploadResult").innerText = "❌ " + error.message;
     }
+  }
 
     async function getFiles() {
       const token = localStorage.getItem("firebase_token");
       if (!token) return alert("Chưa login");
       const res = await fetch("http://127.0.0.1:8000/files/", {
-        headers: { Authorization: `Bearer ${token}` },
+        method: "GET",
+        headers: { 
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
       });
       const data = await res.json();
       if (!res.ok) return alert("Lỗi: " + JSON.stringify(data));
@@ -135,7 +228,11 @@
       data.forEach((file) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${file.filename}</td>
+          <td>
+            <a href="#" onclick="downloadFile('${file.file_path}', '${file.filename}')" style="text-decoration: none;">
+              📄 ${file.filename}
+            </a>
+          </td>
           <td>${file.file_path}</td>
           <td>${new Date(file.uploaded_at).toLocaleString("vi-VN")}</td>
         `;
