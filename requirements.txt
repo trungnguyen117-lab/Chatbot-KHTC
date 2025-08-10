@@ -6,3 +6,4 @@ python-dotenv
 firebase-admin
 authlib
 pydantic
+python-multipart
