@@ -1,14 +1,22 @@
-[tool.poetry]
+[project]
 name = "backend"
 version = "0.1.0"
 description = "FastAPI backend"
-authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+requires-python = ">=3.13"
 
-[tool.poetry.dependencies]
-python = "^3.12"
-fastapi = "*"
-uvicorn = "*"
+dependencies = [
+    "fastapi[standard]>=0.116.1",
+    "uvicorn[standard]",
+    "sqlalchemy",
+    "psycopg2-binary",
+    "python-dotenv",
+    "firebase-admin",
+    "authlib",
+    "pydantic",
+    "python-multipart"
+]
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv]
+# Lưu môi trường ảo ngay trong thư mục dự án
+venv = ".venv"
