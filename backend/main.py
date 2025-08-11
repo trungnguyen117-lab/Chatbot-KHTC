@@ -1,4 +1,5 @@
 import os
+import json
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, Depends, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,6 +8,8 @@ from typing import List
 
 from routes.database import Base, SessionLocal, engine
 from routes.models import FileMetadata
+from convert_doc import convert_doc_to_json
+from convert_pdf import convert_pdf_to_json
 
 # Firebase
 import firebase_admin
@@ -44,6 +47,7 @@ firestore_client = init_firebase()
 
 # 📂 Folder lưu file
 UPLOAD_DIR = "uploaded_files"
+JSON_OUTPUT_DIR = "json_output"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 # 🚀 FastAPI app
@@ -108,13 +112,19 @@ async def upload_file(
     db: Session = Depends(get_db),
     user=Depends(get_current_user),
 ):
+    # Chỉ admin mới được upload
     if user["role"] != "admin":
         raise HTTPException(status_code=403, detail="Only admin can upload files")
 
+    # Tạo thư mục lưu file upload nếu chưa có
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+    # Lưu file vào ổ đĩa
     file_path = os.path.join(UPLOAD_DIR, file.filename)
     with open(file_path, "wb") as f:
         f.write(await file.read())
 
+    # Lưu metadata vào DB
     metadata = FileMetadata(
         file_name=file.filename,
         file_path=file_path,
@@ -124,10 +134,34 @@ async def upload_file(
     db.commit()
     db.refresh(metadata)
 
+    # Xác định loại file
+    file_name, ext = os.path.splitext(file.filename)
+    ext = ext.lower()
+
+    # Tạo thư mục json_output/<Tên_tài_liệu>/
+    output_dir = os.path.join(JSON_OUTPUT_DIR, file_name)
+    os.makedirs(output_dir, exist_ok=True)
+
+    if ext == ".docx":
+        chapters = convert_doc_to_json(file_path, output_dir)
+    elif ext == ".pdf":
+        chapters = convert_pdf_to_json(file_path, output_dir)
+    else:
+        raise HTTPException(status_code=400, detail="Unsupported file type")
+
+    # Nếu hàm convert trả về list chapters thì lưu từng file json
+    if isinstance(chapters, list):
+        for idx, chapter in enumerate(chapters, start=1):
+            json_path = os.path.join(output_dir, f"chapter_{idx}.json")
+            with open(json_path, "w", encoding="utf-8") as jf:
+                json.dump(chapter, jf, ensure_ascii=False, indent=2)
+
     return {
-        "message": "Upload thành công!",
+        "message": "Upload & convert thành công!",
         "file_id": metadata.id,
-        "filename": metadata.file_name
+        "filename": metadata.file_name,
+        "total_chapters": len(chapters) if isinstance(chapters, list) else 0,
+        "output_folder": output_dir
     }
 
 # ✅ Ai cũng xem được danh sách file
