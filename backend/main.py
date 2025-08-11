@@ -5,8 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
 
-from .routes.database import Base, SessionLocal, engine
-from .routes.models import FileMetadata
+from routes.database import Base, SessionLocal, engine
+from routes.models import FileMetadata
 
 # Firebase
 import firebase_admin

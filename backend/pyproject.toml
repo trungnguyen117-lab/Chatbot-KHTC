@@ -1,22 +1,17 @@
 [project]
 name = "backend"
 version = "0.1.0"
-description = "FastAPI backend"
+description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
-
+requires-python = ">=3.12"
 dependencies = [
+    "authlib>=1.6.1",
     "fastapi[standard]>=0.116.1",
-    "uvicorn[standard]",
-    "sqlalchemy",
-    "psycopg2-binary",
-    "python-dotenv",
-    "firebase-admin",
-    "authlib",
-    "pydantic",
-    "python-multipart"
+    "firebase-admin>=7.1.0",
+    "psycopg2-binary>=2.9.10",
+    "pydantic>=2.11.7",
+    "python-dotenv>=1.1.1",
+    "python-multipart>=0.0.20",
+    "sqlalchemy>=2.0.42",
+    "uvicorn[standard]>=0.35.0",
 ]
-
-[tool.uv]
-# Lưu môi trường ảo ngay trong thư mục dự án
-venv = ".venv"
