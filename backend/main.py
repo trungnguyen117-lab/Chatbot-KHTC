@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 env_path = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
-# ✅ Init Firebase
+# Init Firebase
 def init_firebase():
     private_key = os.getenv("GOOGLE_PRIVATE_KEY")
     if not private_key:
@@ -45,15 +45,15 @@ def init_firebase():
 
 firestore_client = init_firebase()
 
-# 📂 Folder lưu file
+# Folder lưu file
 UPLOAD_DIR = "uploaded_files"
 JSON_OUTPUT_DIR = "json_output"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# 🚀 FastAPI app
+# FastAPI app
 app = FastAPI()
 
-# 🌐 CORS
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Cho phép tất cả origins trong môi trường development
@@ -62,7 +62,7 @@ app.add_middleware(
     allow_headers=["*"],  # Cho phép tất cả headers
 )
 
-# 🔧 DB init
+# DB init
 Base.metadata.create_all(bind=engine)
 
 # 🛠 Get DB session
@@ -73,7 +73,7 @@ def get_db():
     finally:
         db.close()
 
-# ✅ Xác thực Firebase + Tạo role nếu chưa có
+# Xác thực Firebase + Tạo role nếu chưa có
 async def get_current_user(authorization: str = Header(...)):
     if not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Missing Bearer token")
@@ -105,7 +105,7 @@ async def get_current_user(authorization: str = Header(...)):
         raise HTTPException(status_code=401, detail="Invalid Firebase token")
 
 
-# ✅ Upload file (admin only)
+# Upload file (admin only)
 @app.post("/upload/")
 async def upload_file(
     file: UploadFile = File(...),
@@ -164,7 +164,7 @@ async def upload_file(
         "output_folder": output_dir
     }
 
-# ✅ Ai cũng xem được danh sách file
+# Ai cũng xem được danh sách file
 @app.get("/files/")
 async def list_files(db: Session = Depends(get_db)):
     files = db.query(FileMetadata).all()
@@ -179,7 +179,7 @@ async def list_files(db: Session = Depends(get_db)):
         for f in files
     ]
 
-# ✅ API kiểm tra người dùng
+# API kiểm tra người dùng
 @app.get("/whoami")
 async def whoami(user=Depends(get_current_user)):
     return user
