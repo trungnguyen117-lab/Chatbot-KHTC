@@ -1,0 +1,794 @@
+{
+  "chapter": "Chương IV",
+  "content": [
+    "HIỆU LỰC THI HÀNH",
+    "Điều 1. Tổ chức thực hiện",
+    "Phòng Kế hoạch Tài chính là đơn vị đầu mối, phối hợp với Thủ trưởng các đơn vị trong trường phổ biến nội dung của quy trình tới các cán bộ, giảng viên được biết và thực hiện.",
+    "Điều 2. Hiệu lực thi hành",
+    "Quy trình này có hiệu lực từ ngày ký.",
+    "Trong quá trình thực hiện, nếu có khó khăn vướng mắc, phát sinh, cần điều chỉnh cho phù hợp với tình hình thực tế, đề nghị các đơn vị phản ánh về Phòng Kế hoạch - Tài chính để phòng tổng hợp, báo cáo Hiệu trưởng xem xét, quyết định./.",
+    "HIỆU TRƯỞNG"
+  ],
+  "tables": [
+    {
+      "title": "Bảng dữ liệu",
+      "data": []
+    },
+    {
+      "title": "Bảng dữ liệu",
+      "data": [
+        {
+          "STT": "I",
+          "Nội dung": "Công tác phí trong nước",
+          "Hồ sơ, chứng từ thanh toán": "Công tác phí trong nước",
+          "Ghi chú": "Công tác phí trong nước"
+        },
+        {
+          "STT": "1",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Tạm ứng kinh phí",
+          "Ghi chú": "Tạm ứng kinh phí"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Phụ cấp lưu trú, cước phí taxi, tiền thuê phòng nghỉ theo hình thức khoán và các khoản chi khác",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự trù kinh phí được duyệt (bpt)\n- Thư mời/kế hoạch/thông báo/triệu tập (bg)\n- Quyết định cử cán bộ đi công tác (bg)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Chi phí đi lại và tiền thuê phòng nghỉ thanh toán theo thực tế",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự trù kinh phí được duyệt (bpt)\n- 01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)\n- 03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ\n- 03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)  \n- Thư mời/kế hoạch/thông báo/triệu tập (bpt)\n- Quyết định cử cán bộ đi công tác (bpt)\n- Tờ trình xin đi công tác bằng phương tiện máy bay (nếu có)",
+          "Ghi chú": "Khoản mua có giá trị dưới 5 triệu đồng được tạm ứng bằng tiền mặt"
+        },
+        {
+          "STT": "2",
+          "Nội dung": "Thanh toán/Thanh toán tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Thanh toán/Thanh toán tạm ứng kinh phí",
+          "Ghi chú": "Thanh toán/Thanh toán tạm ứng kinh phí"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Phụ cấp lưu trú, cước phí taxi, dịch vụ đi lại công cộng, tiền thuê phòng nghỉ theo hình thức khoán và các khoản chi khác",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Dự trù kinh phí được duyệt (bpt)\n- Thư mời/kế hoạch/thông báo/triệu tập (bg)\n- Quyết định cử cán bộ đi công tác (bg)\n- Bảng kê nhận tiền phụ cấp lưu trú\n- Giấy đi đường có xác nhận của nơi đến công tác\n- Bảng kê nhận tiền thuê phòng nghỉ\n- Biên lai taxi, cuống vé tàu, vé xe hợp lệ (nếu có)\n- Phiếu thu/hóa đơn các loại phí tham dự hội nghị phải nộp theo yêu cầu (nếu có)\n- Bảng kê thù lao làm việc ngoài giờ kèm theo Bảng chấm công hoặc Phân công công việc có xác nhận của lãnh đạo đơn vị yêu cầu làm ngoài giờ (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Chi phí đi lại và tiền thuê phòng nghỉ thanh toán theo thực tế",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Dự trù kinh phí được duyệt (bpt)\n- 01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)\n- 03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ\n- 03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản thanh lý Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)  \n- Thư mời/kế hoạch/thông báo/triệu tập (bpt)\n- Quyết định cử cán bộ đi công tác (bpt)\n- Tờ trình xin đi công tác bằng phương tiện máy bay (nếu có)\n- Thẻ lên máy bay và vé điện tử \n- Hóa đơn tài chính",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "II",
+          "Nội dung": "Công tác phí nước ngoài",
+          "Hồ sơ, chứng từ thanh toán": "Công tác phí nước ngoài",
+          "Ghi chú": "Công tác phí nước ngoài"
+        },
+        {
+          "STT": "1",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Tạm ứng kinh phí",
+          "Ghi chú": "Tạm ứng kinh phí"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Các khoản được thanh toán theo mức khoán:\n- Tiền thuê phòng nghỉ, tiền ăn và tiêu vặt\n- Tiền thuê phương tiện từ sân bay, ga tàu, bến xe, cửa khẩu khi nhập cảnh đến nơi ở nước đến công tác và ngược lại khi xuất cảnh\n- Tiền điện thoại, fax, internet",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Quyết định cử đi công tác\n- Dự toán kinh phí đoàn công tác\n- Lịch trình công tác\n- Thư mời có liên quan đến chi phí tài chính\n\n- Lịch trình bay/phiếu đặt chỗ/vé máy bay (bản gốc)\n- Đơn xin mua và mang ngoại tệ ra nước ngoài (P.KHTC thực hiện)",
+          "Ghi chú": "- Tạm ứng bằng ngoại tệ đối với các khoản chi tiêu ở nước đến công tác\n- Tạm ứng bằng VNĐ đối với các khoản chi ở Việt Nam (nếu cần)"
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Các khoản thanh toán theo thực tế",
+          "Hồ sơ, chứng từ thanh toán": "Các khoản thanh toán theo thực tế",
+          "Ghi chú": "Các khoản thanh toán theo thực tế"
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Vé máy bay; thuê phương tiện đi lại trong nước; thuê dịch vụ tổ chức sự kiện",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự toán kinh phí đoàn công tác\n- 01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)\n- 03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ\n- 03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản thanh lý Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên) \n- Hồ sơ đặt chỗ của hãng hàng không",
+          "Ghi chú": "Riêng với vé máy bay: báo giá hợp lệ là  của các công ty, đại lý cung cấp bảo đảm là báo giá của các hãng hàng không hoạt động hợp pháp tại Việt Nam"
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Lệ phí sân bay trong và ngoài nước, tiền chờ đợi tại sân bay, cước hành lý, tài liệu mang theo",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Quyết định cử đi công tác\n- Dự toán kinh phí đoàn công tác\n- Lịch trình công tác\n- Thư mời có liên quan đến chi phí tài chính\n- Hợp đồng mua bảo hiểm, thuê dịch thuật (nếu có)\n- Đơn xin mua và mang ngoại tệ ra nước ngoài (P.KHTC thực hiện)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Tiền mua bảo hiểm",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Quyết định cử đi công tác\n- Dự toán kinh phí đoàn công tác\n- Lịch trình công tác\n- Thư mời có liên quan đến chi phí tài chính\n- Hợp đồng mua bảo hiểm, thuê dịch thuật (nếu có)\n- Đơn xin mua và mang ngoại tệ ra nước ngoài (P.KHTC thực hiện)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Lệ phí visa, cấp hộ chiếu",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Quyết định cử đi công tác\n- Dự toán kinh phí đoàn công tác\n- Lịch trình công tác\n- Thư mời có liên quan đến chi phí tài chính\n- Hợp đồng mua bảo hiểm, thuê dịch thuật (nếu có)\n- Đơn xin mua và mang ngoại tệ ra nước ngoài (P.KHTC thực hiện)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Thuê dịch thuật tại nước ngoài",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Quyết định cử đi công tác\n- Dự toán kinh phí đoàn công tác\n- Lịch trình công tác\n- Thư mời có liên quan đến chi phí tài chính\n- Hợp đồng mua bảo hiểm, thuê dịch thuật (nếu có)\n- Đơn xin mua và mang ngoại tệ ra nước ngoài (P.KHTC thực hiện)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Thuê địa điểm; thuê phương tiện đi làm việc hàng ngày tại nơi đến công tác, thuê các phương tiện vận chuyển khác tại nước ngoài",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Quyết định cử đi công tác\n- Dự toán kinh phí đoàn công tác\n- Lịch trình công tác\n- Thư mời có liên quan đến chi phí tài chính\n- Hợp đồng mua bảo hiểm, thuê dịch thuật (nếu có)\n- Đơn xin mua và mang ngoại tệ ra nước ngoài (P.KHTC thực hiện)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "2",
+          "Nội dung": "Thanh toán/thanh toán tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Thanh toán/thanh toán tạm ứng kinh phí",
+          "Ghi chú": "Thanh toán/thanh toán tạm ứng kinh phí"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Các khoản được thanh toán theo mức khoán:\n- Tiền thuê phòng nghỉ, tiền ăn và tiêu vặt\n- Tiền thuê phương tiện từ sân bay, ga tàu, bến xe, cửa khẩu khi nhập cảnh đến nơi ở nước đến công tác và ngược lại khi xuất cảnh\n- Tiền điện thoại, fax, internet",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Quyết định cử đi công tác\n- Dự toán kinh phí đoàn công tác\n- Lịch trình công tác\n- Thư mời có liên quan đến chi phí tài chính\n- Giấy biên nhận kinh phí\n\n- Quyết toán kinh phí cho đoàn đi công tác nước ngoài \n- Báo cáo kết quả công tác \n- Bảng thông báo tỷ giá của Vietcombank",
+          "Ghi chú": "Báo cáo kết quả công tác được Phòng Tổ chức cán bộ lưu giữ theo quy định"
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Các khoản thanh toán theo thực tế",
+          "Hồ sơ, chứng từ thanh toán": "",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Vé máy bay; thuê phương tiện đi lại trong nước; thuê dịch vụ tổ chức sự kiện",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Dự toán kinh phí đoàn công tác\n- 01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)\n- 03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ\n- 03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản thanh lý Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên) \n- Hóa đơn tài chính (nếu của nước ngoài kèm bản dịch ra tiếng Việt)\n- Vé taxi, cuống tàu, vé xe (nếu có)\n- Thẻ lên máy bay/vé điện tử",
+          "Ghi chú": "TH thuê đơn vị ở nước ngoài tổ chức sự kiện, lập phương án so sánh với mức giá thuê các đơn vị trong nước"
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Lệ phí sân bay trong và ngoài nước, tiền chờ đợi tại sân bay, cước hành lý, tài liệu mang theo",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Chứng từ thu hoặc hoá đơn thu tiền của hãng hàng không",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Tiền mua bảo hiểm",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Hoá đơn bảo hiểm\n- Chứng nhận bảo hiểm \n- Hợp đồng, Thanh lý Hợp đồng bảo hiểm (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Lệ phí visa, cấp hộ chiếu",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Phiếu thu hợp pháp của cơ quan lãnh sự trong và ngoài nước",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Thuê dịch thuật tại nước ngoài",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Hợp đồng ký kết giữa Trưởng đoàn công tác và người dịch thuật (hoặc đơn vị cung cấp dịch thuật)\n- Hoá đơn hoặc ký nhận thanh toán trọn gói cho người dịch thuật (hoặc đơn vị cung cấp dịch thuật)",
+          "Ghi chú": "Trường hợp hoá đơn, chứng từ bằng tiếng nước ngoài thì phải dịch ra tiếng Việt"
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Thuê địa điểm; thuê phương tiện đi làm việc hàng ngày tại nơi đến công tác, thuê các phương tiện vận chuyển khác tại nước ngoài",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Hợp đồng ký kết giữa Trưởng đoàn công tác với đơn vị cung cấp dịch vụ\n- Hoá đơn, chứng từ trả tiền hợp pháp kèm theo cuống vé (nếu có);",
+          "Ghi chú": "Trường hợp hoá đơn, chứng từ bằng tiếng nước ngoài thì phải dịch ra tiếng Việt"
+        },
+        {
+          "STT": "III",
+          "Nội dung": "Hội nghị, hội thảo trong nước",
+          "Hồ sơ, chứng từ thanh toán": "Hội nghị, hội thảo trong nước",
+          "Ghi chú": "Hội nghị, hội thảo trong nước"
+        },
+        {
+          "STT": "1",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Tạm ứng kinh phí",
+          "Ghi chú": "Tạm ứng kinh phí"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "- Thù lao giảng viên, báo cáo viên\n- Chi bù tiền ăn cho đại biểu là khách mời không trong danh sách trả lương: tiền thuê phòng nghỉ và tiền phương tiện đi lại.\n- Các khoản chi khác",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự trù kinh phí được duyệt\n- Tờ trình phê duyệt chủ trương/ Quyết định/Thông báo của Thủ trưởng đơn vị hoặc Lãnh đạo đơn vị cấp trên về việc tổ chức hội nghị, hội thảo (có quy định thành phần tham dự, nội dung, địa điểm, thời gian, nguồn kinh phí)\n- Chương trình hội nghị, hội thảo (nếu có)\n- Giấy mời/Giấy triệu tập tham dự hội nghị, hội thảo",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "- Thuê hội trường\n- Mua văn phòng phẩm\n- In, phô tô tài liệu\n- Chi giải khát giữa giờ\n- Tổ chức ăn tập trung\n- Trang trí hội trường\n- Tiền thuê phòng nghỉ\n- Tiền thuê phương tiện đi lại",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự toán kinh phí\n- 01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)\n- 03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ\n- 03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)",
+          "Ghi chú": "Trường hợp thuê hội trường, dịch vụ phục vụ ăn, nghỉ, trang trí hội nghị đáp ứng  khoản 2, điều 3, Quyết định 17/2019/QĐ-TTg thì quy trình thực hiện như khoản 1, điều 4, QĐ 17"
+        },
+        {
+          "STT": "2",
+          "Nội dung": "Thanh toán/ Thanh toán tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Thanh toán/ Thanh toán tạm ứng kinh phí",
+          "Ghi chú": "Thanh toán/ Thanh toán tạm ứng kinh phí"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "- Thù lao giảng viên, báo cáo viên\n- Chi bù tiền ăn cho đại biểu là khách mời không trong danh sách trả lương: tiền thuê phòng nghỉ và tiền phương tiện đi lại.\n- Chi làm thêm giờ\n- Các khoản chi khác",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Dự trù kinh phí được duyệt\n- Giấy biên nhận kinh phí của giảng viên, báo cáo viên\n- Bảng kê chi tiền hội nghị, hội thảo\n- Bảng kê nhận tiền/Giấy báo làm việc ngoài giờ\n- Giấy biên nhận kinh phí phục vụ\n- Giấy biên nhận kinh phí và Hóa đơn bán lẻ, Hóa đơn tài chính đối với các khoản chi nhỏ khác\n- Văn bản phê duyệt chủ trương tổ chức; Giấy mời\n- Biên bản Hội nghị, hội thảo \n- Quyết toán kinh phí tổ chức hội nghị, hội thảo",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "- Thuê hội trường\n- Mua văn phòng phẩm\n- In, phô tô tài liệu\n- Chi giải khát giữa giờ\n- Tổ chức ăn tập trung\n- Trang trí hội trường\n- Tiền thuê phòng nghỉ\n- Tiền thuê phương tiện đi lại",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Dự trù kinh phí được duyệt\n- 01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)\n- 03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ\n- 03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản nghiệm thu và thanh lý Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)\n- Hóa đơn tài chính\n- Danh sách khách tham dự\n- Danh sách ký nhận tài liệu, văn phòng phẩm (nếu có)",
+          "Ghi chú": "Trường hợp thuê hội trường, dịch vụ phục vụ ăn, nghỉ, trang trí hội nghị đáp ứng khoản 2, điều 3, Quyết định 17/2019/QĐ-TTg thì quy trình thực hiện như khoản 1, điều 4, QĐ 17"
+        },
+        {
+          "STT": "IV",
+          "Nội dung": "Hội nghị, hội thảo quốc tế tại Việt Nam do Nhà trường chủ trì tổ chức",
+          "Hồ sơ, chứng từ thanh toán": "Hội nghị, hội thảo quốc tế tại Việt Nam do Nhà trường chủ trì tổ chức",
+          "Ghi chú": "Hội nghị, hội thảo quốc tế tại Việt Nam do Nhà trường chủ trì tổ chức"
+        },
+        {
+          "STT": "",
+          "Nội dung": "- Khoản 2 Điều 3 Thông tư 01/2010/TT-BTC ngày 6/1/2010 quy định: Đối với các Hội nghị, hội thảo quốc tế tổ chức tại Việt Nam do phía Việt Nam và nước ngoài phối hợp tổ chức khi xây dựng dự toán cần làm rõ những nội dung thuộc trách nhiệm của phía Việt Nam để tránh chi trùng lặp. \n- Theo đó, đối với các Hội nghị, hội thảo quốc tế về chuyên môn do Nhà trường đứng ra tổ chức, đơn vị thực hiện phối hợp với phòng KHCN&HTPT để xây dựng Dự toán kinh phí chi tiết, trong đó xác định rõ phần kinh phí thu được từ phí tham dự hội nghị, từ nguồn tài trợ của các cá nhân/tổ chức trong nước, quốc tế… (nếu có) và hỗ trợ từ các nguồn kinh phí của Nhà trường.\n- Quy trình thanh toán áp dụng theo Quy trình thanh toán Hội nghị, hội thảo trong nước (riêng các khoản chi từ nguồn tài trợ được thực hiện theo yêu cầu của nhà tài trợ).",
+          "Hồ sơ, chứng từ thanh toán": "- Khoản 2 Điều 3 Thông tư 01/2010/TT-BTC ngày 6/1/2010 quy định: Đối với các Hội nghị, hội thảo quốc tế tổ chức tại Việt Nam do phía Việt Nam và nước ngoài phối hợp tổ chức khi xây dựng dự toán cần làm rõ những nội dung thuộc trách nhiệm của phía Việt Nam để tránh chi trùng lặp. \n- Theo đó, đối với các Hội nghị, hội thảo quốc tế về chuyên môn do Nhà trường đứng ra tổ chức, đơn vị thực hiện phối hợp với phòng KHCN&HTPT để xây dựng Dự toán kinh phí chi tiết, trong đó xác định rõ phần kinh phí thu được từ phí tham dự hội nghị, từ nguồn tài trợ của các cá nhân/tổ chức trong nước, quốc tế… (nếu có) và hỗ trợ từ các nguồn kinh phí của Nhà trường.\n- Quy trình thanh toán áp dụng theo Quy trình thanh toán Hội nghị, hội thảo trong nước (riêng các khoản chi từ nguồn tài trợ được thực hiện theo yêu cầu của nhà tài trợ).",
+          "Ghi chú": "- Khoản 2 Điều 3 Thông tư 01/2010/TT-BTC ngày 6/1/2010 quy định: Đối với các Hội nghị, hội thảo quốc tế tổ chức tại Việt Nam do phía Việt Nam và nước ngoài phối hợp tổ chức khi xây dựng dự toán cần làm rõ những nội dung thuộc trách nhiệm của phía Việt Nam để tránh chi trùng lặp. \n- Theo đó, đối với các Hội nghị, hội thảo quốc tế về chuyên môn do Nhà trường đứng ra tổ chức, đơn vị thực hiện phối hợp với phòng KHCN&HTPT để xây dựng Dự toán kinh phí chi tiết, trong đó xác định rõ phần kinh phí thu được từ phí tham dự hội nghị, từ nguồn tài trợ của các cá nhân/tổ chức trong nước, quốc tế… (nếu có) và hỗ trợ từ các nguồn kinh phí của Nhà trường.\n- Quy trình thanh toán áp dụng theo Quy trình thanh toán Hội nghị, hội thảo trong nước (riêng các khoản chi từ nguồn tài trợ được thực hiện theo yêu cầu của nhà tài trợ)."
+        },
+        {
+          "STT": "V",
+          "Nội dung": "Kinh phí đón tiếp khách trong nước, nước ngoài đến làm việc tại Trường",
+          "Hồ sơ, chứng từ thanh toán": "Kinh phí đón tiếp khách trong nước, nước ngoài đến làm việc tại Trường",
+          "Ghi chú": "Kinh phí đón tiếp khách trong nước, nước ngoài đến làm việc tại Trường"
+        },
+        {
+          "STT": "1",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Tạm ứng kinh phí",
+          "Ghi chú": "Tạm ứng kinh phí"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Khoản chi dưới 5 triệu, tạm ứng bằng tiền mặt",
+          "Hồ sơ, chứng từ thanh toán": "- Lịch công tác của Nhà trường\n- Tờ trình xin chủ trương tiếp khách, tặng quà (nếu có chi phí ăn uống tiếp khách, tặng quà)\n- Thư mời khách nước ngoài đến làm việc\n- Chương trình làm việc của đoàn khách tại trường (nếu thời gian tiếp đón đoàn trên 01 ngày)\n- Dự trù kinh phí",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Khoản chi tiếp khách, tặng quà, thuê xe, phòng nghỉ trên 5 triệu",
+          "Hồ sơ, chứng từ thanh toán": "- Lịch công tác của Nhà trường\n- Tờ trình xin chủ trương tiếp khách, tặng quà (nếu có chi phí ăn uống tiếp khách, tặng quà)\n- Thư mời khách nước ngoài đến làm việc\n- Chương trình làm việc của đoàn khách tại trường (nếu thời gian tiếp đón đoàn trên 01 ngày)\n- Dự trù kinh phí\n- 03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ\n- 03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "2",
+          "Nội dung": "Thanh toán/thanh toán tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Thanh toán/thanh toán tạm ứng kinh phí",
+          "Ghi chú": "Thanh toán/thanh toán tạm ứng kinh phí"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Khoản chi dưới 5 triệu, tạm ứng bằng tiền mặt",
+          "Hồ sơ, chứng từ thanh toán": "- Lịch công tác của Nhà trường\n- Tờ trình xin chủ trương tiếp khách, tặng quà (nếu có chi phí ăn uống tiếp khách, tặng quà)\n- Thư mời khách nước ngoài đến làm việc\n- Chương trình làm việc của đoàn khách tại trường (nếu thời gian tiếp đón đoàn trên 01 ngày)\n- Dự trù kinh phí\n- Giấy biên nhận kinh phí (nếu có)\n- 01 Báo giá và Hóa đơn tài chính/Hóa đơn bán lẻ\n- Quyết toán đoàn vào",
+          "Ghi chú": "Hóa đơn tiếp khách cần có chữ ký xác nhận của Lãnh đạo nhà trường (cấp cao nhất cùng tham dự buổi tiếp khách)"
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Khoản chi tiếp khách, tặng quà, thuê xe, phòng nghỉ trên 5 triệu",
+          "Hồ sơ, chứng từ thanh toán": "- Lịch công tác của Nhà trường\n- Tờ trình xin chủ trương tiếp khách, tặng quà (nếu có chi phí ăn uống tiếp khách, tặng quà)\n- Thư mời khách nước ngoài đến làm việc\n- Chương trình làm việc của đoàn khách tại trường (nếu thời gian tiếp đón đoàn trên 01 ngày)\n- Dự trù kinh phí\n- 03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ\n- 03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản nghiệm thu và thanh lý hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)\n- Hóa đơn tài chính\n- Quyết toán đoàn vào",
+          "Ghi chú": "Hóa đơn tiếp khách cần có chữ ký xác nhận của Lãnh đạo nhà trường (cấp cao nhất cùng tham dự buổi tiếp khách)"
+        },
+        {
+          "STT": "VI",
+          "Nội dung": "Văn phòng phẩm, mực in, mực máy phô tô, làm dấu và mực dấu",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng\n- Dự trù kinh phí\n- 01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)\n- 03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ\n- 03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản nghiệm thu và thanh lý Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)\n- Hóa đơn tài chính",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "VII",
+          "Nội dung": "Dịch vụ chung",
+          "Hồ sơ, chứng từ thanh toán": "Dịch vụ chung",
+          "Ghi chú": "Dịch vụ chung"
+        },
+        {
+          "STT": "1",
+          "Nội dung": "Tiền điện, nước",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán\n- Công văn thông báo thanh toán và xác nhận chỉ số công tơ của Văn phòng ĐHQGHN\n- Đề nghị thanh toán, Hóa đơn và xác nhận chỉ số công tơ của đơn vị cung cấp dịch vụ khác",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "2",
+          "Nội dung": "Cước phí điện thoại, bưu chính, internet",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán\n- Thông báo thanh toán cước phí\n- Hóa đơn cước điện thoại, internet (bổ sung sau khi đã chuyển tiền)\n- Hóa đơn, Bảng tổng hợp cước phí bưu chính và Phiếu gửi tài liệu\n- Hợp đồng, Phụ lục hợp đồng internet, Biên bản nghiệm thu, Biên bản thanh lý (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "3",
+          "Nội dung": "Chi phí xăng xe, cầu đường, bến bãi và các chi phí khác liên quan đến sử dụng xe công",
+          "Hồ sơ, chứng từ thanh toán": "",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Chi phí xăng xe",
+          "Hồ sơ, chứng từ thanh toán": "",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Quyết định chỉ định đơn vị cung cấp xăng và hồ sơ đấu thầu liên quan\n- Hợp đồng mua nhiên liệu\n- Đối chiếu/quyết toán kinh phí xăng xe quý trước với nhà cung cấp (bpt)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "-",
+          "Nội dung": "Thanh toán/ thanh toán tạm ứng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Lịch trình sử dụng xe kèm minh chứng\n- Bảng tính số nhiên liệu tiêu hao\n- Các Hóa đơn tiền xăng và bảng kê hóa đơn\n- Quyết định chỉ định đơn vị cung cấp xăng và hồ sơ đấu thầu liên quan\n- Hợp đồng mua nhiên liệu\n- Thanh lý Hợp đồng (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Chi phí bảo dưỡng, sửa chữa, thay thế phụ tùng, thiết bị dầu máy",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng\n- Biên bản kiểm tra xác nhận tình trạng xe\n- Dự trù kinh phí\n- 01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)\n- 03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ\n- 03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản nghiệm thu và thanh lý Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)\n- Hóa đơn tài chính\n- Biên bản nghiệm thu, xác nhận bảo hành (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "c",
+          "Nội dung": "Chi phí đăng ký, đăng kiểm xe",
+          "Hồ sơ, chứng từ thanh toán": "- Hóa đơn tài chính\n- Hợp đồng, thanh lý (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "d",
+          "Nội dung": "Chi phí cầu đường, bến bãi và các chi phí liên quan khác",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán\n- Cuống vé, phí và Bảng kê\n- Lịch trình sử dụng xe kèm minh chứng",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "4",
+          "Nội dung": "Chi phí tuyên truyền, quảng cáo, truyền thông",
+          "Hồ sơ, chứng từ thanh toán": "Chi phí tuyên truyền, quảng cáo, truyền thông",
+          "Ghi chú": "Chi phí tuyên truyền, quảng cáo, truyền thông"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Thuê ngoài thực hiện",
+          "Hồ sơ, chứng từ thanh toán": "Đơn vị xây dựng Dự trù kinh phí và thực hiện thanh toán theo Quy trình 1. Thanh toán mua sắm TS, HH, DV thuộc Dự toán mua sắm thường xuyên",
+          "Ghi chú": "Dự trù kinh phí có thể xây dựng riêng hoặc lồng ghép trong Dự trù sự kiện chung và có thể thanh toán riêng"
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Tự thực hiện",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng\n- Dự trù kinh phí\n- Hợp đồng thuê khoán kèm Danh sách thành viên thực hiện chi tiết đến nội dung công việc và kinh phí tương ứng\n- Biên bản nghiệm thu, bàn giao \n- Biên bản thanh lý hợp đồng\n- Bảng kê nhận tiền/Giấy biên nhận kinh phí",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "5",
+          "Nội dung": "Chi phí phục vụ giảng đường, dịch vụ trông giữ xe",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán\n- Hợp đồng\n- Biên bản xác nhận khối lượng sử dụng (trường hợp thanh toán chi phí điện, nước)\n- Biên bản nghiệm thu (công tác phục vụ giảng đường)\n- Biên bản nghiệm thu hàng tháng/hàng quý (dịch vụ trông giữ xe)\n- Biên bản thanh lý (thanh toán đợt cuối khi kết thúc hợp đồng)\n- Giấy biên nhận kinh phí (nếu có)\n- Hóa đơn/Biên lai thu phí của đơn vị cung cấp DV",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "VIII",
+          "Nội dung": "Một số thanh toán khác cho cá nhân",
+          "Hồ sơ, chứng từ thanh toán": "Một số thanh toán khác cho cá nhân",
+          "Ghi chú": "Một số thanh toán khác cho cá nhân"
+        },
+        {
+          "STT": "1",
+          "Nội dung": "Tiền hỗ trợ cho cán bộ, viên chức nhân dịp kỷ niệm các ngày lễ lớn",
+          "Hồ sơ, chứng từ thanh toán": "- Tờ trình/Đề nghị chi của Ban Chấp hành Công đoàn trường được Ban Giám hiệu phê duyệt\n- Danh sách cán bộ theo đối tượng hưởng có xác nhận của phòng Tổ chức cán bộ",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "2",
+          "Nội dung": "Tiền thưởng thường xuyên và đột xuất cho cán bộ, viên chức",
+          "Hồ sơ, chứng từ thanh toán": "- Đề nghị thanh toán\n- Quyết định khen thưởng\n- Bảng kê thanh toán",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "3",
+          "Nội dung": "Tiền làm thêm giờ",
+          "Hồ sơ, chứng từ thanh toán": "- Đề nghị thanh toán\n- Kế hoạch làm việc ngoài giờ được người có thẩm quyền phê duyệt\n- Bảng chấm công hoặc Giấy báo làm thêm giờ \n- Biên nhận kinh phí (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "4",
+          "Nội dung": "Thù lao hướng dẫn thử việc",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán\n- Bảng kê thanh toán thù lao hướng dẫn\n- Quyết định giao hướng dẫn, Báo cáo đánh giá và Xác nhận hoàn thành quá trình thử việc",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "5",
+          "Nội dung": "Hỗ trợ cán bộ hoàn thành luận văn, luận án",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán\n- Giấy biên nhận kinh phí\n- Quyết định cử cán bộ tham gia khóa học\n- Văn bằng tốt nghiệp (bản công chứng)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "6",
+          "Nội dung": "Hỗ trợ cán bộ tham gia các lớp bồi dưỡng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán\n- Bảng kê nhận tiền/Giấy biên nhận kinh phí hỗ trợ\n- Hóa đơn/Biên lai/Phiếu thu kinh phí tham dự lớp bồi dưỡng\n- Quyết định cử cán bộ tham gia\n- Thông báo tổ chức lớp học và Lịch học",
+          "Ghi chú": ""
+        }
+      ]
+    },
+    {
+      "title": "Bảng dữ liệu",
+      "data": [
+        {
+          "STT": "1",
+          "Nội dung": "Học bổng sinh viên",
+          "Hồ sơ, chứng từ thanh toán": "Học bổng sinh viên",
+          "Ghi chú": "Học bổng sinh viên"
+        },
+        {
+          "STT": "",
+          "Nội dung": "Học bổng cho sinh viên được chi trả theo 2 học kỳ chính. Căn cứ vào Quyết định 44/2007/QĐ-BGDĐT về học bổng khuyến khích học tập đối với HSSV ngày 15/8/2007; căn cứ Thông tư số 31/2013/TT-BGDĐT ngày 01/8/2013 về sửa đổi, bổ sung QĐ số 44/2007/QĐ-BGDĐT; Quyết định công khai dự toán và phân bổ ngân sách hàng năm:\n- Phòng KHTC phối hợp với Phòng CTSV tham mưu Ban Giám hiệu ra Quyết định trích lập Quỹ học bổng (từng học kỳ)\n- Căn cứ vào số dư Quỹ học bổng, căn cứ kết quả học tập của sinh viên, hồ sơ đề nghị trợ cấp xã hội đối với sinh viên thuộc diện chính sách, hồ sơ sinh viên thuộc diện dân tộc thiểu số theo QĐ 66/2013/QĐ-TTg và kết quả làm việc của Hội đồng xét học bổng sinh viên từng kỳ, Phòng CTSV tham mưu BGH ra Quyết định chi học bổng/Trợ cấp xã hội/Hỗ trợ chi phí học tập cho sinh viên. Hồ sơ thanh toán như sau:\n       - Giấy đề nghị thanh toán\n       - Quyết định trích lập Quỹ học bổng\n       - Báo cáo số dư Quỹ học bổng (nếu có)\n       - Quyết định chi học bổng\n       - Danh sách/Bảng kê thanh toán (Chi tiết theo CTĐT chuẩn, CLC, NVCL, CLC TT23)",
+          "Hồ sơ, chứng từ thanh toán": "Học bổng cho sinh viên được chi trả theo 2 học kỳ chính. Căn cứ vào Quyết định 44/2007/QĐ-BGDĐT về học bổng khuyến khích học tập đối với HSSV ngày 15/8/2007; căn cứ Thông tư số 31/2013/TT-BGDĐT ngày 01/8/2013 về sửa đổi, bổ sung QĐ số 44/2007/QĐ-BGDĐT; Quyết định công khai dự toán và phân bổ ngân sách hàng năm:\n- Phòng KHTC phối hợp với Phòng CTSV tham mưu Ban Giám hiệu ra Quyết định trích lập Quỹ học bổng (từng học kỳ)\n- Căn cứ vào số dư Quỹ học bổng, căn cứ kết quả học tập của sinh viên, hồ sơ đề nghị trợ cấp xã hội đối với sinh viên thuộc diện chính sách, hồ sơ sinh viên thuộc diện dân tộc thiểu số theo QĐ 66/2013/QĐ-TTg và kết quả làm việc của Hội đồng xét học bổng sinh viên từng kỳ, Phòng CTSV tham mưu BGH ra Quyết định chi học bổng/Trợ cấp xã hội/Hỗ trợ chi phí học tập cho sinh viên. Hồ sơ thanh toán như sau:\n       - Giấy đề nghị thanh toán\n       - Quyết định trích lập Quỹ học bổng\n       - Báo cáo số dư Quỹ học bổng (nếu có)\n       - Quyết định chi học bổng\n       - Danh sách/Bảng kê thanh toán (Chi tiết theo CTĐT chuẩn, CLC, NVCL, CLC TT23)",
+          "Ghi chú": "Học bổng cho sinh viên được chi trả theo 2 học kỳ chính. Căn cứ vào Quyết định 44/2007/QĐ-BGDĐT về học bổng khuyến khích học tập đối với HSSV ngày 15/8/2007; căn cứ Thông tư số 31/2013/TT-BGDĐT ngày 01/8/2013 về sửa đổi, bổ sung QĐ số 44/2007/QĐ-BGDĐT; Quyết định công khai dự toán và phân bổ ngân sách hàng năm:\n- Phòng KHTC phối hợp với Phòng CTSV tham mưu Ban Giám hiệu ra Quyết định trích lập Quỹ học bổng (từng học kỳ)\n- Căn cứ vào số dư Quỹ học bổng, căn cứ kết quả học tập của sinh viên, hồ sơ đề nghị trợ cấp xã hội đối với sinh viên thuộc diện chính sách, hồ sơ sinh viên thuộc diện dân tộc thiểu số theo QĐ 66/2013/QĐ-TTg và kết quả làm việc của Hội đồng xét học bổng sinh viên từng kỳ, Phòng CTSV tham mưu BGH ra Quyết định chi học bổng/Trợ cấp xã hội/Hỗ trợ chi phí học tập cho sinh viên. Hồ sơ thanh toán như sau:\n       - Giấy đề nghị thanh toán\n       - Quyết định trích lập Quỹ học bổng\n       - Báo cáo số dư Quỹ học bổng (nếu có)\n       - Quyết định chi học bổng\n       - Danh sách/Bảng kê thanh toán (Chi tiết theo CTĐT chuẩn, CLC, NVCL, CLC TT23)"
+        },
+        {
+          "STT": "2",
+          "Nội dung": "Tiền giảng dạy",
+          "Hồ sơ, chứng từ thanh toán": "Tiền giảng dạy",
+          "Ghi chú": "Tiền giảng dạy"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Mời giảng các học kỳ chính",
+          "Hồ sơ, chứng từ thanh toán": "- Thống kê giảng dạy đối với giảng viên mời giảng\n- Hợp đồng giảng dạy (bản gốc)\n- Biên bản nghiệm thu, thanh lý (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Giảng dạy học kỳ phụ (kỳ hè) và các lớp mở học kỳ chính",
+          "Hồ sơ, chứng từ thanh toán": "- Thông báo mở lớp\n- Thống kê giảng dạy học kỳ phụ và các lớp mở\n- Hợp đồng giảng dạy (bản gốc)\n- Biên bản nghiệm thu, thanh lý (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "c",
+          "Nội dung": "Giảng dạy vượt giờ",
+          "Hồ sơ, chứng từ thanh toán": "- Thống kê giảng dạy cán bộ, giảng viên trong trường đã được Ban Giám hiệu phê duyệt (bản chính)\n- Thống kê định mức nghĩa vụ giảng dạy và nghiên cứu khoa học của cán bộ giảng viên đã được Ban giám hiệu phê duyệt (bản chính)\n- Quyết định định mức thanh toán giảng dạy vượt giờ (bản chính/sao y)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "3",
+          "Nội dung": "Coi thi, trực thi, thanh tra thi",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán\n- Bảng kê thanh toán\n- Lịch thi học kỳ (bản chính hoặc sao y)\n- Biên bản bốc thăm /Thống kê cán bộ coi thi, trực thi có xác nhận của lãnh đạo phòng đào tạo\n- Phân công cán bộ thanh tra/Báo cáo thanh tra",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "4",
+          "Nội dung": "Xây dựng cơ sở học liệu (biên soạn giáo trình, bài giảng, đề cương môn học, ngân hàng câu hỏi, đề án mở ngành)",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng\n- Hợp đồng xây dựng cơ sở học liệu\n- Giấy biên nhận (thù lao biên soạn, phản biện…)\n- Bảng kê nhận tiền (thù lao Hội đồng nghiệm thu, thẩm định cấp trường, cấp khoa)\n- Quyết định thành lập Hội đồng nghiệm thu, thẩm định và Biên bản nghiệm thu từng cấp\n- Biên bản họp Hội đồng KH&ĐT cấp khoa/cấp trường (đối với các tài liệu/CSHL yêu cầu thông qua hội đồng KH&ĐT)\n- Quyết định phê duyệt của Trường (nếu có)\n- Quyết định phê duyệt của ĐHQGHN (nếu có)\n- Biên bản thanh lý hợp đồng",
+          "Ghi chú": "Sản phẩm cơ sở học liệu xây dựng hoàn thành được Phòng Đào tạo tổ chức quy trình thẩm định và lưu giữ theo quy định"
+        },
+        {
+          "STT": "5",
+          "Nội dung": "Hội đồng Khoa học và Đào tạo cấp Trường, cấp khoa",
+          "Hồ sơ, chứng từ thanh toán": "Hội đồng Khoa học và Đào tạo cấp Trường, cấp khoa",
+          "Ghi chú": "Hội đồng Khoa học và Đào tạo cấp Trường, cấp khoa"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Quyết định thành lập Hội đồng KH&ĐT cấp Khoa/cấp Trường\n- Dự trù kinh phí được duyệt",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Thanh toán/thanh toán tạm ứng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng\n- Dự trù kinh phí được duyệt\n- Bảng kê nhận tiền (thù lao hội đồng, thù lao khách mời tham dự)\n- Giấy biên nhận tiền (thù lao phục vụ)\n- Hóa đơn các khoản chi khác (photo tài liệu, nước uống, trang trí) \n- Biên bản họp Hội đồng KH&ĐT",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "6",
+          "Nội dung": "Kinh phí tổ chức thực tập, thực tế cho sinh viên",
+          "Hồ sơ, chứng từ thanh toán": "Kinh phí tổ chức thực tập, thực tế cho sinh viên",
+          "Ghi chú": "Kinh phí tổ chức thực tập, thực tế cho sinh viên"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự trù kinh phí được duyệt\n- Tờ trình phê duyệt kế hoạch tổ chức\n- Quyết định cử cán bộ dẫn sinh viên\n- Quyết định cử sinh viên tham gia",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Thanh toán/thanh toán tạm ứng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng\n- Bảng kê nhận tiền công tác phí của cán bộ và hỗ trợ sinh viên tham gia (nếu có)\n- Giấy đi đường (của cán bộ)\n- Thuê xe: theo quy trình mua sắm thường xuyên\n- Vé cước phí và bảng kê vé (nếu đi lại bằng phương tiện công cộng)\n- Hóa đơn, chứng từ các chi phí khác\n- Tờ trình phê duyệt kế hoạch tổ chức được duyệt\n- Quyết định cử cán bộ/dẫn sinh viên\n- Quyết định cử sinh viên tham gia\n- Kế hoạch giảng dạy trong năm học",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "7",
+          "Nội dung": "Kinh phí dự thi Procon, Olympic, ACM/ICPC cấp quốc gia, quốc tế",
+          "Hồ sơ, chứng từ thanh toán": "Kinh phí dự thi Procon, Olympic, ACM/ICPC cấp quốc gia, quốc tế",
+          "Ghi chú": "Kinh phí dự thi Procon, Olympic, ACM/ICPC cấp quốc gia, quốc tế"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự trù kinh phí chi tiết\n- Dự trù kinh phí tổng thể kèm Thông báo giao nhiệm vụ (nếu kinh phí từ nguồn ngân sách thường xuyên hoạt động KHCN)\n- Quyết định thành lập đội tuyển\n- Quyết định cử cán bộ dẫn đoàn\n- Thông báo tổ chức kỳ thi",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Thanh toán/thanh toán tạm ứng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng\n- Chi phí huấn luyện (nếu có):\n    + Giấy biên nhận tiền thù lao huấn luyện\n    + Lịch huấn luyện\n- Chi phí tham gia kỳ thi:\n    + Phiếu thu/Biên lai thu tiền lệ phí tham gia/dự thi (nếu có) kèm theo Thông báo mức phí phải nộp\n    + Tiền tàu xe: Vé cước phí từ Hà Nội đến địa phương tổ chức kèm Bảng kê chi mục.\n    + Vé máy bay, phòng nghỉ: chứng từ như hướng dẫn tại mục thanh toán công tác phí trong nước và nước ngoài\n    + Bảng kê nhận tiền công tác phí của cán bộ/giảng viên dẫn đoàn kèm Giấy đi đường có xác nhận của nơi đến\n    + Bảng kê nhận tiền hỗ trợ sinh viên tham gia dự thi và tiền ăn cho sinh viên\n    + Phiếu/vé cước phí tham quan kèm Bảng kê chi mục và Báo giá (nếu có)\n    + Hóa đơn mua áo đồng phục kèm Biên bản bàn giao (nếu có)\n- Dự trù kinh phí chi tiết\n- Dự trù kinh phí tổng thể kèm Thông báo giao nhiệm vụ (nếu kinh phí từ nguồn ngân sách thường xuyên hoạt động KHCN)\n- Quyết định thành lập đội tuyển\n- Quyết định cử cán bộ dẫn đoàn\n- Thông báo tổ chức kỳ thi",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "8",
+          "Nội dung": "Kinh phí hội nghị sinh viên nghiên cứu khoa học",
+          "Hồ sơ, chứng từ thanh toán": "Kinh phí hội nghị sinh viên nghiên cứu khoa học",
+          "Ghi chú": "Kinh phí hội nghị sinh viên nghiên cứu khoa học"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự toán kinh phí được phê duyệt\n- Quyết định thành lập các Hội đồng chấm\n- Danh sách các công trình NCKH được duyệt\n- Kế hoạch tổ chức HN SV NCKH được duyệt",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Thanh toán/thanh toán tạm ứng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng\n- Giấy biên nhận/Bảng kê nhận tiền thù lao phản biện, hướng dẫn (đối với hướng dẫn là GV ngoài trường)\n- Bảng kê nhận tiền thù lao hội đồng\n- Bảng kê nhận tiền/Giấy biên nhận tiền thù lao phục vụ hội đồng\n- Dự trù kinh phí (bản gốc)\n- Quyết định thành lập các Hội đồng chấm\n- Danh sách các công trình NCKH được duyệt\n- Hóa đơn chi phí trang trí, nước uống, phô tô, ...",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "9",
+          "Nội dung": "Kinh phí hỗ trợ các hoạt động khoa học (Techmart, ES-Robot, ...)",
+          "Hồ sơ, chứng từ thanh toán": "Kinh phí hỗ trợ các hoạt động khoa học (Techmart, ES-Robot, ...)",
+          "Ghi chú": "Kinh phí hỗ trợ các hoạt động khoa học (Techmart, ES-Robot, ...)"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự trù kinh phí được duyệt\n- Thông báo/Kế hoạch tổ chức chương trình\n- Quyết định thành lập tổ công tác, ban tổ chức (nếu có)\n- Quyết định hỗ trợ kinh phí từ nguồn ngân sách KHCN, nguồn hợp tác (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Thanh toán/thanh toán tạm ứng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng\n- Giấy biên nhận/Bảng kê nhận tiền hỗ trợ\n- Hóa đơn mua hàng hóa, dịch vụ (nếu có)\n- Dự trù kinh phí được duyệt\n- Thông báo tổ chức chương trình\n- Quyết định thành lập tổ công tác, ban tổ chức (nếu có)\n- Quyết định hỗ trợ kinh phí từ nguồn ngân sách KHCN, nguồn hợp tác (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "10",
+          "Nội dung": "Hỗ trợ các cá nhân hoạt động khoa học \n(tham gia hội thảo, đăng bài trên tạp chí quốc tế ISI/Scopus)",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán\n- Quyết định hỗ trợ kinh phí\n- Thông báo thu phí, Hóa đơn phí, Phiếu thu phí tham dự hoặc đăng bài kèm Lệnh chuyển tiền (bản gốc) \n- Thư mời, Quyết định cử tham dự, Xác nhận tham dự, minh chứng hoạt động, bài hội nghị\n- Cam kết nhận kinh phí hỗ trợ (duy nhất) của cá nhân hoạt động khoa học",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "11",
+          "Nội dung": "Thuê chuyên gia trong và ngoài nước",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng\n- Dự trù kinh phí được duyệt\n- Hợp đồng, Biên bản nghiệm thu, Thanh lý hợp đồng thuê chuyên gia\n- Giấy biên nhận tiền\n- Hồ sơ chứng minh trình độ, năng lực kinh nghiệm của chuyên gia",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "12",
+          "Nội dung": "Mua phôi bằng, in bằng, in sao bằng và bảng điểm cho người học",
+          "Hồ sơ, chứng từ thanh toán": "Mua phôi bằng, in bằng, in sao bằng và bảng điểm cho người học",
+          "Ghi chú": "Mua phôi bằng, in bằng, in sao bằng và bảng điểm cho người học"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Mua phôi bằng, in bằng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng\n- Phiếu thu tiền phôi bằng\n- Quyết định công nhận tốt nghiệp\n- Công văn đề nghị cấp phôi bằng\n- Giấy biên nhận tiền hỗ trợ công tác in bằng\n- Tờ trình định mức chi hỗ trợ công tác in bằng (trường hợp không quy định trong QCCTNB)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "In sao bằng, bảng điểm",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán\n- Đề nghị hoàn kinh phí in phôi bằng, phôi bảng điểm\n- Hóa đơn mua mực in kèm theo báo giá\n- Bảng kê nhận tiền (thù lao quản lý và trực tiếp thực hiện nghiệp vụ in sao bằng, bảng điểm)\n- Tờ trình/Dự trù kinh phí được duyệt",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "",
+          "Nội dung": "",
+          "Hồ sơ, chứng từ thanh toán": "",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "",
+          "Nội dung": "",
+          "Hồ sơ, chứng từ thanh toán": "",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "",
+          "Nội dung": "",
+          "Hồ sơ, chứng từ thanh toán": "",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "",
+          "Nội dung": "",
+          "Hồ sơ, chứng từ thanh toán": "",
+          "Ghi chú": ""
+        }
+      ]
+    },
+    {
+      "title": "Bảng dữ liệu",
+      "data": [
+        {
+          "STT": "I",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Tạm ứng kinh phí",
+          "Ghi chú": "Tạm ứng kinh phí"
+        },
+        {
+          "STT": "1",
+          "Nội dung": "Gói thầu mua sắm TS, HH, DV có giá trị dưới 5 triệu đồng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự toán mua sắm năm được duyệt \n- Dự toán gói thầu tại thời điểm mua sắm \n- 01 Báo giá hợp lệ",
+          "Ghi chú": "Riêng TH này thực hiện tạm ứng bằng tiền mặt"
+        },
+        {
+          "STT": "2",
+          "Nội dung": "Gói thầu mua sắm TS, HH, DV từ 5 triệu đồng đến dưới 50 triệu đồng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng \n- Dự toán mua sắm năm được duyệt \n- Dự toán gói thầu tại thời điểm mua sắm \n- 01 Báo giá hợp lệ và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ (đối với gói thầu có giá trị từ 5 triệu đồng đến dưới 20 triệu đồng)\n- Hợp đồng (đối với gói thầu có giá trị từ 20 triệu đồng đến dưới 50 triệu đồng)",
+          "Ghi chú": "Điều kiện áp dụng theo Điểm 7, Điều 4, Quyết định 17/2019/QĐ-TTg ngày 08/4/2019"
+        },
+        {
+          "STT": "3",
+          "Nội dung": "Gói thầu mua sắm TS, HH, DV từ 50 triệu đồng đến dưới 100 triệu đồng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự toán mua sắm năm được duyệt\n- Kế hoạch lựa chọn nhà thầu được BHG duyệt\n- Dự toán gói thầu tại thời điểm mua sắm\n- Hồ sơ năng lực, kinh nghiệm của nhà thầu đáp ứng yêu cầu của gói thầu\n- Biên bản thương thảo hợp đồng\n- Quyết định phê duyệt lựa chọn nhà thầu theo hình thức chỉ định thầu\n- Hợp đồng",
+          "Ghi chú": "Điều kiện áp dụng theo Điều 15 Thông tư 58/2016/TT-BTC ngày 29/3/2016"
+        },
+        {
+          "STT": "4",
+          "Nội dung": "Gói thầu mua sắm TS, HH, DV từ 100 triệu đồng đến dưới 200 triệu đồng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự toán mua sắm năm được duyệt\n- Kế hoạch lựa chọn nhà thầu được ĐHQGHN duyệt\n- Dự toán gói thầu tại thời điểm mua sắm\n- Bản yêu cầu báo giá\n- Thông báo mời chào hàng\n- Báo giá của ít nhất 03 nhà thầu\n- Biên bản xét chọn giá\n- Quyết định phê duyệt lựa chọn nhà thầu theo hình thức chào hàng cạnh tranh rút gọn\n- Biên bản thương thảo hợp đồng\n- Hợp đồng",
+          "Ghi chú": "Điều kiện áp dụng theo Điều 18,19 Thông tư 58/2016/TT-BTC ngày 29/3/2016"
+        },
+        {
+          "STT": "5",
+          "Nội dung": "Gói thầu mua sắm TS, HH, DV từ 200 triệu đồng đến dưới 2 tỷ đồng",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự toán mua sắm năm được duyệt\n- Kế hoạch lựa chọn nhà thầu được ĐHQGHN duyệt\n- Dự toán gói thầu tại thời điểm mua sắm\n- Hồ sơ yêu cầu\n- Quyết định phê duyệt Hồ sơ yêu cầu\n- Thông báo mời chào hàng đăng tải trên Hệ thống mạng đấu thầu quốc gia hoặc Báo đấu thầu\n- Hồ sơ đề xuất của nhà thầu\n- Báo cáo đánh giá hồ sơ đề xuất \n- Quyết định phê duyệt lựa chọn nhà thầu theo hình thức chào hàng cạnh tranh thông thường\n- Biên bản thương thảo hợp đồng\n- Hợp đồng \n- Bảo lãnh tạm ứng/thực hiện hợp đồng\n- Hóa đơn và Biên bản nghiệm thu, bàn giao theo giai đoạn (trong trường hợp tạm ứng từ lần thứ hai trở đi)",
+          "Ghi chú": "Điều kiện áp dụng theo Điều 18, Thông tư 58/2016/TT-BTC ngày 29/3/2016"
+        },
+        {
+          "STT": "6",
+          "Nội dung": "Gói thầu mua sắm TS, HH, DV từ 5 triệu đồng đến dưới 2 tỷ đồng theo hình thức tự thực hiện",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự toán mua sắm năm được duyệt\n- Kế hoạch lựa chọn nhà thầu được BGH hoặc ĐHQGHN duyệt theo phân cấp thẩm quyền phê duyệt\n- Dự toán gói thầu tại thời điểm thực hiện\n- Hồ sơ phương án tự thực hiện được phê duyệt\n- Biên bản thương thảo hợp đồng hoặc Thỏa thuận giao việc\n- Hợp đồng hoặc Quyết định giao nhiệm vụ\n- Hóa đơn và Biên bản nghiệm thu, bàn giao theo giai đoạn (trong trường hợp tạm ứng từ lần thứ hai trở đi)",
+          "Ghi chú": "Điều kiện áp dụng theo Điều 22, Thông tư 58/2016/TT-BTC ngày 29/3/2016"
+        },
+        {
+          "STT": "7",
+          "Nội dung": "Gói thầu mua sắm TS, HH, DV từ 5 triệu đồng đến dưới 2 tỷ đồng theo hình thức mua sắm trực tiếp",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự toán mua sắm năm được duyệt\n- Kế hoạch lựa chọn nhà thầu được BGH hoặc ĐHQGHN duyệt theo phân cấp thẩm quyền phê duyệt\n- Dự toán gói thầu tại thời điểm thực hiện\n- Hồ sơ yêu cầu\n- Quyết định phê duyệt Hồ sơ yêu cầu\n- Hồ sơ đề xuất của nhà thầu\n- Báo cáo đánh giá hồ sơ đề xuất \n- Quyết định phê duyệt lựa chọn nhà thầu theo hình thức mua sắm trực tiếp\n- Biên bản thương thảo hợp đồng\n- Hợp đồng \n- Bảo lãnh tạm ứng/thực hiện hợp đồng (nếu có)\n- Hóa đơn và Biên bản nghiệm thu, bàn giao theo giai đoạn (trong trường hợp tạm ứng từ lần thứ hai trở đi)",
+          "Ghi chú": "Phạm vi và điều kiện áp dụng theo Điều 20, Thông tư 58/2016/TT-BTC ngày 29/3/2016"
+        },
+        {
+          "STT": "8",
+          "Nội dung": "Gói thầu mua sắm TS, HH, DV thuộc Danh mục các gói thầu, nội dung mua sắm nhằm duy trì hoạt động thường xuyên được áp dụng hình thức lựa chọn nhà thầu trong trường hợp đặc biệt",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Dự toán mua sắm năm được duyệt\n- Kế hoạch lựa chọn nhà thầu được BGH hoặc ĐHQGHN duyệt theo phân cấp thẩm quyền phê duyệt\n- Dự toán gói thầu tại thời điểm thực hiện\n- Quyết định phê duyệt lựa chọn nhà thầu trong trường hợp đặc biệt (nếu có)\n- Biên bản thương thảo hợp đồng\n- Hợp đồng \n- Bảo lãnh tạm ứng/thực hiện hợp đồng (nếu có)\n- Hóa đơn và Biên bản nghiệm thu, bàn giao theo giai đoạn (đối với trường hợp tạm ứng từ lần thứ hai trở đi)",
+          "Ghi chú": "Danh mục các gói thầu, nội dung mua sắm thuộc trường hợp đặc biệt theo Điều 3, Quyết định 17/2019/QĐ-TTg ngày 08/4/2019"
+        },
+        {
+          "STT": "II",
+          "Nội dung": "Thanh toán/thanh toán tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Thanh toán/thanh toán tạm ứng kinh phí",
+          "Ghi chú": "Thanh toán/thanh toán tạm ứng kinh phí"
+        },
+        {
+          "STT": "Kết thúc quá trình mua sắm theo từng trường hợp như trên, đơn vị được giao thực hiện nhiệm vụ mua sắm hoàn thiện thủ tục thanh toán/thanh toán tạm ứng kinh phí theo hồ sơ, chứng từ như sau:\n         - Giấy đề nghị thanh toán/thanh toán tạm ứng kinh phí\n         - Biên bản bàn giao, nghiệm thu giai đoạn/hợp đồng\n         - Biên bản bàn giao nội bộ (nếu có)\n         - Biên bản thanh lý hợp đồng/Xác nhận hoàn thành nhiệm vụ được giao\n         - Hóa đơn tài chính (trừ trường hợp tự thực hiện)\n         - Bảo lãnh bảo hành (nếu có)",
+          "Nội dung": "Kết thúc quá trình mua sắm theo từng trường hợp như trên, đơn vị được giao thực hiện nhiệm vụ mua sắm hoàn thiện thủ tục thanh toán/thanh toán tạm ứng kinh phí theo hồ sơ, chứng từ như sau:\n         - Giấy đề nghị thanh toán/thanh toán tạm ứng kinh phí\n         - Biên bản bàn giao, nghiệm thu giai đoạn/hợp đồng\n         - Biên bản bàn giao nội bộ (nếu có)\n         - Biên bản thanh lý hợp đồng/Xác nhận hoàn thành nhiệm vụ được giao\n         - Hóa đơn tài chính (trừ trường hợp tự thực hiện)\n         - Bảo lãnh bảo hành (nếu có)",
+          "Hồ sơ, chứng từ thanh toán": "Kết thúc quá trình mua sắm theo từng trường hợp như trên, đơn vị được giao thực hiện nhiệm vụ mua sắm hoàn thiện thủ tục thanh toán/thanh toán tạm ứng kinh phí theo hồ sơ, chứng từ như sau:\n         - Giấy đề nghị thanh toán/thanh toán tạm ứng kinh phí\n         - Biên bản bàn giao, nghiệm thu giai đoạn/hợp đồng\n         - Biên bản bàn giao nội bộ (nếu có)\n         - Biên bản thanh lý hợp đồng/Xác nhận hoàn thành nhiệm vụ được giao\n         - Hóa đơn tài chính (trừ trường hợp tự thực hiện)\n         - Bảo lãnh bảo hành (nếu có)",
+          "Ghi chú": "Kết thúc quá trình mua sắm theo từng trường hợp như trên, đơn vị được giao thực hiện nhiệm vụ mua sắm hoàn thiện thủ tục thanh toán/thanh toán tạm ứng kinh phí theo hồ sơ, chứng từ như sau:\n         - Giấy đề nghị thanh toán/thanh toán tạm ứng kinh phí\n         - Biên bản bàn giao, nghiệm thu giai đoạn/hợp đồng\n         - Biên bản bàn giao nội bộ (nếu có)\n         - Biên bản thanh lý hợp đồng/Xác nhận hoàn thành nhiệm vụ được giao\n         - Hóa đơn tài chính (trừ trường hợp tự thực hiện)\n         - Bảo lãnh bảo hành (nếu có)"
+        }
+      ]
+    },
+    {
+      "title": "Bảng dữ liệu",
+      "data": [
+        {
+          "STT": "I",
+          "Nội dung": "Tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Tạm ứng kinh phí",
+          "Ghi chú": "Tạm ứng kinh phí"
+        },
+        {
+          "STT": "1",
+          "Nội dung": "Thực hiện thuê khoán chuyên môn, thuê khoán công việc, sản phẩm",
+          "Hồ sơ, chứng từ thanh toán": "* Đối với đề tài có mức kinh phí dưới 100 triệu đồng:\n- Giấy đề nghị tạm ứng của Chủ nhiệm đề tài\n- Giấy ủy quyền của các thành viên cho chủ nhiệm đề tài ký hợp đồng và nhận kinh phí TKCM\n- Bản phô tô Hợp đồng thực hiện đề tài giữa Nhà trường và chủ nhiệm đề tài\n- Bản phô tô Thuyết minh đề tài (phần kinh phí) được phê duyệt\n* Đối với đề tài có mức kinh phí từ 100 triệu đồng trở lên:\n- Giấy đề nghị tạm ứng của Chủ nhiệm đề tài\n- Phiếu giao nhiệm vụ TKCM cho CNĐT; Phụ lục Danh sách nhóm nghiên cứu kèm theo Phiếu giao nhiệm vụ\n- Hợp đồng TKCM giữa CNĐT và thành viên nghiên cứu hoặc rưởng nhóm nghiên cứu Phụ lục Danh sách nhóm nghiên cứu kèm theo\n- Giấy ủy quyền của các thành viên (theo phụ lục Phiếu giao nhiệm vụ, Hợp đồng TKCM và các thành viên nghiên cứu ký Hợp đồng TKCM trực tiếp khác) cho chủ nhiệm đề tài ký hợp đồng và nhận kinh phí TKCM\n- Bản phô tô Dự toán chi tiết theo tiến độ cấp kinh phí (đợt đề nghị tương ứng)\n- Bản phô tô Hợp đồng thực hiện đề tài giữa Nhà trường và chủ nhiệm đề tài\n- Bản phô tô Quyết định giao/phê duyệt đ tài\n- Hợp đồng thuê chuyên gia (nếu có)\n- Báo cáo tiến độ đề tài được duyệt, Biên bản kiểm tra tiến độ đề tài và Biên bản nghiệm thu Hợp đồng giao nhiệm vụ theo giai đoạn (nếu tạm ứng từ lần thứ hai trở đi)",
+          "Ghi chú": "- Danh sách thành viên/thành viên chính nhận tiền tạm ứng kinh phí TKCM cần thực hiện theo đề cương (hoặc danh sách điều chỉnh đã được cấp có thẩm quyền phê duyệt)\n\n- Trường hợp đơn vị phê duyệt đề tài (cấp vốn) có quy định riêng, áp dụng theo quy định của đơn vị phê duyệt đề tài"
+        },
+        {
+          "STT": "2",
+          "Nội dung": "Mua vật tư, nguyên, nhiên, vật liệu; văn phòng phẩm; phô tô, in ấn; dịch vụ thuê ngoài và sửa chữa, mua sắm tài sản cố định",
+          "Hồ sơ, chứng từ thanh toán": "Mua vật tư, nguyên, nhiên, vật liệu; văn phòng phẩm; phô tô, in ấn; dịch vụ thuê ngoài và sửa chữa, mua sắm tài sản cố định",
+          "Ghi chú": "Mua vật tư, nguyên, nhiên, vật liệu; văn phòng phẩm; phô tô, in ấn; dịch vụ thuê ngoài và sửa chữa, mua sắm tài sản cố định"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Các nội dung được giao khoán\n- Mua nguyên liệu, nhiên liệu, vật tư, phụ tùng phục vụ hoạt động nghiên cứu đã được cơ quan có thẩm quyền của nhà nước ban hành định mức kinh tế - kỹ thuật\n- Mua dụng cụ, vật rẻ tiền mau hỏng, năng lượng, tài liệu, tư liệu, số liệu, sách, báo, tạp chí tham khảo; dịch vụ thuê ngoài; văn phòng phẩm, thông tin liên lạc, in, phô tô tài liệu phục vụ hoạt động nghiên cứu",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Bản phô tô Dự toán chi tiết theo tiến độ cấp kinh phí (đợt đề nghị tương ứng)\n- Dự toán kinh phí chi tiết (tại thời điểm mua sắm)\n- 01 Báo giá hợp lệ (đối với khoản mua có giá trị dưới 5 triệu đồng)\n- 03 Báo giá hợp lệ (đối với khoản mua có giá trị từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ\n- 03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định phê duyệt kế hoạch lựa chọn nhà thầu, Quyết định chỉ định đơn vị cung cấp, Hợp đồng (đối với khoản mua có giá trị từ 20 triệu đồng trở lên)",
+          "Ghi chú": "Khoản mua có giá trị dưới 5 triệu đồng được tạm ứng bằng tiền mặt"
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Các nội dung không được giao khoán\n- Mua nguyên liệu, nhiên liệu, vật liệu, phụ tùng, dịch vụ thuê ngoài phục vụ hoạt động nghiên cứu chưa được cơ quan có thẩm quyền của nhà nước ban hành định mức kinh tế - kỹ thuật\n- Sửa chữa, mua sắm tài sản cố định, bao gồm:\n+ Mua tài sản thiết yếu, phục vụ trực tiếp cho hoạt động nghiên cứu.\n+ Thuê tài sản trực tiếp tham gia thực hiện nghiên cứu.\n+ Sửa chữa trang thiết bị, cơ sở vật chất phục vụ trực tiếp cho hoạt động nghiên cứu.\n- Mua sắm HH, DV thuộc dự toán kinh phí Đoàn ra.",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Bản phô tô Dự toán chi tiết theo tiến độ cấp kinh phí (đợt đề nghị tương ứng)\n- Dự toán kinh phí chi tiết (tại thời điểm mua sắm)\n- Hồ sơ quá trình đấu thầu mua sắm hàng hóa, dịch vụ theo quy định hiện hành\n- Quyết định lựa chọn đơn vị trúng thầu\n- Biên bản thương thảo hợp đồng\n- Hợp đồng\n- Hóa đơn và Biên bản nghiệm thu, bàn giao theo giai đoạn (trong trường hợp tạm ứng từ lần thứ hai trở đi)",
+          "Ghi chú": "- Chủ nhiệm đề tài xây dựng dự toán chi tiết kinh phí mua sắm hàng hóa, dịch vụ trình BGH phê duyệt\n- Căn cứ Dự trù được phê duyệt, chủ trì đề tài phối hợp với phòng KHCN&HTPT lựa chọn đơn vị cung cấp theo quy định tại Luật Đấu thầu số 43/2013/QH13 và Nghị định 63/2014/NĐ-CP"
+        },
+        {
+          "STT": "3",
+          "Nội dung": "Điều tra, khảo sát, thu thập thông tin",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Bản phô tô Dự toán chi tiết theo tiến độ cấp kinh phí (đợt đề nghị tương ứng)\n- Dự toán kinh phí điều tra, khảo sát, thu thập thông tin (trong trường hợp Dự toán theo tiến độ kinh phí chưa chi tiết định mức chi) \n- Quyết định cử đi công tác\n- Kế hoạch điều tra, khảo sát, thu thập thông tin được phê duyệt",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "4",
+          "Nội dung": "Hội nghị, hội thảo",
+          "Hồ sơ, chứng từ thanh toán": "- Như trong Mục III, Quy trình 1: Thanh toán kinh phí hoạt động thường xuyên",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "5",
+          "Nội dung": "Công tác phí trong và ngoài nước",
+          "Hồ sơ, chứng từ thanh toán": "- Như trong Mục I, Quy trình 1: Thanh toán kinh phí hoạt động thường xuyên",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "6",
+          "Nội dung": "Họp hội đồng đánh giá kết quả thực hiện nhiệm vụ KH&CN các cấp",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị tạm ứng\n- Bản phô tô Dự toán chi tiết theo tiến độ cấp kinh phí (đợt đề nghị tương ứng)\n- Dự toán kinh phí họp hội đồng (trong trường hợp Dự toán theo tiến độ kinh phí chưa chi tiết định mức chi) \n- Quyết định thành lập Hội đồng",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "II",
+          "Nội dung": "Thanh toán/thanh toán tạm ứng kinh phí",
+          "Hồ sơ, chứng từ thanh toán": "Thanh toán/thanh toán tạm ứng kinh phí",
+          "Ghi chú": "Thanh toán/thanh toán tạm ứng kinh phí"
+        },
+        {
+          "STT": "1",
+          "Nội dung": "Thực hiện thuê khoán chuyên môn, thuê khoán công việc, sản phẩm",
+          "Hồ sơ, chứng từ thanh toán": "* Đối với đề tài có mức kinh phí dưới 100 triệu đồng:\n- Giấy đề nghị thanh toán/thanh toán tạm ứng của Chủ nhiệm đề tài\n- Giấy ủy quyền của các thành viên cho chủ nhiệm đề tài ký hợp đồng, nhận kinh phí TKCM và Biên nhận kinh phí của các thành viên từ CNĐT tương ứng\n- Biên bản thanh lý Hợp đồng thực hiện đề tài giữa Nhà trường và chủ nhiệm đề tài\n- Bảng tính thuế thu nhập cá nhân khấu trừ tại nguồn\n- Bản phô tô Hợp đồng thực hiện đề tài giữa Nhà trường và chủ nhiệm đề tài\n- Bản phô tô Thuyết minh đề tài (phần kinh phí) được phê duyệt\n* Đối với đề tài có mức kinh phí từ 100 triệu đồng trở lên:\n- Giấy đề nghị thanh toán/thanh toán tạm ứng của Chủ nhiệm đề tài\n- Phiếu giao nhiệm vụ TKCM cho CNĐT; Phụ lục Danh sách nhóm nghiên cứu kèm theo Phiếu giao nhiệm vụ\n- Hợp đồng TKCM giữa CNĐT và thành viên nghiên cứu hoặc Trưởng nhóm nghiên cứu Phụ lục Danh sách nhóm nghiên cứu kèm theo\n- Biên bản nghiệm thu/Biên bản thanh lý Phiếu giao nhiệm vụ và Hợp đồng TKCM\n- Giấy ủy quyền của các thành viên (theo phụ lục Phiếu giao nhiệm vụ, Hợp đồng TKCM và các thành viên nghiên cứu ký Hợp đồng TKCM trực tiếp khác) cho chủ nhiệm đề tài ký hợp đồng và nhận kinh phí TKCM; Biên nhận kinh phí của các thành viên từ CNĐT tương ứng\n- Báo cáo tiến độ thực hiện đề tài được duyệt, Biên bản kiểm tra tiến độ đề tài và Biên bản nghiệm thu Hợp đồng thực hiện đề tài theo giai đoạn (đối với trường hợp thanh toán/thanh toán tạm ứng kinh phí giữa kỳ)\n- Biên bản họp hội đồng nghiệm thu đề tài, Biên bản thanh lý hợp đồng giữa Nhà trường và cơ quan phê duyệt đề tài (nếu có), Biên bản thanh lý hợp đồng giữa Nhà trường và Chủ nhiệm đề tài (đối với trường hợp thanh toán/thanh toán tạm ứng tất toán cuối kỳ)\n- Giấy biên nhận kinh phí và Biên bản thanh lý Hợp đồng thuê chuyên gia (nếu có)\n- Bảng kê kinh phí TKCM trả cho các thành viên thực hiện đề tài (tổng số được phê duyệt trong Dự toán chi tiết theo tiến độ cấp kinh phí các đợt, số đã tạm ứng, số còn phải thanh toán, nghĩa vụ thuế thu nhập cá nhân khấu trừ tại nguồn phải nộp)\n- Bản phô tô Dự toán chi tiết theo tiến độ cấp kinh phí (đợt đề nghị tương ứng)\n- Bản phô tô Hợp đồng thực hiện đề tài giữa Nhà trường và chủ trì đề tài\n- Bản phô tô Quyết định giao/phê duyệt đê tài\n- Hợp đồng thuê chuyên gia (nếu có)",
+          "Ghi chú": "- Sản phẩm nghiên cứu của hợp đồng được Phòng KHCN&HTPT tổ chức nghiệm thu và lưu giữ theo quy định\n\n- Danh sách nhóm nghiên cứu cần thực hiện theo đề cương (hoặc danh sách điều chỉnh đã được cấp có thẩm quyền phê duyệt)\n\n- Trường hợp đơn vị phê duyệt đề tài (cấp vốn) có quy định riêng, áp dụng theo quy định của đơn vị phê duyệt đề tài"
+        },
+        {
+          "STT": "2",
+          "Nội dung": "Mua vật tư, nguyên, nhiên, vật liệu; văn phòng phẩm; phô tô, in ấn; dịch vụ thuê ngoài và sửa chữa, mua sắm tài sản cố định",
+          "Hồ sơ, chứng từ thanh toán": "Mua vật tư, nguyên, nhiên, vật liệu; văn phòng phẩm; phô tô, in ấn; dịch vụ thuê ngoài và sửa chữa, mua sắm tài sản cố định",
+          "Ghi chú": "Mua vật tư, nguyên, nhiên, vật liệu; văn phòng phẩm; phô tô, in ấn; dịch vụ thuê ngoài và sửa chữa, mua sắm tài sản cố định"
+        },
+        {
+          "STT": "a",
+          "Nội dung": "Các nội dung được giao khoán (chi tiết như mục tạm ứng kinh phí)",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Bản phô tô Dự toán chi tiết theo tiến độ cấp kinh phí (đợt đề nghị tương ứng)\n- Dự toán kinh phí chi tiết (tại thời điểm mua sắm)\n- Hồ sơ quá trình mua sắm hàng hóa, dịch vụ\n- Biên bản bàn giao, nghiệm thu\n- Thanh lý hợp đồng (đối với khoản mua có giá trị từ 20 triệu đồng trở lên)\n- Hóa đơn tài chính",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "b",
+          "Nội dung": "Các nội dung không được giao khoán (chi tiết như mục tạm ứng kinh phí)",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Bản phô tô Dự toán chi tiết theo tiến độ cấp kinh phí (đợt đề nghị tương ứng)\n- Dự toán kinh phí chi tiết (tại thời điểm mua sắm)\n- Hồ sơ quá trình đấu thầu mua sắm hàng hóa, dịch vụ theo quy định hiện hành\n- Quyết định lựa chọn đơn vị trúng thầu\n- Hợp đồng\n- Hóa đơn và Biên bản nghiệm thu, bàn giao theo giai đoạn (đối với trường hợp thanh toán/thanh toán tạm ứng kinh phí giữa kỳ)\n- Hóa đơn, Biên bản bàn giao và Thanh lý hợp đồng (đối với trường hợp thanh toán/thanh toán tạm ứng tất toán cuối kỳ)\n- Bảo lãnh bảo hành (nếu có)",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "3",
+          "Nội dung": "Điều tra, khảo sát, thu thập thông tin",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Bản phô tô Dự toán chi tiết theo tiến độ cấp kinh phí (đợt đề nghị tương ứng)\n- Dự toán kinh phí điều tra, khảo sát, thu thập thông tin (trong trường hợp Dự toán theo tiến độ kinh phí chưa chi tiết định mức chi) \n- Giấy đi đường có xác nhận của nơi đến công tác (nếu thanh toán tiền công tác phí)\n- Xác nhận của chính quyền địa phương nơi đến điều tra, khảo sát, thu thập thông tin\n- Bảng kê chi tiền cho người cung cấp thông tin trên phiếu điều tra, bảng hỏi",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "4",
+          "Nội dung": "Hội nghị, hội thảo",
+          "Hồ sơ, chứng từ thanh toán": "- Như trong Mục III, Quy trình 1: Thanh toán kinh phí hoạt động thường xuyên",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "5",
+          "Nội dung": "Công tác phí trong và ngoài nước",
+          "Hồ sơ, chứng từ thanh toán": "- Như trong Mục I, Quy trình 1: Thanh toán kinh phí hoạt động thường xuyên",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "6",
+          "Nội dung": "Họp hội đồng đánh giá kết quả thực hiện nhiệm vụ KH&CN các cấp",
+          "Hồ sơ, chứng từ thanh toán": "- Giấy đề nghị thanh toán/thanh toán tạm ứng\n- Bản phô tô Dự toán chi tiết theo tiến độ cấp kinh phí (đợt đề nghị tương ứng)\n- Dự toán kinh phí họp hội đồng (trong trường hợp Dự toán theo tiến độ kinh phí chưa chi tiết định mức chi) \n- Bản phô tô Quyết định thành lập Hội đồng\n- Bảng kê chi tiền họp Hội đồng và Biên bản họp Hội đồng\n- Bảng kê chi tiền/Giấy biên nhận tiền nhận xét, đánh giá của ủy viên",
+          "Ghi chú": ""
+        },
+        {
+          "STT": "7",
+          "Nội dung": "Phí quản lý đề tài",
+          "Hồ sơ, chứng từ thanh toán": "- Ghi thêm dòng phí quản lý đề tài trong mục nội dung thanh toán trên Giấy Đề nghị thanh toán/Đề nghị thanh toán tạm ứng kèm theo bộ hồ sơ thanh, quyết toán đề tài",
+          "Ghi chú": ""
+        }
+      ]
+    }
+  ]
+}

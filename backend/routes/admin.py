@@ -38,11 +38,23 @@ async def upload_file(
     with file_path.open("wb") as f:
         f.write(await file.read())
 
+    try:
+        rel_path = str(file_path.relative_to(BASE_DIR))  
+    except Exception:
+
+        p = str(file_path).replace("\\", "/")
+        if "uploaded_files/" in p:
+            rel_path = p.split("uploaded_files/")[-1]
+            rel_path = "uploaded_files/" + rel_path
+        else:
+            rel_path = os.path.basename(p)
+
     metadata = FileMetadata(
         file_name=file.filename,
-        file_path=str(file_path),
+        file_path=rel_path,
         file_size=file_path.stat().st_size,
     )
+
     db.add(metadata)
     db.commit()
     db.refresh(metadata)
