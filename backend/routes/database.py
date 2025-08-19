@@ -18,5 +18,13 @@ def test_connection():
     except Exception as e:
         print("Kết nối database thất bại:", e)
 
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 if __name__ == "__main__":
     test_connection()
