@@ -122,3 +122,6 @@ def convert_pdf_to_json(pdf_path, output_folder):
 
 
 
+
+
+

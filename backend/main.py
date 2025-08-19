@@ -11,38 +11,15 @@ from routes.models import FileMetadata
 from convert_doc import convert_doc_to_json
 from convert_pdf import convert_pdf_to_json
 
-# Firebase
-import firebase_admin
-from firebase_admin import credentials, auth, firestore
+# Firebase helpers moved to routes.auth
+from routes.auth import init_firebase, get_current_user
 
 # Load env
 from dotenv import load_dotenv
 env_path = Path(__file__).resolve().parent.parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
-# ✅ Init Firebase
-def init_firebase():
-    private_key = os.getenv("GOOGLE_PRIVATE_KEY")
-    if not private_key:
-        raise RuntimeError("Missing GOOGLE_PRIVATE_KEY in .env")
-
-    service_account_info = {
-        "type": "service_account",
-        "project_id": os.getenv("GOOGLE_PROJECT_ID"),
-        "private_key_id": os.getenv("GOOGLE_PRIVATE_KEY_ID"),
-        "private_key": private_key.replace('\\n', '\n'),
-        "client_email": os.getenv("GOOGLE_CLIENT_EMAIL"),
-        "client_id": os.getenv("GOOGLE_CLIENT_ID"),
-        "auth_uri": os.getenv("GOOGLE_AUTH_URI"),
-        "token_uri": os.getenv("GOOGLE_TOKEN_URI"),
-        "auth_provider_x509_cert_url": os.getenv("GOOGLE_AUTH_PROVIDER_X509_CERT_URL"),
-        "client_x509_cert_url": os.getenv("GOOGLE_CLIENT_X509_CERT_URL"),
-        "universe_domain": os.getenv("GOOGLE_UNIVERSE_DOMAIN"),
-    }
-    cred = credentials.Certificate(service_account_info)
-    firebase_admin.initialize_app(cred)
-    return firestore.client()
-
+# Initialize Firebase (firestore_client is available if needed)
 firestore_client = init_firebase()
 
 # 📂 Folder lưu file
@@ -73,36 +50,7 @@ def get_db():
     finally:
         db.close()
 
-# ✅ Xác thực Firebase + Tạo role nếu chưa có
-async def get_current_user(authorization: str = Header(...)):
-    if not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Missing Bearer token")
-
-    token = authorization.split(" ")[1]
-    try:
-        # Thêm check_revoked=False và tolerance=60s để tránh lỗi thời gian
-        decoded_token = auth.verify_id_token(
-            token,
-            check_revoked=False,
-            clock_skew_seconds=60
-        )
-        uid = decoded_token["uid"]
-        email = decoded_token.get("email")
-
-        doc_ref = firestore_client.collection("role").document(uid)
-        doc = doc_ref.get()
-
-        if doc.exists:
-            role = doc.to_dict().get("role", "user")
-        else:
-            role = "user"
-            doc_ref.set({"role": role, "email": email})
-
-        return {"uid": uid, "email": email, "role": role}
-
-    except Exception as e:
-        print(f"[❌] Firebase error: {e}")
-        raise HTTPException(status_code=401, detail="Invalid Firebase token")
+# Authentication helpers are provided by routes.auth (imported above)
 
 
 # ✅ Upload file (admin only)
