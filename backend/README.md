@@ -38,7 +38,8 @@ uv sync
 ```
 
 ```bash
-source .venv/bin/acitvate
+source .venv/bin/activate   # Linux/macOS
+.\.venv\Scripts\activate    # Windows PowerShell
 ```
 
 ### 3. Khởi động server development
