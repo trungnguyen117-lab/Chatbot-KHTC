@@ -1,0 +1,312 @@
+{
+  "Documents": [
+    {
+      "id": "doc_a906f13f",
+      "Name": "Data/Quy trinh Kiem soat chi va Thanh toan cua UET (03.01.2021).docx",
+      "Number_of_Pages": null,
+      "Number_of_Chapter": 4
+    }
+  ],
+  "Chapters": [
+    {
+      "id": "chapter_1cec367e",
+      "Name": "Chương I. NHỮNG QUY ĐỊNH CHUNG",
+      "Number": "I"
+    },
+    {
+      "id": "chapter_ef57885d",
+      "Name": "Chương II. NGUYÊN TẮC CHI VÀ QUY TRÌNH KIỂM SOÁT CÁC KHOẢN CHI",
+      "Number": "II"
+    },
+    {
+      "id": "chapter_cd672071",
+      "Name": "Chương III. QUY TRÌNH VÀ THỦ TỤC THANH TOÁN CÁC KHOẢN CHI",
+      "Number": "III"
+    },
+    {
+      "id": "chapter_728cb18e",
+      "Name": "Chương IV. HIỆU LỰC THI HÀNH",
+      "Number": "IV"
+    }
+  ],
+  "Sections": [
+    {
+      "id": "section_a2ade038",
+      "Name": "1. Mục đích",
+      "Number": 1
+    },
+    {
+      "id": "section_1034a2d1",
+      "Name": "2. Phạm vi",
+      "Number": 2
+    },
+    {
+      "id": "section_8d6c4be2",
+      "Name": "3. Căn cứ pháp lý",
+      "Number": 3
+    },
+    {
+      "id": "section_c0b5ce05",
+      "Name": "4. Định nghĩa/Viết tắt",
+      "Number": 4
+    },
+    {
+      "id": "section_eba5770f",
+      "Name": "1. Nguyên tắc chi",
+      "Number": 1
+    },
+    {
+      "id": "section_8050cd43",
+      "Name": "2. Nguyên tắc thực hiện thanh toán",
+      "Number": 2
+    },
+    {
+      "id": "section_21ae80d1",
+      "Name": "3. Quy trình quản lý",
+      "Number": 3
+    },
+    {
+      "id": "section_c2bf5a4f",
+      "Name": "4. Trách nhiệm kiểm tra, kiểm soát",
+      "Number": 4
+    },
+    {
+      "id": "section_ab8a6540",
+      "Name": "5. Ủy quyền và phân cấp quản lý tài chính",
+      "Number": 5
+    },
+    {
+      "id": "section_605675e1",
+      "Name": "6. Tổ chức quản lý các Hợp đồng kinh tế",
+      "Number": 6
+    }
+  ],
+  "Subsections": [
+    {
+      "id": "subsec_c8482359",
+      "Name": "a. Quy định chung",
+      "Letter": "a"
+    },
+    {
+      "id": "subsec_7ab6aa39",
+      "Name": "b. Quy định chi tiết hoạt động thường xuyên và chuyên môn",
+      "Letter": "b"
+    },
+    {
+      "id": "subsec_e2bc084f",
+      "Name": "c. Quy định chi tiết hoạt động mua sắm tài sản, hàng hóa, dịch vụ",
+      "Letter": "c"
+    },
+    {
+      "id": "subsec_757dac56",
+      "Name": "d. Quy định chi tiết về thực hiện đề tài/dự án khoa học và công nghệ",
+      "Letter": "d"
+    },
+    {
+      "id": "subsec_c012c7a2",
+      "Name": "a. Lập dự toán chi phí",
+      "Letter": "a"
+    },
+    {
+      "id": "subsec_52ed9c92",
+      "Name": "b. Trình Ban Giám hiệu phê duyệt dự toán",
+      "Letter": "b"
+    },
+    {
+      "id": "subsec_49a0a6d5",
+      "Name": "c. Tổ chức thực hiện",
+      "Letter": "c"
+    }
+  ],
+  "Procedures": [
+    {
+      "id": "proc_8dfcfa25",
+      "Name": "QUY TRÌNH 1. THANH TOÁN HOẠT ĐỘNG THƯỜNG XUYÊN",
+      "Number": 1
+    },
+    {
+      "id": "proc_f2f441dc",
+      "Name": "QUY TRÌNH 2. THANH TOÁN CHI PHÍ HOẠT ĐỘNG CHUYÊN MÔN",
+      "Number": 2
+    },
+    {
+      "id": "proc_0a5efeff",
+      "Name": "QUY TRÌNH 3. THANH TOÁN MUA SẮM TÀI SẢN, HÀNG HÓA, DỊCH VỤ",
+      "Number": 3
+    },
+    {
+      "id": "proc_175837d8",
+      "Name": "QUY TRÌNH 4. THANH TOÁN KINH PHÍ THỰC HIỆN ĐỀ TÀI, DỰ ÁN KHOA HỌC VÀ CÔNG NGHỆ",
+      "Number": 4
+    },
+    {
+      "id": "proc_1dddaa15",
+      "Name": "QUY TRÌNH 5. TẠM ỨNG, THANH QUYẾT TOÁN TRONG XÂY DỰNG CƠ BẢN",
+      "Number": 5
+    }
+  ],
+  "Steps": [
+    {
+      "id": "step_cb2e1559",
+      "Name": "5.1 QUY TRÌNH TẠM ỨNG HỢP ĐỒNG THI CÔNG XÂY LẮP",
+      "Number": "5.1"
+    },
+    {
+      "id": "step_5441b0b6",
+      "Name": "5.2 QUY TRÌNH THANH TOÁN KHỐI LƯỢNG HOÀN THÀNH (HOẶC HOÀN THÀNH THEO GIAI ĐOẠN)",
+      "Number": "5.2"
+    },
+    {
+      "id": "step_7d71ba3f",
+      "Name": "5.3 QUY TRÌNH KIỂM TOÁN NỘI BỘ VÀ LẬP QUYẾT TOÁN VỐN ĐẦU TƯ XÂY DỰNG CƠ BẢN",
+      "Number": "5.3"
+    }
+  ],
+  "Relationships": [
+    {
+      "from": "doc_a906f13f",
+      "to": "chapter_1cec367e",
+      "type": "HAS_CHAPTER"
+    },
+    {
+      "from": "chapter_1cec367e",
+      "to": "section_a2ade038",
+      "type": "HAS_SECTION"
+    },
+    {
+      "from": "chapter_1cec367e",
+      "to": "section_1034a2d1",
+      "type": "HAS_SECTION"
+    },
+    {
+      "from": "chapter_1cec367e",
+      "to": "section_8d6c4be2",
+      "type": "HAS_SECTION"
+    },
+    {
+      "from": "section_8d6c4be2",
+      "to": "subsec_c8482359",
+      "type": "CONTAINS"
+    },
+    {
+      "from": "section_8d6c4be2",
+      "to": "subsec_7ab6aa39",
+      "type": "CONTAINS"
+    },
+    {
+      "from": "section_8d6c4be2",
+      "to": "subsec_e2bc084f",
+      "type": "CONTAINS"
+    },
+    {
+      "from": "section_8d6c4be2",
+      "to": "subsec_757dac56",
+      "type": "CONTAINS"
+    },
+    {
+      "from": "chapter_1cec367e",
+      "to": "section_c0b5ce05",
+      "type": "HAS_SECTION"
+    },
+    {
+      "from": "doc_a906f13f",
+      "to": "chapter_ef57885d",
+      "type": "HAS_CHAPTER"
+    },
+    {
+      "from": "chapter_ef57885d",
+      "to": "section_eba5770f",
+      "type": "HAS_SECTION"
+    },
+    {
+      "from": "chapter_ef57885d",
+      "to": "section_8050cd43",
+      "type": "HAS_SECTION"
+    },
+    {
+      "from": "chapter_ef57885d",
+      "to": "section_21ae80d1",
+      "type": "HAS_SECTION"
+    },
+    {
+      "from": "section_21ae80d1",
+      "to": "subsec_c012c7a2",
+      "type": "CONTAINS"
+    },
+    {
+      "from": "section_21ae80d1",
+      "to": "subsec_52ed9c92",
+      "type": "CONTAINS"
+    },
+    {
+      "from": "section_21ae80d1",
+      "to": "subsec_49a0a6d5",
+      "type": "CONTAINS"
+    },
+    {
+      "from": "chapter_ef57885d",
+      "to": "section_c2bf5a4f",
+      "type": "HAS_SECTION"
+    },
+    {
+      "from": "chapter_ef57885d",
+      "to": "section_ab8a6540",
+      "type": "HAS_SECTION"
+    },
+    {
+      "from": "chapter_ef57885d",
+      "to": "section_605675e1",
+      "type": "HAS_SECTION"
+    },
+    {
+      "from": "doc_a906f13f",
+      "to": "chapter_cd672071",
+      "type": "HAS_CHAPTER"
+    },
+    {
+      "from": "chapter_cd672071",
+      "to": "proc_8dfcfa25",
+      "type": "HAS_PROCEDURE"
+    },
+    {
+      "from": "chapter_cd672071",
+      "to": "proc_f2f441dc",
+      "type": "HAS_PROCEDURE"
+    },
+    {
+      "from": "chapter_cd672071",
+      "to": "proc_0a5efeff",
+      "type": "HAS_PROCEDURE"
+    },
+    {
+      "from": "chapter_cd672071",
+      "to": "proc_175837d8",
+      "type": "HAS_PROCEDURE"
+    },
+    {
+      "from": "chapter_cd672071",
+      "to": "proc_1dddaa15",
+      "type": "HAS_PROCEDURE"
+    },
+    {
+      "from": "proc_1dddaa15",
+      "to": "step_cb2e1559",
+      "type": "HAS_STEP"
+    },
+    {
+      "from": "proc_1dddaa15",
+      "to": "step_5441b0b6",
+      "type": "HAS_STEP"
+    },
+    {
+      "from": "proc_1dddaa15",
+      "to": "step_7d71ba3f",
+      "type": "HAS_STEP"
+    },
+    {
+      "from": "doc_a906f13f",
+      "to": "chapter_728cb18e",
+      "type": "HAS_CHAPTER"
+    }
+  ]
+}
