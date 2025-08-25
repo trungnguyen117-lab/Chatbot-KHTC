@@ -1,0 +1,18 @@
+from ..common.config import *
+from ..common.processors.text import build_graph_documents
+from ..common.utils.helpers import load_json
+from ..common.graph_builder import GraphBuilder
+
+def process_text():
+    """Process text JSON into structure graph"""
+    print(f"Loading JSON: {TEXT_JSON_PATH}")
+    data = load_json(TEXT_JSON_PATH)
+    
+    print("Building graph documents...")
+    graph_docs = build_graph_documents(data)
+    
+    print("Importing to Neo4j...")
+    graph = GraphBuilder(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, NEO4J_DATABASE)
+    graph.import_documents(graph_docs)
+    
+    print("Done!")

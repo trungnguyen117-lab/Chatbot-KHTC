@@ -1,2 +1,0 @@
-Requirement already satisfied: neo4j in c:\users\seina\anaconda3\lib\site-packages (5.28.2)
-Requirement already satisfied: pytz in c:\users\seina\anaconda3\lib\site-packages (from neo4j) (2024.1)
