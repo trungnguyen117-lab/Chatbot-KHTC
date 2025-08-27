@@ -27,5 +27,5 @@ dependencies = [
     "llama-index-embeddings-huggingface>=0.6.0",
     "llama-index-llms-google-genai>=0.3.0",
     "qdrant-client>=1.15.1",
-    "fastembed>=0.7.1"
+    "fastembed>=0.7.1",
 ]
