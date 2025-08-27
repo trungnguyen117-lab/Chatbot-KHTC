@@ -16,3 +16,7 @@ def process_text():
     graph.import_documents(graph_docs)
     
     print("Done!")
+
+if __name__ == "__main__":
+    print(">>> Running process_text() ...")  # test thêm log này
+    process_text()

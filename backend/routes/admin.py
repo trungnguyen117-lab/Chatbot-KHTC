@@ -9,14 +9,18 @@ from routes.models import FileMetadata
 from routes.auth import get_current_user
 from convert_doc import convert_doc_to_json
 from convert_pdf import convert_pdf_to_json
+from agent.graph_rag.common.processors.text import parse_docx_to_json
+
 
 router = APIRouter(tags=["admin"])
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 UPLOAD_DIR = BASE_DIR / "uploaded_files"
 JSON_OUTPUT_DIR = BASE_DIR / "json_output"
+JSON_TEXT_DIR = BASE_DIR / "json_text"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(JSON_OUTPUT_DIR, exist_ok=True)
+os.makedirs(JSON_TEXT_DIR, exist_ok=True)
 
 def get_db():
     db = SessionLocal()
@@ -66,6 +70,12 @@ async def upload_file(
 
     if ext == ".docx":
         chapters = convert_doc_to_json(str(file_path), str(output_dir))
+
+        text_json = parse_docx_to_json(str(file_path))
+        text_json_path = JSON_TEXT_DIR / f"{name}_text.json"
+        with open(text_json_path, "w", encoding="utf-8") as jf:
+            json.dump(text_json, jf, ensure_ascii=False, indent=2)
+
     elif ext == ".pdf":
         chapters = convert_pdf_to_json(str(file_path), str(output_dir))
     else:
@@ -83,6 +93,7 @@ async def upload_file(
         "filename": metadata.file_name,
         "total_chapters": len(chapters) if isinstance(chapters, list) else 0,
         "output_folder": str(output_dir),
+        "text_json": str(text_json_path) if ext == ".docx" else None
     }
 
 @router.get("/files", summary="List files (admin)")

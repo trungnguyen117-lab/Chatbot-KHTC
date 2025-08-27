@@ -7,12 +7,12 @@ load_dotenv()
 NEO4J_URI = os.getenv("NEO4J_URI", "neo4j://localhost:7687")
 NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "12345678")
-NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
+NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "testing")
 
 # File paths
 DOCLING_INPUT_PATH = "backend/uploaded_files/Quy trinh Kiem soat chi va Thanh toan cua UET (03.01.2021).docx"
 DOCLING_OUTPUT_PATH = "backend/json_output/chapter_3.json"
-TEXT_JSON_PATH = "backend/output_quytrinh.json"
+TEXT_JSON_PATH = "json_text/quytrinh.json"
 
 # LLM configurations
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
