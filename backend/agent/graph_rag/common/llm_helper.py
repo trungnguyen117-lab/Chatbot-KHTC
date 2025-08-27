@@ -7,6 +7,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from .schema.docling_schema import DOCLING_SCHEMA, DOCLING_PROMPTS
 from .schema.text_schema import TEXT_SCHEMA, TEXT_PROMPTS
 
+
 def build_llm(model_id: str, api_key: str) -> ChatGoogleGenerativeAI:
     return ChatGoogleGenerativeAI(
         model=model_id,
@@ -14,7 +15,15 @@ def build_llm(model_id: str, api_key: str) -> ChatGoogleGenerativeAI:
         temperature=0
     )
 
-def build_cypher_prompt(schema_text: str, examples: list) -> PromptTemplate:
+def build_cypher_prompt(schema_text: Any, examples: list) -> PromptTemplate:
+    """Build Cypher generation prompt with schema + few-shot examples"""
+
+    # Nếu schema là dict -> chuyển thành chuỗi JSON
+    if isinstance(schema_text, dict):
+        schema_str = json.dumps(schema_text, ensure_ascii=False, indent=2)
+    else:
+        schema_str = str(schema_text)
+
     example_block = "\n\n".join(
         f"Câu hỏi: {ex['question']}\nCypher:\n{ex['cypher']}" for ex in examples
     )
@@ -35,7 +44,11 @@ Examples:
 Question:
 {question}
 """
-    return PromptTemplate.from_template(template).partial(examples=example_block)
+    # ✅ Partial luôn schema và examples
+    return PromptTemplate.from_template(template).partial(
+        schema=schema_str,
+        examples=example_block
+    )
 
 def sanitize_cypher(text: str) -> str:
     """Clean up generated Cypher query"""
@@ -66,19 +79,23 @@ def format_results(rows: List[Dict[str, Any]], max_rows: int = 30) -> str:
                  for row in rows[:max_rows]]
     return json.dumps(safe_rows, ensure_ascii=False, indent=2)
 
+
 RESULTS_SUMMARY_TEMPLATE = """Bạn là trợ lý phân tích dữ liệu.
-Nhiệm vụ: Tóm tắt kết quả truy vấn Neo4j bằng tiếng Việt, súc tích, dễ hiểu.
-...
+Nhiệm vụ: Trả lời NGẮN GỌN bằng tiếng Việt dựa TRỰC TIẾP vào JSON kết quả truy vấn Neo4j dưới đây. 
+Không đưa ra lời mời hay cam kết kiểu "tôi đã sẵn sàng", không yêu cầu người dùng gửi thêm dữ liệu.
+
+Câu hỏi: {question}
+
+Cypher đã chạy:
+{cypher}
+
+Kết quả (JSON):
+{results}
+
+Yêu cầu định dạng:
+- Nếu có cột 'taiLieu', ưu tiên nêu: "Nội dung thuộc tài liệu <taiLieu>".
+- Nếu có 'soChuong'/'tenChuong' thì nêu rõ chương.
+- Nếu là danh sách, gạch đầu dòng ngắn gọn.
+- Nếu rỗng: trả "Không tìm thấy kết quả phù hợp." và gợi ý một truy vấn thay thế hợp lý.
 """
 
-FEW_SHOT_EXAMPLES = [
-    {
-        "question": "Liệt kê tất cả Phạm vi (code, title) của quy trình.",
-        "cypher": """
-        MATCH (q:Quytrinh)-[:HAS_SECTION]->(s:Phamvi)
-        RETURN s.code AS code, s.title AS title 
-        ORDER BY s.tableIdx, s.code
-        """
-    },
-    # Copy các examples khác từ notebook
-]
