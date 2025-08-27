@@ -11,8 +11,13 @@ NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "testing")
 
 # File paths
 DOCLING_INPUT_PATH = "backend/uploaded_files/Quy trinh Kiem soat chi va Thanh toan cua UET (03.01.2021).docx"
+<<<<<<< HEAD
 DOCLING_OUTPUT_PATH = "backend/json_output/chapter_3.json"
 TEXT_JSON_PATH = "json_text/quytrinh.json"
+=======
+DOCLING_OUTPUT_PATH = "backend/json_output/chapter_5.json"
+TEXT_JSON_PATH = "backend/output_quytrinh.json"
+>>>>>>> aec220d7600dfd678cef21978428c414c9caf1e2
 
 # LLM configurations
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
