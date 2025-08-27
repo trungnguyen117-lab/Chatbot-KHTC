@@ -16,7 +16,7 @@ TEXT_JSON_PATH = "backend/output_quytrinh.json"
 
 # LLM configurations
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "your-api-key-here")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "AIzaSyBs2v-H_iY97_xWOn2F0jwCNEyxOulOLrE")
 
 # Cypher queries
 WIPE_ALL_CYPHER = "MATCH (n) DETACH DELETE n"

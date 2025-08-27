@@ -3,7 +3,7 @@ from docling.document_converter import DocumentConverter
 from langchain_community.graphs.graph_document import GraphDocument, Node, Relationship
 from langchain_core.documents import Document
 from ..utils.helpers import (
-    is_roman, is_digit, ROMAN, DIGIT, clean_text, 
+    is_roman, is_digit, is_letter, ROMAN, DIGIT, clean_text,
     split_docs, split_title, save_json
 )
 
