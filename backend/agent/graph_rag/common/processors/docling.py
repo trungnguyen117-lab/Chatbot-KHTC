@@ -2,7 +2,7 @@ from typing import Dict, Any, List
 from docling.document_converter import DocumentConverter
 from langchain_community.graphs.graph_document import GraphDocument, Node, Relationship
 from langchain_core.documents import Document
-from agent.graph_rag.utils.helpers import (
+from ..utils.helpers import (
     is_roman, is_digit, is_letter, ROMAN, DIGIT, clean_text,
     split_docs, split_title, save_json
 )

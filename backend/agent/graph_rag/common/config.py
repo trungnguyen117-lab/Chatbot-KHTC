@@ -11,7 +11,7 @@ NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
 
 # File paths
 DOCLING_INPUT_PATH = "backend/uploaded_files/Quy trinh Kiem soat chi va Thanh toan cua UET (03.01.2021).docx"
-DOCLING_OUTPUT_PATH = "backend/json_output/chapter_3.json"
+DOCLING_OUTPUT_PATH = "backend/json_output/chapter_5.json"
 TEXT_JSON_PATH = "backend/output_quytrinh.json"
 
 # LLM configurations

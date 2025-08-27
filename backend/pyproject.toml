@@ -29,4 +29,6 @@ dependencies = [
     "qdrant-client>=1.15.1",
     "fastembed>=0.7.1",
     "sentence-transformers>=5.1.0",
+    "langchain-core>=0.3.74",
+    "langchain-google-genai>=2.1.9",
 ]
