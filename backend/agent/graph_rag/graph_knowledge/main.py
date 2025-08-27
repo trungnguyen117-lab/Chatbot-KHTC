@@ -1,4 +1,4 @@
-from ..common.config import *
+from ..graph_rag.common.config import *
 from ..common.processors.docling import convert_docx_to_json, build_graph_documents
 from ..common.graph_builder import GraphBuilder
 

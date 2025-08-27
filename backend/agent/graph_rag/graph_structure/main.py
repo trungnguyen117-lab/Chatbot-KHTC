@@ -1,7 +1,7 @@
-from ..common.config import *
-from ..common.processors.text import build_graph_documents
-from ..common.utils.helpers import load_json
-from ..common.graph_builder import GraphBuilder
+from agent.graph_rag.common.config import *
+from agent.graph_rag.common.processors.text import build_graph_documents
+from agent.graph_rag.common.utils.helpers import load_json
+from agent.graph_rag.common.graph_builder import GraphBuilder
 
 def process_text():
     """Process text JSON into structure graph"""
