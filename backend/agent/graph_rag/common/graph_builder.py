@@ -29,4 +29,13 @@ class GraphBuilder:
 
     def query(self, cypher: str) -> List[Dict[str, Any]]:
         """Execute a Cypher query"""
-        return self.graph.query(cypher)
+        try:
+            print("\nExecuting Neo4j query...")
+            print(f"Query: {cypher}")
+            result = self.graph.query(cypher)
+            print(f"Query result: {result}")
+            return result
+        except Exception as e:
+            print(f"Neo4j Query Error: {str(e)}")
+            print(f"Full Query: {cypher}")
+            raise
