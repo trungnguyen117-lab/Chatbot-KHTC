@@ -5,6 +5,7 @@ from langchain_core.messages import HumanMessage
 from langchain_core.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
 
+
 def build_llm(model_id: str, api_key: str) -> ChatGoogleGenerativeAI:
     """Initialize a Gemini LLM instance"""
     return ChatGoogleGenerativeAI(
