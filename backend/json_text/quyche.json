@@ -1,0 +1,636 @@
+{
+  "Documents": [
+    {
+      "id": "doc_09d40769",
+      "Name": "22.4.2024 UET Quy che chi tieu noi bo TV",
+      "Number_of_Pages": null,
+      "Number_of_Chapters": 4
+    }
+  ],
+  "Chapters": [
+    {
+      "id": "chapter_3227a48a",
+      "Name": "CHƯƠNG 1. NHỮNG QUY ĐỊNH CHUNG",
+      "Number": 1
+    },
+    {
+      "id": "chapter_8703bc42",
+      "Name": "CHƯƠNG 2. QUY ĐỊNH CƠ CẤU PHÂN BỔ CÁC NGUỒN KINH PHÍ",
+      "Number": 2
+    },
+    {
+      "id": "chapter_a08f832c",
+      "Name": "CHƯƠNG 3. QUY ĐỊNH CÁC KHOẢN CHI",
+      "Number": 3
+    },
+    {
+      "id": "chapter_bd446cb7",
+      "Name": "CHƯƠNG 4. TỔ CHỨC THỰC HIỆN",
+      "Number": 4
+    }
+  ],
+  "Articles": [
+    {
+      "id": "article_73675395",
+      "Name": "Điều 1. Mục đích",
+      "Number": "1"
+    },
+    {
+      "id": "article_9f0d5492",
+      "Name": "Điều 2. Những căn cứ để xây dựng",
+      "Number": "2"
+    },
+    {
+      "id": "article_7f6d4037",
+      "Name": "Điều 3. Nguyên tắc xây dựng",
+      "Number": "3"
+    },
+    {
+      "id": "article_d6927bfa",
+      "Name": "Điều 4. Phạm vi áp dụng",
+      "Number": "4"
+    },
+    {
+      "id": "article_9b49b27f",
+      "Name": "Điều 5. Nguồn thu học phí các chương trình đào tạo chính quy",
+      "Number": "5"
+    },
+    {
+      "id": "article_55154887",
+      "Name": "Điều 6. Nguồn kinh phí quản lý hoạt động KHCN",
+      "Number": "6"
+    },
+    {
+      "id": "article_9484381a",
+      "Name": "Điều 7. Nguồn thu các từ các hoạt động khác",
+      "Number": "7"
+    },
+    {
+      "id": "article_66069256",
+      "Name": "Điều 8. Nguồn kinh phí quản lý đối với các đơn vị trực thuộc hạch toán độc lập",
+      "Number": "8"
+    },
+    {
+      "id": "article_cdb532d2",
+      "Name": "Điều 9. Thu nhập của viên chức, người lao động",
+      "Number": "9"
+    },
+    {
+      "id": "article_eda5641a",
+      "Name": "Điều 10. Nguyên tắc chi trả thu nhập cho viên chức, người lao động",
+      "Number": "10"
+    },
+    {
+      "id": "article_27760be7",
+      "Name": "Điều 11. Chi làm thêm giờ cán bộ hành chính, phục vụ",
+      "Number": "11"
+    },
+    {
+      "id": "article_5086a8c6",
+      "Name": "Điều 12. Chi trả thu nhập cho giảng viên, cán bộ kiêm nhiệm",
+      "Number": "12"
+    },
+    {
+      "id": "article_d2f38abc",
+      "Name": "Điều 13. Các khoản chi phí hỗ trợ khác",
+      "Number": "13"
+    },
+    {
+      "id": "article_d629023a",
+      "Name": "Điều 14. Công tác phí trong nước",
+      "Number": "14"
+    },
+    {
+      "id": "article_cf54451c",
+      "Name": "Điều 15. Chế độ công tác phí nước ngoài, chế độ tiếp khách nước ngoài và hội thảo Quốc tế tại Việt Nam",
+      "Number": "15"
+    },
+    {
+      "id": "article_61d70598",
+      "Name": "Điều 16. Hội nghị, hội thảo trong nước",
+      "Number": "16"
+    },
+    {
+      "id": "article_4e05260a",
+      "Name": "Điều 17. Chi mua văn phòng phẩm",
+      "Number": "17"
+    },
+    {
+      "id": "article_863c67ad",
+      "Name": "Điều 18. Thông tin liên lạc",
+      "Number": "18"
+    },
+    {
+      "id": "article_11095f5b",
+      "Name": "Điều 19. Quy định sử dụng xe ô tô",
+      "Number": "19"
+    },
+    {
+      "id": "article_a642b117",
+      "Name": "Điều 20. Chế độ tiếp khách trong nước",
+      "Number": "20"
+    },
+    {
+      "id": "article_f345e41d",
+      "Name": "Điều 21. Chi cho hoạt động quản trị website và truyền thông",
+      "Number": "21"
+    },
+    {
+      "id": "article_96f78312",
+      "Name": "Điều 22. Hỗ trợ viên chức, người lao động tham gia nhiệm vụ tại Hòa Lạc",
+      "Number": "22"
+    },
+    {
+      "id": "article_3106f1bd",
+      "Name": "Điều 23. Chi trả thù lao giảng dạy vượt giờ cho giảng viên",
+      "Number": "23"
+    },
+    {
+      "id": "article_4529b684",
+      "Name": "Điều 24. Chi trả thù lao quản lý vượt giờ của cán bộ quản lý, hành chính",
+      "Number": "24"
+    },
+    {
+      "id": "article_5cfcedc0",
+      "Name": "Điều 25. Thù lao thực hiện hoạt động đào tạo chất lượng cao",
+      "Number": "25"
+    },
+    {
+      "id": "article_81bd9ee1",
+      "Name": "Điều 26. Thù lao hỗ trợ đối với lớp học phần có quy mô lớn, hỗ trợ giảng dạy ngoài giờ hành chính, cuối tuần và cố vấn học tập",
+      "Number": "26"
+    },
+    {
+      "id": "article_f90d0bbe",
+      "Name": "Điều 27. Chi tiền công mời giảng",
+      "Number": "27"
+    },
+    {
+      "id": "article_ec495814",
+      "Name": "Điều 28. Chi hướng dẫn khóa luận, đồ án, luận văn, luận án",
+      "Number": "28"
+    },
+    {
+      "id": "article_d270efcc",
+      "Name": "Điều 29. Chi thù lao các hội đồng chuyên môn đào tạo",
+      "Number": "29"
+    },
+    {
+      "id": "article_9260e86e",
+      "Name": "Điều 30. Chi xây dựng khung chương trình, đề cương chi tiết môn học, biên soạn giáo trình, bài giảng và các tài liệu khác",
+      "Number": "30"
+    },
+    {
+      "id": "article_f99ec2b0",
+      "Name": "Điều 31. Chi thù lao coi thi, chấm thi",
+      "Number": "31"
+    },
+    {
+      "id": "article_57d797bf",
+      "Name": "Điều 32. Chi hoạt động thực tập thực tế, các hoạt động hỗ trợ, khen thưởng sinh viên",
+      "Number": "32"
+    },
+    {
+      "id": "article_c2866cba",
+      "Name": "Điều 33. Chi công tác tuyển sinh và truyền thông tuyển sinh",
+      "Number": "33"
+    },
+    {
+      "id": "article_cda0422b",
+      "Name": "Điều 34. Thanh tra, kiểm tra, coi thi các kỳ thi cấp quốc gia",
+      "Number": "34"
+    },
+    {
+      "id": "article_a6a3ceb3",
+      "Name": "Điều 35. Chi công tác khảo sát và lấy ý kiến phản hồi của các bên liên quan",
+      "Number": "35"
+    },
+    {
+      "id": "article_3e150f9c",
+      "Name": "Điều 36. Chi cho các hoạt động đào tạo ngoài chỉ tiêu (học lại, học cải thiện điểm, kỳ hè,...)",
+      "Number": "36"
+    },
+    {
+      "id": "article_763eac95",
+      "Name": "Điều 37. Chi cho hoạt động của CTĐT Thạc sĩ hợp tác với Đại học Paris Saclay",
+      "Number": "37"
+    },
+    {
+      "id": "article_dc7713c2",
+      "Name": "Điều 38. Chi trách nhiệm tổ chức thu và quản lý học phí",
+      "Number": "38"
+    },
+    {
+      "id": "article_f9db03e7",
+      "Name": "Điều 39. Chi cho các hội đồng chuyên môn khoa học",
+      "Number": "39"
+    },
+    {
+      "id": "article_b04d78a8",
+      "Name": "Điều 40. Hội nghị, hội thảo khoa học",
+      "Number": "40"
+    },
+    {
+      "id": "article_edc470f5",
+      "Name": "Điều 41. Nghiên cứu khoa học sinh viên",
+      "Number": "41"
+    },
+    {
+      "id": "article_c15303b1",
+      "Name": "Điều 42. Chi về đầu tư phát triển tiềm lực và khuyến khích hoạt động KHCN tại Trường ĐHCN",
+      "Number": "42"
+    },
+    {
+      "id": "article_83ea6c72",
+      "Name": "Điều 43. Chi thực hiện nhiệm vụ khoa học công nghệ khi được cơ quan có thẩm quyền tuyển chọn hoặc giao trực tiếp theo quy định của pháp luật về KHCN",
+      "Number": "43"
+    },
+    {
+      "id": "article_01ef30bf",
+      "Name": "Điều 44. Quy định về việc sử dụng kinh phí tiết kiệm của nhiệm vụ KHCN",
+      "Number": "44"
+    },
+    {
+      "id": "article_62049f28",
+      "Name": "Điều 45. Chi kinh phí quản lý đề tài, dự án, đề án KHCN, hợp tác phát triển của Trường ĐHCN",
+      "Number": "45"
+    },
+    {
+      "id": "article_c29df9af",
+      "Name": "Điều 46. Chi hỗ trợ xây dựng dự án, đề án, quy chế, quy định trong Nhà trường",
+      "Number": "46"
+    },
+    {
+      "id": "article_a2abd4d2",
+      "Name": "Điều 47. Chi tổ chức lựa chọn nhà thầu",
+      "Number": "47"
+    },
+    {
+      "id": "article_ed3c7be5",
+      "Name": "Điều 48. Chi hoạt động của Hội đồng trường",
+      "Number": "48"
+    },
+    {
+      "id": "article_9dfc80d8",
+      "Name": "Điều 49. Chi thù lao Hội đồng chức danh giáo sư cơ sở",
+      "Number": "49"
+    },
+    {
+      "id": "article_c57c8d85",
+      "Name": "Điều 50. Công tác phát triển đội ngũ cán bộ, nguồn nhân lực",
+      "Number": "50"
+    },
+    {
+      "id": "article_03e69651",
+      "Name": "Điều 51. Hội đồng tuyển dụng",
+      "Number": "51"
+    },
+    {
+      "id": "article_c788eb3d",
+      "Name": "Điều 52. Hội đồng xét nâng lương thường xuyên và nâng lương trước thời hạn, Hội đồng thi đua khen thưởng của Trường",
+      "Number": "52"
+    },
+    {
+      "id": "article_598cd6f5",
+      "Name": "Điều 53. Trích lập các Quỹ",
+      "Number": "53"
+    },
+    {
+      "id": "article_edf0ca81",
+      "Name": "Điều 54. Sử dụng các quỹ",
+      "Number": "54"
+    },
+    {
+      "id": "article_8885ca1d",
+      "Name": "Điều 55. Các khoản chi phúc lợi",
+      "Number": "55"
+    },
+    {
+      "id": "article_293efc0f",
+      "Name": "Điều 56. Chi các hoạt động Công đoàn, Đoàn Thanh niên và các tổ chức Đoàn thể khác.",
+      "Number": "56"
+    },
+    {
+      "id": "article_01c4b6dd",
+      "Name": "Điều 57. Các khoản chi khác",
+      "Number": "57"
+    },
+    {
+      "id": "article_08c93c5b",
+      "Name": "Điều 58. Tổ chức thực hiện",
+      "Number": "58"
+    }
+  ],
+  "Relationships": [
+    {
+      "from": "doc_09d40769",
+      "to": "chapter_3227a48a",
+      "type": "HAS_CHAPTER"
+    },
+    {
+      "from": "chapter_3227a48a",
+      "to": "article_73675395",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_3227a48a",
+      "to": "article_9f0d5492",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_3227a48a",
+      "to": "article_7f6d4037",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_3227a48a",
+      "to": "article_d6927bfa",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "doc_09d40769",
+      "to": "chapter_8703bc42",
+      "type": "HAS_CHAPTER"
+    },
+    {
+      "from": "chapter_8703bc42",
+      "to": "article_9b49b27f",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_8703bc42",
+      "to": "article_55154887",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_8703bc42",
+      "to": "article_9484381a",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_8703bc42",
+      "to": "article_66069256",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "doc_09d40769",
+      "to": "chapter_a08f832c",
+      "type": "HAS_CHAPTER"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_cdb532d2",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_eda5641a",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_27760be7",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_5086a8c6",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_d2f38abc",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_d629023a",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_cf54451c",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_61d70598",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_4e05260a",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_863c67ad",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_11095f5b",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_a642b117",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_f345e41d",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_96f78312",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_3106f1bd",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_4529b684",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_5cfcedc0",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_81bd9ee1",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_f90d0bbe",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_ec495814",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_d270efcc",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_9260e86e",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_f99ec2b0",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_57d797bf",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_c2866cba",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_cda0422b",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_a6a3ceb3",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_3e150f9c",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_763eac95",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_dc7713c2",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_f9db03e7",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_b04d78a8",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_edc470f5",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_c15303b1",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_83ea6c72",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_01ef30bf",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_62049f28",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_c29df9af",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_a2abd4d2",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_ed3c7be5",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_9dfc80d8",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_c57c8d85",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_03e69651",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_c788eb3d",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_598cd6f5",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_edf0ca81",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_8885ca1d",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_293efc0f",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "chapter_a08f832c",
+      "to": "article_01c4b6dd",
+      "type": "HAS_ARTICLE"
+    },
+    {
+      "from": "doc_09d40769",
+      "to": "chapter_bd446cb7",
+      "type": "HAS_CHAPTER"
+    },
+    {
+      "from": "chapter_bd446cb7",
+      "to": "article_08c93c5b",
+      "type": "HAS_ARTICLE"
+    }
+  ]
+}
