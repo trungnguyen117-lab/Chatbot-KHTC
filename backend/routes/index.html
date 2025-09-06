@@ -187,28 +187,53 @@
         if (!token) {
           throw new Error("Vui lòng đăng nhập lại");
         }
-        
+
         const formData = new FormData();
         formData.append("file", file);
-        const res = await fetch("http://127.0.0.1:8000/upload/", {
+
+        let res = await fetch("http://127.0.0.1:8000/upload/", {
           method: "POST",
           headers: { 
             "Authorization": `Bearer ${token}`
           },
           body: formData
         });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.detail || "Lỗi upload file");
+
+        // Nếu server trả về conflict (409) -> hỏi lại user
+        if (res.status === 409) {
+          const choice = confirm("⚠️ File đã tồn tại.\nChọn OK để Replace, Cancel để lưu thành bản mới (_1, _2, _3).");
+          
+          if (choice) {
+            // Replace
+            res = await fetch("http://127.0.0.1:8000/upload/?replace=true", {
+              method: "POST",
+              headers: { "Authorization": `Bearer ${token}` },
+              body: formData
+            });
+          } else {
+            // Append (_1, _2, _3)
+            res = await fetch("http://127.0.0.1:8000/upload/?append=true", {
+              method: "POST",
+              headers: { "Authorization": `Bearer ${token}` },
+              body: formData
+            });
+          }
+        }
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.detail || "Lỗi upload file");
+        }
+
+        document.getElementById("uploadResult").innerText = "✔️ Upload thành công!";
+        document.getElementById("fileInput").value = ""; // Reset file input
+        getFiles(); // Refresh danh sách file
+
+      } catch (error) {
+        console.error("Lỗi upload:", error);
+        document.getElementById("uploadResult").innerText = "❌ " + error.message;
       }
-      document.getElementById("uploadResult").innerText = "✔️ Upload thành công!";
-      document.getElementById("fileInput").value = ""; // Reset file input
-      getFiles(); // Tự động refresh danh sách file
-    } catch (error) {
-      console.error("Lỗi upload:", error);
-      document.getElementById("uploadResult").innerText = "❌ " + error.message;
     }
-  }
 
     async function getFiles() {
       const token = localStorage.getItem("firebase_token");
@@ -239,9 +264,7 @@
         tbody.appendChild(row);
       });
       table.style.display = "table";
-    }
-
-    
+    }  
   </script>
 </body>
 </html>

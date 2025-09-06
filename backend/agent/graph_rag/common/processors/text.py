@@ -2,7 +2,7 @@ import re
 import uuid
 import json
 import os
-from docx import Document
+from docx import Document as DocxDocument
 from typing import Dict, Any, List
 from langchain_community.graphs.graph_document import GraphDocument, Node, Relationship
 from langchain_core.documents import Document
@@ -11,7 +11,7 @@ def gen_id(prefix):
     return f"{prefix}_{uuid.uuid4().hex[:8]}"
 
 def parse_docx_to_json(docx_path: str) -> dict:
-    doc = Document(docx_path)
+    doc = DocxDocument(docx_path) 
 
     data = {
         "Documents": [],
