@@ -113,5 +113,22 @@ def format_results(results: Any, max_rows: int = 30) -> str:
         safe_rows = [{"result": make_jsonable(item)} for item in results[:max_rows]]
         return json.dumps(safe_rows, ensure_ascii=False, indent=2)
 
-    # Handle other types
-    return json.dumps([{"result": str(results)}], ensure_ascii=False, indent=2)
+    RESULTS_SUMMARY_TEMPLATE = """Bạn là trợ lý phân tích dữ liệu.
+Nhiệm vụ: Trả lời NGẮN GỌN bằng tiếng Việt dựa TRỰC TIẾP vào JSON kết quả truy vấn Neo4j dưới đây. 
+Không đưa ra lời mời hay cam kết kiểu "tôi đã sẵn sàng", không yêu cầu người dùng gửi thêm dữ liệu.
+
+Câu hỏi: {question}
+
+Cypher đã chạy:
+{cypher}
+
+Kết quả (JSON):
+{results}
+
+Yêu cầu định dạng:
+- Nếu có cột 'taiLieu', ưu tiên nêu: "Nội dung thuộc tài liệu <taiLieu>".
+- Nếu có 'soChuong'/'tenChuong' thì nêu rõ chương.
+- Nếu là danh sách, gạch đầu dòng ngắn gọn.
+- Nếu rỗng: trả "Không tìm thấy kết quả phù hợp." và gợi ý một truy vấn thay thế hợp lý.
+"""
+    
