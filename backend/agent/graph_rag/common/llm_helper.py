@@ -91,27 +91,10 @@ def format_results(results: Any, max_rows: int = 30) -> str:
         if isinstance(val, dict):
             return {k: make_jsonable(v) for k, v in val.items()}
         return str(val)
-
-    # Handle primitive types
-    if isinstance(results, (str, int, float, bool)) or results is None:
-        return json.dumps([{"result": results}], ensure_ascii=False, indent=2)
         
-    # Handle dictionary
-    if isinstance(results, dict):
-        return json.dumps([make_jsonable(results)], ensure_ascii=False, indent=2)
-        
-    # Handle list
-    if isinstance(results, list):
-        # Dictionary list
-        if results and all(isinstance(r, dict) for r in results):
-            safe_rows = [
-                {k: make_jsonable(v) for k, v in row.items()}
-                for row in results[:max_rows]
-            ]
-            return json.dumps(safe_rows, ensure_ascii=False, indent=2)
-        # Other list types
-        safe_rows = [{"result": make_jsonable(item)} for item in results[:max_rows]]
-        return json.dumps(safe_rows, ensure_ascii=False, indent=2)
+    safe_rows = [{k: make_jsonable(v) for k, v in row.items()} 
+                 for row in rows[:max_rows]]
+    return json.dumps(safe_rows, ensure_ascii=False, indent=2)
 
     RESULTS_SUMMARY_TEMPLATE = """Bạn là trợ lý phân tích dữ liệu.
 Nhiệm vụ: Trả lời NGẮN GỌN bằng tiếng Việt dựa TRỰC TIẾP vào JSON kết quả truy vấn Neo4j dưới đây. 
