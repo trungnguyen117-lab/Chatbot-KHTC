@@ -5,8 +5,6 @@ from ..common.graph_builder import GraphBuilder
 from ..common.llm_helper import *
 from ..common.schema.text_schema import TEXT_SCHEMA, FEW_SHOT_EXAMPLES
 
-
-
 def process_text(json_files, reset=False):
     """Process multiple JSON files into structure graph"""
     graph = GraphBuilder(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, NEO4J_DATABASE)
