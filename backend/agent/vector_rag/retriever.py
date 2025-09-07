@@ -5,7 +5,7 @@ from fastembed import SparseTextEmbedding, TextEmbedding
 from qdrant_client import QdrantClient, models
 from qdrant_client.http.models import SparseVector
 from typing import List, Union
-from rerank import Reranking
+from .rerank import Reranking
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 # Load environment variables
 load_dotenv()

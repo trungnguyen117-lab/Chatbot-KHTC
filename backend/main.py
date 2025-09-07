@@ -1,7 +1,30 @@
-import os
-from pathlib import Path
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+from api import auth, chat
+from database import engine
+from models import Base
+from config import settings
+import logging
+
+# Create database tables
+Base.metadata.create_all(bind=engine)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    global rag_agent, indexing_service
+    
+    try:
+        await chat.initialize_rag()
+        logging.info("API started successfully")
+    except Exception as e:
+        logging.error(f"Startup error: {e}")
+    
+    yield
+    
+    # Shutdown
+    logging.info("API shutting down")
 from authlib.integrations.starlette_client import OAuth
 from dotenv import load_dotenv
 
@@ -18,16 +41,26 @@ load_dotenv(dotenv_path=env_path)
 # Init Firebase (if used)
 firestore_client = init_firebase()
 
-# FastAPI app
-app = FastAPI(title="KHTC Chatbot API")
+# Create FastAPI app
+app = FastAPI(
+    title="Fin Agent API",
+    description="Financial Agent Backend API",
+    version="1.0.0",
+    lifespan=lifespan
+)
 
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=["*"],  # Configure this properly for production
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include routers
+app.include_router(auth.router)
+app.include_router(chat.router)
 
 # DB init
 Base.metadata.create_all(bind=engine)
@@ -73,5 +106,20 @@ app.include_router(procedure_details_router)     # /procedures/{procedure_id}
 
 
 @app.get("/")
-def read_root():
-    return {"message": "Welcome to KHTC Chatbot API"}
+async def root():
+    return {"message": "Fin Agent API is running"}
+
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "main:app", 
+        host="0.0.0.0", 
+        port=8000, 
+        reload=settings.debug
+    )

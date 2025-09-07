@@ -10,9 +10,9 @@ import uuid
 from datetime import datetime
 import logging
 import uvicorn
-
+from fastapi.responses import StreamingResponse
 # Import existing modules
-from backend.agent.vector_rag.rag import RAGAgent
+from rag import RAGAgent
 from indexing import QdrantIndexing  
 from document_pre_processing import process_single_file, append_nodes_to_json
 
@@ -715,27 +715,18 @@ You can now ask questions about this document!`);
 
 @app.post("/query", response_model=QueryResponse)
 async def query_documents(request: QueryRequest):
-    """Query using RAGAgent"""
     try:
-        import time
-        start_time = time.time()
-        
-        # Chỉ cần sửa đoạn này - convert empty string thành None
         filename = request.filename if request.filename and request.filename.strip() else None
-            
-        logging.info(f"Query: {request.query}")
-        logging.info(f"Filename filter: {filename if filename else 'All documents'}")
-        
-        response = rag_agent.run(request.query, filename)  # Pass None khi không có filename
-        processing_time = time.time() - start_time
-        
-        return QueryResponse(
-            response=response,
-            processing_time=processing_time,
-            sources=[]
-        )
+
+        def token_gen():
+            for chunk in rag_agent.run(request.query, filename, stream=True):
+                # Nếu muốn SSE thì: yield f"data: {chunk}\n\n"
+                yield chunk
+
+        return StreamingResponse(token_gen(), media_type="text/plain")
+
     except Exception as e:
-        logging.error(f"Query error: {e}")
+        logging.error(f"Streaming query error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/upload")
