@@ -1,3 +1,4 @@
+from altair import Dict
 from neo4j import GraphDatabase
 
 class Neo4jHandler:

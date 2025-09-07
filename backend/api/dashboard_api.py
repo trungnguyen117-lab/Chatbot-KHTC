@@ -97,95 +97,28 @@ async def get_available_procedures(
 # API Endpoint for search
 @router.get("/dashboard/search", response_model=SearchResponse)
 async def search_procedures(
-    q: str = Query(..., description="Từ khóa tìm kiếm"),
-    mode: int = Query(0, description="0 (thường) hoặc 1 (thông minh)"),
+    q: str = Query(..., min_length=1, description="Từ khóa tìm kiếm"),
+    mode: int = Query(0, ge=0, le=1, description="0 (thường) hoặc 1 (thông minh)"),
     current_user: dict = Depends(verify_token)
 ):
     """
-    Tìm kiếm thủ tục
+    Tìm kiếm thủ tục trong Graph Database
     
-    - **q**: Từ khóa tìm kiếm (bắt buộc)
-    - **mode**: Chế độ tìm kiếm - 0 (thường) hoặc 1 (thông minh)
+    - **q**: Từ khóa tìm kiếm
+    - **mode**: 0 = tìm kiếm thường, 1 = tìm kiếm thông minh
     """
     
-    # Validate parameters
-    if not q or q.strip() == "":
-        raise HTTPException(
-            status_code=400,
-            detail="Query không được để trống"
-        )
-    
-    if mode not in [0, 1]:
-        raise HTTPException(
-            status_code=400,
-            detail="Mode phải là 0 (thường) hoặc 1 (thông minh)"
-        )
-    
-    # Mock data - thay thế bằng database/search engine thực tế
-    all_procedures = 
-    
-    results = []
-    query_lower = q.lower().strip()
-    
-    if mode == 0:
-        # Tìm kiếm thường - tìm trong title và description
-        results = [
-            proc for proc in all_procedures
-            if query_lower in proc["title"].lower() or 
-               query_lower in proc["description"].lower()
-        ]
-    else:
-        # Tìm kiếm thông minh - tìm kiếm linh hoạt hơn
-        keywords = query_lower.split()
-        results = []
+    try:
+        # Gọi hàm search chính
+        search_data = search_procedures_in_graph(q.strip(), mode)
         
-        for proc in all_procedures:
-            title_lower = proc["title"].lower()
-            desc_lower = proc["description"].lower()
-            
-            # Kiểm tra từ khóa chính xác
-            title_match = query_lower in title_lower
-            desc_match = query_lower in desc_lower
-            
-            # Kiểm tra từng từ khóa
-            keyword_match = any(
-                keyword in title_lower or keyword in desc_lower
-                for keyword in keywords
-            )
-            
-            if title_match or desc_match or keyword_match:
-                results.append(proc)
-    
-    # Gợi ý tìm kiếm
-    suggestions = []
-    if not results:
-        # Tạo gợi ý dựa trên các thủ tục có sẵn
-        common_keywords = ["thanh toán", "công tác", "mua sắm", "hội nghị"]
-        suggestions = [kw for kw in common_keywords if kw not in query_lower][:3]
-    elif len(results) < 3:
-        # Gợi ý mở rộng tìm kiếm
-        if "thanh toán" in query_lower:
-            suggestions.append("công tác phí")
-        if "mua sắm" in query_lower:
-            suggestions.extend(["máy tính", "bàn ghế"])
-        if "hội nghị" in query_lower:
-            suggestions.append("hội thảo")
-    
-    # Format response
-    formatted_results = [
-        {
-            "id": proc["id"],
-            "title": proc["title"],
-            "description": proc["description"],
-            "type": proc["type"]
-        }
-        for proc in results
-    ]
-    
-    return SearchResponse(
-        success=True,
-        data={
-            "results": formatted_results,
-            "suggestions": suggestions[:3]  # Giới hạn 3 gợi ý
-        }
-    )
+        return SearchResponse(
+            success=True,
+            data=search_data
+        )
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Lỗi khi tìm kiếm: {str(e)}"
+        )

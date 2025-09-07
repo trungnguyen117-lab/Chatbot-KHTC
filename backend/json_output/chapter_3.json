@@ -1,6 +1,10 @@
 {
   "Quytrinh": {
-    "title": "Unknown",
+    "title": "QUY TRÌNH KIỂM SOÁT CHI VÀ THANH TOÁN",
+    "code": "1",
+    "full_title": "QUY TRÌNH 1. KIỂM SOÁT CHI VÀ THANH TOÁN",
+    "original_title": "",
+    "type": "domestic",
     "tables_structured": [
       {
         "sections": []
