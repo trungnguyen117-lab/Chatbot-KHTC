@@ -110,7 +110,7 @@ async def search_procedures(
     
     try:
         # Gọi hàm search chính
-        search_data = search_procedures_in_graph(q.strip(), mode)
+        search_data = neo4j.search_procedures_in_graph(q.strip(), mode)
         
         return SearchResponse(
             success=True,

@@ -1,5 +1,8 @@
+from typing import Any
 from altair import Dict
 from neo4j import GraphDatabase
+from get_available import get_root_with_subitem
+from search_graph import search_normal_graph, search_smart_graph
 
 class Neo4jHandler:
     def __init__(self, uri, user, password):
@@ -9,36 +12,10 @@ class Neo4jHandler:
         self.driver.close()
 
     def get_root_with_subitems(self, label=None):
-        """
-        Lấy các node cấp 0 (root) và danh sách subItems (node con trực tiếp).
-        """
-        with self.driver.session() as session:
-            if label:
-                query = f"""
-                MATCH (root:{label})
-                WHERE NOT ( ()-[:*]->(root) )
-                OPTIONAL MATCH (root)-[:HAS_SUBITEM]->(child)
-                RETURN root, collect(child.title) as subItems
-                """
-            else:
-                query = """
-                MATCH (root)
-                WHERE NOT ( ()-[:*]->(root) )
-                OPTIONAL MATCH (root)-[:HAS_SUBITEM]->(child)
-                RETURN root, collect(child.title) as subItems
-                """
-
-            results = session.run(query)
-            data = []
-            for record in results:
-                root = record["root"]
-                subitems = record["subItems"]
-
-                data.append({
-                    "id": root.get("id"),
-                    "title": root.get("title"),
-                    "description": root.get("description"),
-                    "date": root.get("date"),   # ngày tạo / ngày hiệu lực
-                    "subItems": [s for s in subitems if s]  # loại None
-                })
-            return data
+        return get_root_with_subitem(self, label)
+    
+    def search_procedures_in_graph(query: str, mode: int) -> Dict[str, Any]:
+        if mode == 0:
+            return search_normal_graph(query)
+        else:
+            return search_smart_graph(query)
