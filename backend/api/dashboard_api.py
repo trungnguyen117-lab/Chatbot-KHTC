@@ -65,7 +65,7 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
             detail="Token không hợp lệ"
         )
 
-# API Endpoint
+# API Endpoint for available procedures
 @router.get("/dashboard/procedures", response_model=ProceduresResponse)
 async def get_available_procedures(
     current_user: dict = Depends(verify_token)
@@ -92,7 +92,7 @@ async def get_available_procedures(
     
     return ProceduresResponse(success=True, data=result)
 
-# API Endpoint
+# API Endpoint for search
 @router.get("/dashboard/search", response_model=SearchResponse)
 async def search_procedures(
     q: str = Query(..., description="Từ khóa tìm kiếm"),
