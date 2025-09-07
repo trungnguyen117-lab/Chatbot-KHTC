@@ -78,7 +78,7 @@ async def get_available_procedures(
     """
 
     # Mock data - thay thế bằng database query thực tế
-    procedures = neo4j.get_root_with_subitems(label="Procedure")
+    procedures = neo4j.get_root_with_subitems(label="Thutuc")
     
     # Convert to response format
     result = [
