@@ -48,6 +48,9 @@ class ErrorResponse(BaseModel):
     success: bool
     message: str
 
+
+neo4j = Neo4jHandler("bolt://localhost:7687", "neo4j", "12345678")
+
 # JWT Authentication
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
@@ -65,7 +68,7 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
             detail="Token không hợp lệ"
         )
 
-# API Endpoint for available procedures
+# API Endpoint for available procedures: done
 @router.get("/dashboard/procedures", response_model=ProceduresResponse)
 async def get_available_procedures(
     current_user: dict = Depends(verify_token)
@@ -73,7 +76,6 @@ async def get_available_procedures(
     """
     Lấy danh sách các thủ tục có sẵn
     """
-    neo4j = Neo4jHandler("bolt://localhost:7687", "neo4j", "12345678")
 
     # Mock data - thay thế bằng database query thực tế
     procedures = neo4j.get_root_with_subitems(label="Procedure")
@@ -120,38 +122,7 @@ async def search_procedures(
         )
     
     # Mock data - thay thế bằng database/search engine thực tế
-    all_procedures = [
-        {
-            "id": 1,
-            "title": "Thanh toán công tác phí trong nước",
-            "description": "Quy trình thanh toán chi phí công tác trong nước bao gồm vé máy bay, khách sạn",
-            "type": "payment"
-        },
-        {
-            "id": 2,
-            "title": "Thanh toán công tác phí nước ngoài",
-            "description": "Quy trình thanh toán chi phí công tác nước ngoài",
-            "type": "payment"
-        },
-        {
-            "id": 3,
-            "title": "Mua sắm máy tính",
-            "description": "Quy trình mua sắm máy tính và thiết bị IT",
-            "type": "procurement"
-        },
-        {
-            "id": 4,
-            "title": "Mua sắm bàn ghế văn phòng",
-            "description": "Quy trình mua sắm nội thất văn phòng",
-            "type": "procurement"
-        },
-        {
-            "id": 5,
-            "title": "Hội nghị hội thảo trong nước",
-            "description": "Quy trình tổ chức hội nghị hội thảo trong nước",
-            "type": "conference"
-        }
-    ]
+    all_procedures = 
     
     results = []
     query_lower = q.lower().strip()
