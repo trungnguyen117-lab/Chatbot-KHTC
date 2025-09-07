@@ -1,8 +1,7 @@
-from typing import Any
-from altair import Dict
+from typing import Any, Dict, List  
 from neo4j import GraphDatabase
-from get_available import get_root_with_subitem
-from search_graph import search_normal_graph, search_smart_graph
+from .get_available import get_root_with_subitem
+from .search_graph import search_normal_graph, search_smart_graph
 
 class Neo4jHandler:
     def __init__(self, uri, user, password):

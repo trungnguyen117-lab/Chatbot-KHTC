@@ -4,7 +4,7 @@ GET /dashboard/procedures
 Headers: Authorization: Bearer <token>
 """
 
-from backend.data_interaction.neo4j_handler import Neo4jHandler
+from data_interaction.neo4j_handler import Neo4jHandler
 
 from fastapi import APIRouter, Depends, HTTPException, Query, FastAPI, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials

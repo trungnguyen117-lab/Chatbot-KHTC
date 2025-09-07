@@ -9,6 +9,7 @@ from routes.database import Base, engine
 from routes.auth import init_firebase
 from routes.user import router as user_router
 from routes.admin import router as admin_router
+from api.dashboard_api import router as dashboard_router
 
 # Load env
 env_path = Path(__file__).resolve().parent.parent / ".env"
@@ -66,6 +67,10 @@ app.include_router(user_router, prefix="/user") # /user/files, /user/whoami
 # include admin router at /admin and root (so existing frontend /upload still works)
 app.include_router(admin_router, prefix="/admin") # /admin/upload, /admin/files
 app.include_router(admin_router)                  # /upload (alias)
+
+app.include_router(dashboard_router)             # /dashboard/procedures
+app.include_router(procedure_details_router)     # /procedures/{procedure_id}
+
 
 @app.get("/")
 def read_root():
