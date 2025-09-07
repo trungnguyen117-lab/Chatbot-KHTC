@@ -16,7 +16,7 @@ services:
       - "5432:5432"
 
   qdrant:
-    image: qdrant/qdrant:v1.2.1
+    image: qdrant/qdrant
     container_name: qdrant
     restart: unless-stopped
     ports:
@@ -24,28 +24,6 @@ services:
       - "6334:6334"        # gRPC
     volumes:
       - qdrant_data:/qdrant/storage
-    environment:
-      QDRANT__SERVICE__GRPC_PORT: 6334
-      QDRANT__SERVICE__HTTP_PORT: 6333
-      QDRANT__STORAGE__PATH: /qdrant/storage
-      COLLECTIONS_NAME: NEW-28
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost:6333/collections"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    command: >
-      sh -c "
-        apt-get update && apt-get install -y curl &&
-        /qdrant/qdrant &
-        sleep 5 &&
-        curl -X PUT 'http://localhost:6333/collections/NEW-28' -H 'Content-Type: application/json' -d '{
-          \"vectors\": {
-            \"size\": 1536,
-            \"distance\": \"Cosine\"
-          }
-        }'
-      "
 
 volumes:
   pg_data:

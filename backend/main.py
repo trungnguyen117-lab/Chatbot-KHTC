@@ -50,10 +50,6 @@ app.add_middleware(
 # Include routers
 app.include_router(auth.router)
 app.include_router(chat.router)
-
-# DB init
-Base.metadata.create_all(bind=engine)
-
 app.include_router(dashboard_router)             # /dashboard/procedures
 
 @app.get("/")

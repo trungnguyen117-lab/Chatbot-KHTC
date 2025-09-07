@@ -9,6 +9,7 @@ import os
 
 from agent.vector_rag.rag import RAGAgent
 from agent.vector_rag.indexing import QdrantIndexing
+from agent.vector_rag.document_pre_processing import process_single_file, append_nodes_to_json
 
 # Import auth utilities
 from auth import verify_token
@@ -55,10 +56,96 @@ async def initialize_rag():
     try:
         rag_agent = RAGAgent()
         indexing_service = QdrantIndexing()
-        indexing_service.client_collection()
+        
+        # Check if collection exists
+        collection_name = os.getenv('COLLECTION_NAME')
+        try:
+            collection_info = indexing_service.qdrant_client.get_collection(collection_name)
+            logging.info(f"Collection '{collection_name}' already exists with {collection_info.points_count} points")
+        except Exception:
+            # Collection doesn't exist, need to ingest documents
+            logging.info(f"Collection '{collection_name}' doesn't exist. Starting document ingestion...")
+            indexing_service.client_collection()
+            await ingest_existing_documents()
+        
+        
         logging.info("RAG components initialized successfully")
     except Exception as e:
         logging.error(f"RAG initialization error: {e}")
+        raise e
+
+async def ingest_existing_documents():
+    """
+    Ingest documents from uploaded_files directory if collection doesn't exist
+    """
+    try:
+        uploaded_files_dir = "uploaded_files"
+        json_output_dir = "output"
+        
+        # Create directories if they don't exist
+        os.makedirs(json_output_dir, exist_ok=True)
+        
+        if not os.path.exists(uploaded_files_dir):
+            logging.warning(f"Directory '{uploaded_files_dir}' doesn't exist. No documents to ingest.")
+            return
+        
+        # Get all files in uploaded_files directory
+        files = [f for f in os.listdir(uploaded_files_dir) 
+                if f.endswith(('.pdf', '.docx', '.doc', '.txt'))]
+        
+        if not files:
+            logging.warning("No documents found in uploaded_files directory")
+            return
+        
+        logging.info(f"Found {len(files)} documents to ingest: {files}")
+        
+        all_nodes = []
+        
+        # Process each file
+        for filename in files:
+            file_path = os.path.join(uploaded_files_dir, filename)
+            logging.info(f"Processing file: {filename}")
+            
+            try:
+                # Process the document
+                nodes = process_single_file(file_path)
+                
+                if nodes:
+                    # Add filename to metadata
+                    for node in nodes:
+                        if hasattr(node, 'metadata'):
+                            node.metadata['filename'] = filename
+                        else:
+                            node.metadata = {'filename': filename}
+                    
+                    all_nodes.extend(nodes)
+                    logging.info(f"Processed {len(nodes)} nodes from {filename}")
+                else:
+                    logging.warning(f"No nodes extracted from {filename}")
+                    
+            except Exception as e:
+                logging.error(f"Error processing {filename}: {e}")
+                continue
+        
+        if all_nodes:
+            # Save all nodes to a single JSON file
+            nodes_file = os.path.join(json_output_dir, "all_documents_nodes.json")
+            
+            with open(nodes_file, "w", encoding="utf-8") as f:
+                json.dump([node.dict() for node in all_nodes], f, ensure_ascii=False, indent=2)
+            
+            logging.info(f"Saved {len(all_nodes)} nodes to {nodes_file}")
+            
+            # Index the documents
+            indexing_service.load_nodes(nodes_file)
+            indexing_service.documents_insertion()
+            
+            logging.info(f"Successfully ingested {len(all_nodes)} document chunks into Qdrant")
+        else:
+            logging.warning("No nodes to ingest")
+            
+    except Exception as e:
+        logging.error(f"Error during document ingestion: {e}")
         raise e
 
 @router.post("/ask")
