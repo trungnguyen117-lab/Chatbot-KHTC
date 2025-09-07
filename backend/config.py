@@ -4,7 +4,7 @@ from typing import Optional
 
 class Settings(BaseSettings):
     # Database
-    database_url: str = "postgresql://username:password@localhost:5432/fin_agent_db"
+    database_url: str = "postgresql://postgres:password@localhost:5432/fin_agent"
     
     # JWT
     secret_key: str = "your-secret-key-here-change-in-production"
