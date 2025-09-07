@@ -6,6 +6,9 @@ from ..utils.helpers import (
     is_roman, is_digit, is_letter, ROMAN, DIGIT, clean_text,
     split_docs, split_title, save_json
 )
+import uuid
+
+
 
 def table_to_schema(header: list, rows: list) -> Dict[str, Any]:
     schema: Dict[str, Any] = {"sections": []}
@@ -166,17 +169,20 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
     rels: List[Relationship] = []
 
     # Node Quytrinh (mặc định domestic)
-    q_id = f"Quytrinh|{proc_code}"
+    q_id = f"quytrinh_{uuid.uuid4().hex[:8]}"
     q_node = Node(
         type="Quytrinh",
         id=q_id,
         properties={
+            "id": q_id,
             "title": proc_title,
             "code": proc_code,
             "full_title": proc_full,
-            "type": "domestic"
+            "type": "domestic",
+            "description": ""   # ✅ để rỗng
         }
     )
+
     nodes[(q_node.type, q_node.id)] = q_node
 
     for tbl_idx, tbl in enumerate(tables):
@@ -191,19 +197,23 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
             sec_type = detect_type(sec_title)
 
             # Node Section (Phamvi)
-            s_id = f"Phamvi|{proc_title}|{tbl_idx}|{sec_code}"
+            s_id = f"phamvi_{uuid.uuid4().hex[:8]}"
             s_node = Node(
                 type="Phamvi",
                 id=s_id,
                 properties={
+                    "id": s_id,
                     "proc": proc_title,
                     "tableIdx": tbl_idx,
                     "code": sec_code,
                     "title": sec_title,
                     "label": sec_label,
-                    "type": sec_type
-                },
+                    "type": sec_type,
+                    "description": ""   
+                }
             )
+
+
             nodes[(s_node.type, s_node.id)] = s_node
             rels.append(Relationship(source=q_node, target=s_node, type="HAS_SECTION", properties={}))
 
@@ -222,11 +232,12 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                     grp_type = "domestic"
 
                 # Node Group (Thutuc)
-                t_id = f"Thutuc|{proc_title}|{tbl_idx}|{sec_code}|{grp_code}"
+                t_id = f"thutuc_{uuid.uuid4().hex[:8]}"
                 t_node = Node(
                     type="Thutuc",
                     id=t_id,
                     properties={
+                        "id": t_id,
                         "proc": proc_title,
                         "tableIdx": tbl_idx,
                         "sectionCode": sec_code,
@@ -234,9 +245,12 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                         "title": grp_title,
                         "label": "Thutuc",
                         "level": "group",
-                        "type": grp_type
-                    },
+                        "type": grp_type,
+                        "description": ""   # ✅ để rỗng
+                    }
                 )
+
+
                 nodes[(t_node.type, t_node.id)] = t_node
                 rels.append(Relationship(source=s_node, target=t_node, type="HAS_ITEM", properties={}))
 
@@ -250,27 +264,38 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                         name = (name or "").strip()
                         if not name:
                             continue
-                        tp_id = f"Thanhphandutoan|{name}"
+                        tp_id = f"thanhphandutoan_{uuid.uuid4().hex[:8]}"
                         tp_node = Node(
                             type="Thanhphandutoan",
                             id=tp_id,
-                            properties={"name": name, "type": grp_type},
+                            properties={
+                                "id": tp_id,
+                                "name": name,
+                                "type": grp_type,
+                                "description": ""   # ✅ để rỗng
+                            },
                         )
                         nodes[(tp_node.type, tp_node.id)] = tp_node
                         rels.append(
                             Relationship(source=t_node, target=tp_node, type="REQUIRES", properties={"item": item_code})
                         )
 
+
                     # Node Hosochungtu
                     for name in (itm.get("Hosochungtu") or []):
                         name = (name or "").strip()
                         if not name:
                             continue
-                        hs_id = f"Hosochungtu|{name}"
+                        hs_id = f"hosochungtu_{uuid.uuid4().hex[:8]}"
                         hs_node = Node(
                             type="Hosochungtu",
                             id=hs_id,
-                            properties={"name": name, "type": grp_type},
+                            properties={
+                                "id": hs_id,
+                                "name": name,
+                                "type": grp_type,
+                                "description": ""   # ✅ để rỗng
+                            },
                         )
                         nodes[(hs_node.type, hs_node.id)] = hs_node
                         rels.append(
@@ -280,16 +305,22 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                     # Node Ghichu
                     note_text = (itm.get("Ghichu") or "").strip()
                     if note_text and note_text not in {"-", "—", "N/A", "n/a", "None", "null"}:
-                        gh_id = f"Ghichu|{proc_title}|{tbl_idx}|{sec_code}|{grp_code}|{item_code}|{note_text}"
+                        gh_id = f"ghichu_{uuid.uuid4().hex[:8]}"
                         gh_node = Node(
                             type="Ghichu",
                             id=gh_id,
-                            properties={"text": note_text, "type": grp_type},
+                            properties={
+                                "id": gh_id,
+                                "text": note_text,
+                                "type": grp_type,
+                                "description": ""   # ✅ để rỗng
+                            },
                         )
                         nodes[(gh_node.type, gh_node.id)] = gh_node
                         rels.append(
                             Relationship(source=t_node, target=gh_node, type="NOTE", properties={"item": item_code})
                         )
+
 
     src_doc = Document(page_content="Docling Import", metadata={})
     return [GraphDocument(nodes=list(nodes.values()), relationships=rels, source=src_doc)]
