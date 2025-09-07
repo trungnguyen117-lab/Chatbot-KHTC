@@ -53,7 +53,7 @@ class ErrorResponse(BaseModel):
 neo4j = Neo4jHandler(
     uri=os.getenv("NEO4J_URI", "bolt://localhost:7687"),
     user=os.getenv("NEO4J_USER", "neo4j"),
-    password=os.getenv("NEO4J_PASSWORD", "12345678")  # đổi đúng mật khẩu DB của bạn
+    password=os.getenv("NEO4J_PASSWORD", "NO")  # đổi đúng mật khẩu DB của bạn
 )
 
 # API Endpoint
