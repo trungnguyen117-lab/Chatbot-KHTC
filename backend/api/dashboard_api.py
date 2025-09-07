@@ -15,7 +15,7 @@ import os
 from datetime import datetime
 from database import get_db
 from sqlalchemy.orm import Session
-
+from config import settings
 # Router
 router = APIRouter()
 
@@ -62,7 +62,7 @@ def verify_token(token: str):
     """Verify JWT token"""
     try:
         # Replace SECRET_KEY with your actual secret key from settings
-        payload = jwt.decode(token, os.getenv("JWT_SECRET", "secret"), algorithms=["HS256"])
+        payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
         return payload
     except jwt.ExpiredSignatureError:
         raise HTTPException(

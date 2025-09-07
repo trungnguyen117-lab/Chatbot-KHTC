@@ -1,22 +1,17 @@
 def get_root_with_subitem(self, label=None):
-        """
-        Lấy các node cấp 0 (root) và danh sách subItems (node con trực tiếp).
-        Trả về null nếu không tìm thấy trường dữ liệu.
-        """
         with self.driver.session() as session:
             if label:
-                query = f"""
-                MATCH (root:{label})
-                WHERE NOT ( ()-[:*]->(root) )
-                OPTIONAL MATCH (root)-[:HAS_SUBITEM]->(child)
-                RETURN root, collect(child.title) as subItems
-                """
-            else:
                 query = """
-                MATCH (root)
-                WHERE NOT ( ()-[:*]->(root) )
-                OPTIONAL MATCH (root)-[:HAS_SUBITEM]->(child)
-                RETURN root, collect(child.title) as subItems
+                MATCH (root:Thutuc)
+                WHERE NOT EXISTS {
+                    MATCH (other)-[r:REQUIRES*]->(root)
+                }
+                OPTIONAL MATCH (root)-[:REQUIRES]->(child:Thutuc)
+                RETURN id(root) AS id,
+                    root.title AS title,
+                    root.description AS description,
+                    root.date AS date,
+                    collect(child.title) AS subItems
                 """
 
             results = session.run(query)

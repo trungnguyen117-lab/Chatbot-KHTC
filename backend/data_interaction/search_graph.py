@@ -9,13 +9,13 @@ def search_normal_graph(self, query: str) -> Dict[str, Any]:
     """
     with self.driver.session() as session:
         cypher_query = """
-        MATCH (p)
+        MATCH (p:Thutuc)
         WHERE toLower(p.title) CONTAINS toLower($query)
-            OR toLower(p.description) CONTAINS toLower($query)
-        RETURN p.id as id, 
-                p.title as title, 
-                p.description as description, 
-                p.type as type
+        OR toLower(p.description) CONTAINS toLower($query)
+        RETURN p.id AS id, 
+            p.title AS title, 
+            p.description AS description, 
+            p.type AS type
         ORDER BY p.title
         """
         
