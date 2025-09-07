@@ -14,23 +14,22 @@ router = APIRouter()
 
 # Models
 class ThanhPhanDuToan(BaseModel):
-    id: Optional[str] = None
+    id: Optional[str] = None     # sẽ map từ code trong Neo4j
     name: Optional[str] = None
     description: Optional[str] = None
-    type: Optional[str] = None   # thêm vì Neo4j đang trả về type
-
-class HoSoChungTu(BaseModel):
-    id: Optional[str] = None
-    title: Optional[str] = None
-    path: Optional[str] = None
-    name: Optional[str] = None   # thêm vì Neo4j trả về name
-    type: Optional[str] = None   # thêm nếu có
-
-class GhiChu(BaseModel):
-    id: Optional[str] = None
-    text: Optional[str] = None
     type: Optional[str] = None
 
+class HoSoChungTu(BaseModel):
+    id: Optional[str] = None     # sẽ map từ code trong Neo4j
+    title: Optional[str] = None
+    path: Optional[str] = None
+    name: Optional[str] = None
+    type: Optional[str] = None
+
+class GhiChu(BaseModel):
+    id: Optional[str] = None     # sẽ map từ code trong Neo4j
+    text: Optional[str] = None
+    type: Optional[str] = None
 
 class ProcedureDetail(BaseModel):
     id: str
@@ -53,7 +52,7 @@ class ErrorResponse(BaseModel):
 neo4j = Neo4jHandler(
     uri=os.getenv("NEO4J_URI", "bolt://localhost:7687"),
     user=os.getenv("NEO4J_USER", "neo4j"),
-    password=os.getenv("NEO4J_PASSWORD", "NO")  # đổi đúng mật khẩu DB của bạn
+    password=os.getenv("NEO4J_PASSWORD", "12345678")  # đổi đúng mật khẩu DB của bạn
 )
 
 # API Endpoint
@@ -73,14 +72,46 @@ async def get_procedure_detail(
 
     try:
         print("DEBUG procedure_data:", procedure_data)
+
+        # Map dữ liệu con: id = code
+        thanhphandutoans = [
+            ThanhPhanDuToan(
+                id=item.get("code"),
+                name=item.get("name"),
+                description=item.get("description"),
+                type=item.get("type")
+            )
+            for item in procedure_data.get("thanhphandutoans", [])
+        ]
+
+        hosochungtus = [
+            HoSoChungTu(
+                id=item.get("code"),
+                title=item.get("title"),
+                path=item.get("path"),
+                name=item.get("name"),
+                type=item.get("type")
+            )
+            for item in procedure_data.get("hosochungtus", [])
+        ]
+
+        ghichus = [
+            GhiChu(
+                id=item.get("code"),
+                text=item.get("text"),
+                type=item.get("type")
+            )
+            for item in procedure_data.get("ghichus", [])
+        ]
+
         procedure_detail = ProcedureDetail(
             id=procedure_data["id"],
             title=procedure_data.get("title"),
             description=procedure_data.get("description"),
             type=procedure_data.get("type"),
-            thanhphandutoans=procedure_data.get("thanhphandutoans", []),
-            hosochungtus=procedure_data.get("hosochungtus", []),
-            ghichus=procedure_data.get("ghichus", [])
+            thanhphandutoans=thanhphandutoans,
+            hosochungtus=hosochungtus,
+            ghichus=ghichus
         )
 
         return ProcedureDetailResponse(success=True, data=procedure_detail)
