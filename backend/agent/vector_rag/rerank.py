@@ -2,7 +2,8 @@ from sentence_transformers import CrossEncoder
 class Reranking():
     def __init__(self) -> None:
         # Load the CrossEncoder model
-        self.model = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
+        # self.model = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
+        self.model = CrossEncoder('BAAI/bge-reranker-base')
 
     def rerank_documents(self, query, documents):
         # Compute the similarity scores between the query and each document

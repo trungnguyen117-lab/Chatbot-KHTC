@@ -1,72 +1,68 @@
-import os
-from pathlib import Path
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from authlib.integrations.starlette_client import OAuth
-from dotenv import load_dotenv
+from contextlib import asynccontextmanager
+from api import auth, chat
+from database import engine
+from models import Base
+from config import settings
+import logging
 
-from routes.database import Base, engine
-from routes.auth import init_firebase
-from routes.user import router as user_router
-from routes.admin import router as admin_router
+# Create database tables
+Base.metadata.create_all(bind=engine)
 
-# Load env
-env_path = Path(__file__).resolve().parent.parent / ".env"
-load_dotenv(dotenv_path=env_path)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    global rag_agent, indexing_service
+    
+    try:
+        await chat.initialize_rag()
+        logging.info("API started successfully")
+    except Exception as e:
+        logging.error(f"Startup error: {e}")
+    
+    yield
+    
+    # Shutdown
+    logging.info("API shutting down")
 
-# Init Firebase (if used)
-firestore_client = init_firebase()
+# Create FastAPI app
+app = FastAPI(
+    title="Fin Agent API",
+    description="Financial Agent Backend API",
+    version="1.0.0",
+    lifespan=lifespan
+)
 
-# FastAPI app
-app = FastAPI(title="KHTC Chatbot API")
-
+# Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=["*"],  # Configure this properly for production
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# DB init
-Base.metadata.create_all(bind=engine)
+# Include routers
+app.include_router(auth.router)
+app.include_router(chat.router)
 
-# Ensure storage folders
-BASE_DIR = Path(__file__).resolve().parent
-os.makedirs(BASE_DIR / "uploaded_files", exist_ok=True)
-os.makedirs(BASE_DIR / "json_output", exist_ok=True)
-
-# SSO (Google) kept in main.py
-oauth = OAuth()
-oauth.register(
-    name="google",
-    client_id=os.getenv("GOOGLE_CLIENT_ID"),
-    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
-    server_metadata_url="https://accounts.google.com/.well-known/openid-configuration",
-    client_kwargs={"scope": "openid email profile"},
-)
-
-@app.get("/login/google")
-async def login_google(request: Request):
-    redirect_uri = request.url_for("auth_google")
-    return await oauth.google.authorize_redirect(request, redirect_uri)
-
-@app.get("/auth/google", name="auth_google")
-async def auth_google(request: Request):
-    token = await oauth.google.authorize_access_token(request)
-    user = await oauth.google.parse_id_token(request, token)
-    # you can persist user or create session here
-    return user
-
-# Register routers
-# include user router both at root and /user (alias)
-app.include_router(user_router)                 # /files, /whoami, /download...
-app.include_router(user_router, prefix="/user") # /user/files, /user/whoami
-
-# include admin router at /admin and root (so existing frontend /upload still works)
-app.include_router(admin_router, prefix="/admin") # /admin/upload, /admin/files
-app.include_router(admin_router)                  # /upload (alias)
 
 @app.get("/")
-def read_root():
-    return {"message": "Welcome to KHTC Chatbot API"}
+async def root():
+    return {"message": "Fin Agent API is running"}
+
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "main:app", 
+        host="0.0.0.0", 
+        port=8000, 
+        reload=settings.debug
+    )
