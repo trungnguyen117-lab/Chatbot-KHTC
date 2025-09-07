@@ -53,6 +53,7 @@ class GraphBuilder:
                 self.graph.query(
                     f"""
                     MERGE (n:{node.type} {{id: $id}})
+                    SET n.id = $id
                     SET n += $props
                     """,
                     {"id": str(node.id), "props": props}

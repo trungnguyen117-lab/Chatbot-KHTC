@@ -62,7 +62,6 @@ TYPE_KEYWORDS = {
     ],
 }
 
-
 def detect_procedure_type(*texts: str) -> str:
     """
     Trả về 'domestic' hoặc 'foreign' dựa vào từ khóa trong text (mục đích: type tổng trong JSON).
@@ -74,7 +73,6 @@ def detect_procedure_type(*texts: str) -> str:
     if any(k in haystack for k in TYPE_KEYWORDS["domestic"]):
         return "domestic"
     return "domestic"
-
 
 # ============================================================
 # Tìm tiêu đề quy trình trong text rời rạc
@@ -103,7 +101,7 @@ def find_procedure_in_text(text: str) -> Optional[Dict[str, str]]:
         elif len(match.groups()) == 1:
             code = "0"
             title = match.group(1).strip()
-        else:  # >= 2
+        else:
             code = match.group(1).strip()
             title = match.group(2).strip()
 
@@ -111,7 +109,6 @@ def find_procedure_in_text(text: str) -> Optional[Dict[str, str]]:
         return {"code": code, "title": title.upper(), "full": full}
 
     return None
-
 
 # ============================================================
 # Chuyển bảng ➜ schema trung gian sections -> groups -> items
@@ -206,7 +203,6 @@ def table_to_schema(header: list, rows: list) -> Dict[str, Any]:
 
     return schema
 
-
 # ============================================================
 # Xử lý docling ➜ JSON cấu trúc (type tổng)
 # ============================================================
@@ -286,7 +282,6 @@ def process_docling_document(doc_dict: Dict[str, Any]) -> Dict[str, Any]:
         }
     }
 
-
 def convert_docx_to_json(input_path: str, output_path: str) -> Dict[str, Any]:
     """Convert DOCX to structured JSON using Docling"""
     converter = DocumentConverter()
@@ -296,25 +291,45 @@ def convert_docx_to_json(input_path: str, output_path: str) -> Dict[str, Any]:
     save_json(structured_data, output_path)
     return structured_data
 
+# ============================================================
+# Helpers cho ID deterministic (code-path) & type
+# ============================================================
+
+_slug_cleaner = re.compile(r"[^a-z0-9]+")
+def _slugify(s: str) -> str:
+    s = unidecode((s or "").strip()).lower()
+    s = _slug_cleaner.sub("-", s)
+    s = re.sub(r"-{2,}", "-", s).strip("-")
+    return s or "na"
+
+def _q_id(proc_code: str) -> str:
+    return f"q:{(proc_code or '0').strip()}"
+
+def _s_id(proc_code: str, tbl_idx: int, sec_code: str) -> str:
+    return f"{_q_id(proc_code)}|i:{tbl_idx}|s:{(sec_code or '').strip().upper()}"
+
+def _t_id(proc_code: str, tbl_idx: int, sec_code: str, grp_code: str) -> str:
+    return f"{_s_id(proc_code, tbl_idx, sec_code)}|g:{(grp_code or '').strip()}"
+
+def _item_path(proc_code: str, tbl_idx: int, sec_code: str, grp_code: str, item_code: str) -> str:
+    return f"{_t_id(proc_code, tbl_idx, sec_code, grp_code)}|it:{(item_code or '').strip().lower()}"
 
 # ============================================================
-# Build GraphDocuments & gán type cho từng node
+# Build GraphDocuments & gán type cho từng node (kèm ID code-path)
 # ============================================================
 
 def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
     """
     Build GraphDocuments từ JSON Docling
-    - Gán field 'type': 'domestic', 'foreign' hoặc 'other'
-      + 'foreign': chỉ có 'nước ngoài'
-      + 'domestic': chỉ có 'trong nước'
-      + 'other': có cả 'trong nước' và 'nước ngoài'
-      + nếu không phát hiện gì -> 'domestic'
+    - 'code' của node cấp dưới bao gồm code cha, dạng 'SECTION.GROUP.ITEM'
+    - Thêm 'description' cho tất cả các node
+    - Gán field 'type': 'domestic' / 'foreign' / 'other'
     """
 
-    # Hàm phụ: xác định type từ tiêu đề (bỏ dấu + lower)
+    # ===== helper: xác định type từ title (bỏ dấu + lower) =====
     def detect_type_from_title(title: str) -> str:
         s = unidecode((title or "").strip()).lower()
-        has_foreign = bool(re.search(r"\bnuoc ngoai\b", s))
+        has_foreign  = bool(re.search(r"\bnuoc ngoai\b", s))
         has_domestic = bool(re.search(r"\btrong nuoc\b", s))
         if has_foreign and has_domestic:
             return "other"
@@ -324,65 +339,70 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
             return "domestic"
         return "domestic"
 
-    root = payload.get("Quytrinh", {}) or {}
-    proc_title = root.get("title", "Unknown")
-    proc_code = root.get("code", "0")
-    proc_full = root.get("full_title", proc_title)
-    tables = root.get("tables_structured", []) or []
+    root        = payload.get("Quytrinh", {}) or {}
+    proc_title  = root.get("title", "Unknown")
+    proc_code   = root.get("code", "0")
+    proc_full   = root.get("full_title", proc_title)
+    orig_title  = root.get("original_title", "")
+    tables      = root.get("tables_structured", []) or []
 
     nodes: Dict[tuple, Node] = {}
     rels: List[Relationship] = []
 
-    # Node Quytrinh (mặc định domestic)
-    q_id = f"Quytrinh|{proc_code}"
+    # ===== Quytrinh node (top-level) =====
+    q_id   = f"Quytrinh|{proc_code}"
     q_node = Node(
         type="Quytrinh",
         id=q_id,
         properties={
-            "title": proc_title,
-            "code": proc_code,
-            "full_title": proc_full,
-            "type": "domestic",
+            "title":        proc_title,
+            "code":         proc_code,                 # top-level giữ nguyên code
+            "full_title":   proc_full,
+            "type":         "domestic",                # mặc định
+            "description":  (orig_title or proc_full)  # mô tả ưu tiên original_title
         },
     )
     nodes[(q_node.type, q_node.id)] = q_node
 
+    # ===== duyệt bảng/section/group/item =====
     for tbl_idx, tbl in enumerate(tables):
         for sec in (tbl.get("sections") or []):
-            sec_code = (sec.get("code") or "").strip().upper()
+            sec_code  = (sec.get("code") or "").strip().upper()
             sec_title = sec.get("title") or "Chưa rõ"
             sec_label = sec.get("label") or "Phamvi"
-
             if not ROMAN.match(sec_code):
                 continue
 
-            # Gán type cho Section
+            # type cho Section
             sec_type = detect_type_from_title(sec_title)
 
-            s_id = f"Phamvi|{proc_title}|{tbl_idx}|{sec_code}"
+            # Section node
+            s_id   = f"Phamvi|{proc_title}|{tbl_idx}|{sec_code}"
             s_node = Node(
                 type="Phamvi",
                 id=s_id,
                 properties={
-                    "proc": proc_title,
-                    "tableIdx": tbl_idx,
-                    "code": sec_code,
-                    "title": sec_title,
-                    "label": sec_label,
-                    "type": sec_type,
+                    "proc":        proc_title,
+                    "tableIdx":    tbl_idx,
+                    "code":        sec_code,          # cấp Section giữ nguyên (vd: 'II')
+                    "title":       sec_title,
+                    "label":       sec_label,
+                    "type":        sec_type,
+                    "description": sec_title
                 },
             )
             nodes[(s_node.type, s_node.id)] = s_node
-            rels.append(Relationship(source=q_node, target=s_node, type="HAS_SECTION", properties={}))
+            rels.append(
+                Relationship(source=q_node, target=s_node, type="HAS_SECTION", properties={})
+            )
 
             for grp in (sec.get("groups") or []):
-                grp_code = (grp.get("code") or "").strip()
-                grp_title = grp.get("title") or "Chưa rõ"
-
-                if not DIGIT.match(grp_code):
+                grp_code_raw  = (grp.get("code") or "").strip()
+                grp_title     = grp.get("title") or "Chưa rõ"
+                if not DIGIT.match(grp_code_raw):
                     continue
 
-                # Group ưu tiên tự detect; nếu không rõ thì kế thừa từ Section
+                # type kế thừa/ưu tiên
                 grp_type_detected = detect_type_from_title(grp_title)
                 if grp_type_detected == "domestic" and sec_type in ("foreign", "other"):
                     grp_type = sec_type
@@ -391,43 +411,57 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                 elif grp_type_detected == "other":
                     grp_type = "other"
                 else:
-                    # grp_type_detected == 'domestic' và sec_type == 'domestic' hoặc không xác định thêm
                     grp_type = grp_type_detected or sec_type or "domestic"
 
-                # Node Group (Thutuc)
-                t_id = f"Thutuc|{proc_title}|{tbl_idx}|{sec_code}|{grp_code}"
+                # ===== HIER CODE: group gồm cả section =====
+                grp_code_h = f"{sec_code}.{grp_code_raw}"
+
+                # Group (Thutuc level=group)
+                t_id   = f"Thutuc|{proc_title}|{tbl_idx}|{sec_code}|{grp_code_raw}"
                 t_node = Node(
                     type="Thutuc",
                     id=t_id,
                     properties={
-                        "proc": proc_title,
-                        "tableIdx": tbl_idx,
+                        "proc":        proc_title,
+                        "tableIdx":    tbl_idx,
                         "sectionCode": sec_code,
-                        "code": grp_code,
-                        "title": grp_title,
-                        "label": "Thutuc",
-                        "level": "group",
-                        "type": grp_type,
+                        "code":        grp_code_h,     # ví dụ: 'II.1'
+                        "title":       grp_title,
+                        "label":       "Thutuc",
+                        "level":       "group",
+                        "type":        grp_type,
+                        "description": grp_title
                     },
                 )
                 nodes[(t_node.type, t_node.id)] = t_node
-                rels.append(Relationship(source=s_node, target=t_node, type="HAS_ITEM", properties={}))
+                rels.append(
+                    Relationship(source=s_node, target=t_node, type="HAS_ITEM", properties={})
+                )
 
+                # ===== Items (letters) & leaf nodes =====
                 for itm in (grp.get("items") or []):
-                    item_code = (itm.get("code") or "").strip().lower()
-                    if not item_code:
+                    item_code_raw = (itm.get("code") or "").strip().lower()
+                    if not item_code_raw:
                         continue
 
-                    # Node Thanhphandutoan
+                    # ===== HIER CODE: item gồm cả section + group + item =====
+                    item_code_h = f"{grp_code_h}.{item_code_raw}"  # ví dụ: 'II.1.a'
+
+                    # ---- Thanhphandutoan nodes ----
                     for name in (itm.get("Thanhphandutoan") or []):
                         name = (name or "").strip()
                         if not name:
                             continue
-                        tp_id = f"Thanhphandutoan|{name}"
+                        tp_id   = f"Thanhphandutoan|{name}"
                         tp_node = Node(
                             type="Thanhphandutoan",
                             id=tp_id,
-                            properties={"name": name, "type": grp_type},
+                            properties={
+                                "name":        name,
+                                "type":        grp_type,
+                                "code":        item_code_h,  # gắn HIER code
+                                "description": name
+                            },
                         )
                         nodes[(tp_node.type, tp_node.id)] = tp_node
                         rels.append(
@@ -435,20 +469,25 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                                 source=t_node,
                                 target=tp_node,
                                 type="REQUIRES",
-                                properties={"item": item_code},
+                                properties={"item": item_code_h},  # quan hệ cũng mang HIER code
                             )
                         )
 
-                    # Node Hosochungtu
+                    # ---- Hosochungtu nodes ----
                     for name in (itm.get("Hosochungtu") or []):
                         name = (name or "").strip()
                         if not name:
                             continue
-                        hs_id = f"Hosochungtu|{name}"
+                        hs_id   = f"Hosochungtu|{name}"
                         hs_node = Node(
                             type="Hosochungtu",
                             id=hs_id,
-                            properties={"name": name, "type": grp_type},
+                            properties={
+                                "name":        name,
+                                "type":        grp_type,
+                                "code":        item_code_h,  # gắn HIER code
+                                "description": name
+                            },
                         )
                         nodes[(hs_node.type, hs_node.id)] = hs_node
                         rels.append(
@@ -456,18 +495,23 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                                 source=t_node,
                                 target=hs_node,
                                 type="REQUIRES",
-                                properties={"item": item_code},
+                                properties={"item": item_code_h},
                             )
                         )
 
-                    # Node Ghichu
+                    # ---- Ghichu nodes ----
                     note_text = (itm.get("Ghichu") or "").strip()
                     if note_text and note_text not in {"-", "—", "N/A", "n/a", "None", "null"}:
-                        gh_id = f"Ghichu|{proc_title}|{tbl_idx}|{sec_code}|{grp_code}|{item_code}|{note_text}"
+                        gh_id   = f"Ghichu|{proc_title}|{tbl_idx}|{sec_code}|{grp_code_raw}|{item_code_raw}|{note_text}"
                         gh_node = Node(
                             type="Ghichu",
                             id=gh_id,
-                            properties={"text": note_text, "type": grp_type},
+                            properties={
+                                "text":        note_text,
+                                "type":        grp_type,
+                                "code":        item_code_h,  # gắn HIER code
+                                "description": note_text
+                            },
                         )
                         nodes[(gh_node.type, gh_node.id)] = gh_node
                         rels.append(
@@ -475,9 +519,10 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                                 source=t_node,
                                 target=gh_node,
                                 type="NOTE",
-                                properties={"item": item_code},
+                                properties={"item": item_code_h},
                             )
                         )
 
     src_doc = Document(page_content="Docling Import", metadata={})
     return [GraphDocument(nodes=list(nodes.values()), relationships=rels, source=src_doc)]
+
