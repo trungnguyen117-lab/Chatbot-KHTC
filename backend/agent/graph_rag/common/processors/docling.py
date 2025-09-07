@@ -131,18 +131,52 @@ def convert_docx_to_json(input_path: str, output_path: str) -> Dict[str, Any]:
     save_json(structured_data, output_path)
     return structured_data
 
+from unidecode import unidecode
+import re
+
 def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
-    """Build GraphDocuments for Docling schema"""
+    """
+    Build GraphDocuments từ JSON Docling
+    - Gán field 'type': 'domestic', 'foreign' hoặc 'other'
+      + 'foreign': chỉ có 'nước ngoài'
+      + 'domestic': chỉ có 'trong nước'
+      + 'other': có cả 'trong nước' và 'nước ngoài'
+    """
+
+    # Hàm phụ để xác định type từ tiêu đề
+    def detect_type(title: str) -> str:
+        s = unidecode((title or "").strip()).lower()
+        has_foreign = bool(re.search(r'nuoc ngoai', s))
+        has_domestic = bool(re.search(r'trong nuoc', s))
+        if has_foreign and has_domestic:
+            return "other"
+        if has_foreign:
+            return "foreign"
+        if has_domestic:
+            return "domestic"
+        return "domestic"
+
     root = payload.get("Quytrinh", {})
     proc_title = root.get("title", "Unknown")
+    proc_code = root.get("code", "0")
+    proc_full = root.get("full_title", proc_title)
     tables = root.get("tables_structured", [])
 
     nodes: Dict[tuple, Node] = {}
     rels: List[Relationship] = []
 
-    # Node Quytrinh
-    q_id = f"Quytrinh|{proc_title}"
-    q_node = Node(type="Quytrinh", id=q_id, properties={"title": proc_title})
+    # Node Quytrinh (mặc định domestic)
+    q_id = f"Quytrinh|{proc_code}"
+    q_node = Node(
+        type="Quytrinh",
+        id=q_id,
+        properties={
+            "title": proc_title,
+            "code": proc_code,
+            "full_title": proc_full,
+            "type": "domestic"
+        }
+    )
     nodes[(q_node.type, q_node.id)] = q_node
 
     for tbl_idx, tbl in enumerate(tables):
@@ -154,7 +188,9 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
             if not ROMAN.match(sec_code):
                 continue
 
-            # Node Phamvi
+            sec_type = detect_type(sec_title)
+
+            # Node Section (Phamvi)
             s_id = f"Phamvi|{proc_title}|{tbl_idx}|{sec_code}"
             s_node = Node(
                 type="Phamvi",
@@ -165,6 +201,7 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                     "code": sec_code,
                     "title": sec_title,
                     "label": sec_label,
+                    "type": sec_type
                 },
             )
             nodes[(s_node.type, s_node.id)] = s_node
@@ -173,11 +210,18 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
             for grp in (sec.get("groups") or []):
                 grp_code = (grp.get("code") or "").strip()
                 grp_title = grp.get("title") or "Chưa rõ"
-
                 if not DIGIT.match(grp_code):
                     continue
 
-                # Node Thutuc
+                grp_type = detect_type(grp_title)
+                if grp_type == "domestic" and sec_type in ["foreign", "other"]:
+                    grp_type = sec_type
+                elif grp_type == "foreign" and sec_type in ["domestic", "other"]:
+                    grp_type = sec_type
+                elif grp_type == "domestic" and sec_type == "domestic":
+                    grp_type = "domestic"
+
+                # Node Group (Thutuc)
                 t_id = f"Thutuc|{proc_title}|{tbl_idx}|{sec_code}|{grp_code}"
                 t_node = Node(
                     type="Thutuc",
@@ -190,6 +234,7 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                         "title": grp_title,
                         "label": "Thutuc",
                         "level": "group",
+                        "type": grp_type
                     },
                 )
                 nodes[(t_node.type, t_node.id)] = t_node
@@ -200,35 +245,47 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                     if not item_code:
                         continue
 
-                    # Thanhphandutoan
+                    # Node Thanhphandutoan
                     for name in (itm.get("Thanhphandutoan") or []):
                         name = (name or "").strip()
                         if not name:
                             continue
                         tp_id = f"Thanhphandutoan|{name}"
-                        tp_node = Node(type="Thanhphandutoan", id=tp_id, properties={"name": name})
+                        tp_node = Node(
+                            type="Thanhphandutoan",
+                            id=tp_id,
+                            properties={"name": name, "type": grp_type},
+                        )
                         nodes[(tp_node.type, tp_node.id)] = tp_node
                         rels.append(
                             Relationship(source=t_node, target=tp_node, type="REQUIRES", properties={"item": item_code})
                         )
 
-                    # Hosochungtu
+                    # Node Hosochungtu
                     for name in (itm.get("Hosochungtu") or []):
                         name = (name or "").strip()
                         if not name:
                             continue
                         hs_id = f"Hosochungtu|{name}"
-                        hs_node = Node(type="Hosochungtu", id=hs_id, properties={"name": name})
+                        hs_node = Node(
+                            type="Hosochungtu",
+                            id=hs_id,
+                            properties={"name": name, "type": grp_type},
+                        )
                         nodes[(hs_node.type, hs_node.id)] = hs_node
                         rels.append(
                             Relationship(source=t_node, target=hs_node, type="REQUIRES", properties={"item": item_code})
                         )
 
-                    # Ghichu
+                    # Node Ghichu
                     note_text = (itm.get("Ghichu") or "").strip()
                     if note_text and note_text not in {"-", "—", "N/A", "n/a", "None", "null"}:
                         gh_id = f"Ghichu|{proc_title}|{tbl_idx}|{sec_code}|{grp_code}|{item_code}|{note_text}"
-                        gh_node = Node(type="Ghichu", id=gh_id, properties={"text": note_text})
+                        gh_node = Node(
+                            type="Ghichu",
+                            id=gh_id,
+                            properties={"text": note_text, "type": grp_type},
+                        )
                         nodes[(gh_node.type, gh_node.id)] = gh_node
                         rels.append(
                             Relationship(source=t_node, target=gh_node, type="NOTE", properties={"item": item_code})
