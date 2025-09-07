@@ -7,10 +7,41 @@ import os
 from fastapi import APIRouter, HTTPException, Path, FastAPI
 from typing import List, Optional
 from pydantic import BaseModel
-from backend.data_interaction.neo4j_handler import Neo4jHandler
+from data_interaction.neo4j_handler import Neo4jHandler
 
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+import jwt
+from datetime import datetime
+from database import get_db
+from sqlalchemy.orm import Session
 # Router
 router = APIRouter()
+
+# Security
+security = HTTPBearer()
+
+def verify_token(token: str):
+    """Verify JWT token"""
+    try:
+        # Replace SECRET_KEY with your actual secret key from settings
+        payload = jwt.decode(token, os.getenv("JWT_SECRET", "secret"), algorithms=["HS256"])
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(
+            status_code=401,
+            detail="Token has expired"
+        )
+    except jwt.InvalidTokenError:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid token"
+        )
+
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)):
+    token = credentials.credentials
+    payload = verify_token(token)
+    return payload
 
 # Models
 class ThanhPhanDuToan(BaseModel):
@@ -58,7 +89,8 @@ neo4j = Neo4jHandler(
 # API Endpoint
 @router.get("/procedures/{procedure_id}", response_model=ProcedureDetailResponse)
 async def get_procedure_detail(
-    procedure_id: str = Path(..., description="ID của thủ tục")
+    procedure_id: str = Path(..., description="ID của thủ tục"),
+    current_user: dict = Depends(get_current_user)
 ):
     """
     Lấy thông tin chi tiết của một thủ tục từ Neo4j.

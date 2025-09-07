@@ -13,6 +13,8 @@ from pydantic import BaseModel
 import jwt
 import os
 from datetime import datetime
+from database import get_db
+from sqlalchemy.orm import Session
 
 # Router
 router = APIRouter()
@@ -22,7 +24,7 @@ security = HTTPBearer()
 
 # Models
 class Procedure(BaseModel):
-    id: int
+    id: str
     title: str
     description: str
     date: str
@@ -49,29 +51,39 @@ class ErrorResponse(BaseModel):
     message: str
 
 
-neo4j = Neo4jHandler("bolt://localhost:7687", "neo4j", "12345678")
+neo4j = Neo4jHandler(
+    uri=os.getenv("NEO4J_URI", "bolt://localhost:7687"),
+    user=os.getenv("NEO4J_USER", "neo4j"),
+    password=os.getenv("NEO4J_PASSWORD", "12345678")  # đổi đúng mật khẩu DB của bạn
+)
 
-# JWT Authentication
-def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+
+def verify_token(token: str):
+    """Verify JWT token"""
     try:
-        token = credentials.credentials
+        # Replace SECRET_KEY with your actual secret key from settings
         payload = jwt.decode(token, os.getenv("JWT_SECRET", "secret"), algorithms=["HS256"])
         return payload
     except jwt.ExpiredSignatureError:
         raise HTTPException(
             status_code=401,
-            detail="Token đã hết hạn"
+            detail="Token has expired"
         )
     except jwt.InvalidTokenError:
         raise HTTPException(
             status_code=401,
-            detail="Token không hợp lệ"
+            detail="Invalid token"
         )
+
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)):
+    token = credentials.credentials
+    payload = verify_token(token)
+    return payload
 
 # API Endpoint for available procedures: done
 @router.get("/dashboard/procedures", response_model=ProceduresResponse)
 async def get_available_procedures(
-    current_user: dict = Depends(verify_token)
+    current_user: dict = Depends(get_current_user)
 ):
     """
     Lấy danh sách các thủ tục có sẵn
@@ -99,7 +111,7 @@ async def get_available_procedures(
 async def search_procedures(
     q: str = Query(..., min_length=1, description="Từ khóa tìm kiếm"),
     mode: int = Query(0, ge=0, le=1, description="0 (thường) hoặc 1 (thông minh)"),
-    current_user: dict = Depends(verify_token)
+    current_user: dict = Depends(get_current_user)
 ):
     """
     Tìm kiếm thủ tục trong Graph Database

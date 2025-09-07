@@ -29,6 +29,7 @@ async def lifespan(app: FastAPI):
 from dotenv import load_dotenv
 
 from api.dashboard_api import router as dashboard_router
+from api.procedure_details import router as procedure_details_router 
 
 # Create FastAPI app
 app = FastAPI(
@@ -51,6 +52,7 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(chat.router)
 app.include_router(dashboard_router)             # /dashboard/procedures
+app.include_router(procedure_details_router)  # /procedure-details/{procedure_id}
 
 @app.get("/")
 async def root():
