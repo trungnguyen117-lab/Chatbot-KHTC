@@ -31,8 +31,8 @@ dependencies = [
     "passlib[bcrypt]>=1.7.4",
     "python-multipart>=0.0.6",
     "pydantic-settings>=2.1.0",
-    "python-jose[cryptography]>=3.3.0"
+    "python-jose[cryptography]>=3.3.0",
     "langchain-core>=0.3.74",
     "langchain-google-genai>=2.1.9",
-    "unidecode>=1.4.0",
+    "unidecode>=1.4.0"
 ]
