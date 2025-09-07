@@ -1,11 +1,121 @@
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
+import re
+
+from unidecode import unidecode  # pip install Unidecode
 from docling.document_converter import DocumentConverter
 from langchain_community.graphs.graph_document import GraphDocument, Node, Relationship
 from langchain_core.documents import Document
+
 from ..utils.helpers import (
-    is_roman, is_digit, is_letter, ROMAN, DIGIT, clean_text,
-    split_docs, split_title, save_json
+    is_roman,
+    is_digit,
+    is_letter,
+    ROMAN,
+    DIGIT,
+    clean_text,
+    split_docs,
+    split_title,
+    save_json,
 )
+
+# ============================================================
+# Regex patterns để bắt tiêu đề quy trình
+# ============================================================
+
+PROCEDURE_PATTERNS = [
+    # Pattern 1: QUY TRÌNH X. TITLE
+    re.compile(
+        r"^(?:QUY\s+TRÌNH|HƯỚNG\s+DẪN)\s+(\d+)[\s.:\-]*([^.]+(?:\.[^.]+)*)\s*$",
+        flags=re.IGNORECASE | re.MULTILINE,
+    ),
+    # Pattern 2: QUY TRÌNH: TITLE
+    re.compile(
+        r"(?:QUY\s+TRÌNH|HƯỚNG\s+DẪN)\s*[:：]\s*([^.]+(?:\.[^.]+)*)\s*$",
+        flags=re.IGNORECASE | re.MULTILINE,
+    ),
+    # Pattern 3: CHƯƠNG X. QUY TRÌNH TITLE
+    re.compile(
+        r"^(?:CHƯƠNG|PHẦN)\s+(\d+)[.\s]*(?:QUY\s+TRÌNH|HƯỚNG\s+DẪN)\s+([^.]+(?:\.[^.]+)*)\s*$",
+        flags=re.IGNORECASE | re.MULTILINE,
+    ),
+]
+
+# ============================================================
+# Keyword để nhận diện type tổng (chỉ dùng cho JSON tổng)
+# ============================================================
+
+TYPE_KEYWORDS = {
+    "domestic": [
+        "trong nước",
+        "trong nước",
+        "nội địa",
+        "nội địa",
+        "công tác phí trong nước",
+    ],
+    "foreign": [
+        "nước ngoài",
+        "nước ngoài",
+        "quốc tế",
+        "quốc tế",
+        "công tác phí nước ngoài",
+        "công tác phí nước ngoài",
+    ],
+}
+
+
+def detect_procedure_type(*texts: str) -> str:
+    """
+    Trả về 'domestic' hoặc 'foreign' dựa vào từ khóa trong text (mục đích: type tổng trong JSON).
+    Ưu tiên foreign nếu có cả hai. Nếu không thấy gì -> 'domestic'.
+    """
+    haystack = " ".join([t or "" for t in texts]).lower()
+    if any(k in haystack for k in TYPE_KEYWORDS["foreign"]):
+        return "foreign"
+    if any(k in haystack for k in TYPE_KEYWORDS["domestic"]):
+        return "domestic"
+    return "domestic"
+
+
+# ============================================================
+# Tìm tiêu đề quy trình trong text rời rạc
+# ============================================================
+
+def find_procedure_in_text(text: str) -> Optional[Dict[str, str]]:
+    """
+    Tìm các định dạng quy trình trong text:
+    - QUY TRÌNH X. TITLE
+    - QUY TRÌNH: TITLE
+    - CHƯƠNG X. QUY TRÌNH TITLE
+    """
+    if not text:
+        return None
+
+    normalized = " ".join(line.strip() for line in text.splitlines() if line.strip())
+
+    for pattern in PROCEDURE_PATTERNS:
+        match = pattern.search(normalized)
+        if not match:
+            continue
+
+        if len(match.groups()) == 2:
+            code = match.group(1).strip()
+            title = match.group(2).strip()
+        elif len(match.groups()) == 1:
+            code = "0"
+            title = match.group(1).strip()
+        else:  # >= 2
+            code = match.group(1).strip()
+            title = match.group(2).strip()
+
+        full = f"QUY TRÌNH {code}. {title}"
+        return {"code": code, "title": title.upper(), "full": full}
+
+    return None
+
+
+# ============================================================
+# Chuyển bảng ➜ schema trung gian sections -> groups -> items
+# ============================================================
 
 def table_to_schema(header: list, rows: list) -> Dict[str, Any]:
     schema: Dict[str, Any] = {"sections": []}
@@ -33,7 +143,7 @@ def table_to_schema(header: list, rows: list) -> Dict[str, Any]:
             "Thanhphandutoan": split_title(title),
             "label": "Thutuc",
             "Hosochungtu": split_docs(docs),
-            "Ghichu": clean_text(notes)
+            "Ghichu": clean_text(notes),
         }
         current_group["items"].append(current_item)
 
@@ -46,7 +156,7 @@ def table_to_schema(header: list, rows: list) -> Dict[str, Any]:
                     current_item["Thanhphandutoan"].extend(more)
             if docs:
                 extra = split_docs(docs)
-                if not extra and docs.strip():
+                if not extra and (docs or "").strip():
                     extra = [clean_text(docs)]
                 current_item["Hosochungtu"].extend(extra)
             if notes:
@@ -97,23 +207,82 @@ def table_to_schema(header: list, rows: list) -> Dict[str, Any]:
     return schema
 
 
+# ============================================================
+# Xử lý docling ➜ JSON cấu trúc (type tổng)
+# ============================================================
+
 def process_docling_document(doc_dict: Dict[str, Any]) -> Dict[str, Any]:
     """Process raw docling output into structured data"""
-    structured_all = []
-    for tb in doc_dict.get("tables", []):
+    text_blocks: List[str] = []
+
+    # 1) Thu thập text/heading
+    title = (doc_dict.get("title") or "").strip()
+    if title:
+        text_blocks.append(title)
+
+    doc_text = (doc_dict.get("text") or "").strip()
+    if doc_text:
+        text_blocks.append(doc_text)
+
+    for block in doc_dict.get("blocks", []) or []:
+        if isinstance(block, dict):
+            text = (block.get("text") or "").strip()
+            if text:
+                text_blocks.append(text)
+            style = (block.get("style") or "").strip().lower()
+            if ("heading" in style or "title" in style) and text:
+                text_blocks.append(text)
+
+    for page in doc_dict.get("pages", []) or []:
+        if isinstance(page, dict):
+            p_text = (page.get("text") or "").strip()
+            if p_text:
+                text_blocks.append(p_text)
+            for element in page.get("elements", []) or []:
+                if isinstance(element, dict):
+                    e_text = (element.get("text") or "").strip()
+                    style = (element.get("style") or "").lower()
+                    if e_text:
+                        text_blocks.append(e_text)
+                        if "heading" in style or "title" in style:
+                            text_blocks.append(e_text)
+
+    # 2) Tìm tiêu đề quy trình
+    procedure = None
+    for t in text_blocks:
+        proc = find_procedure_in_text(t)
+        if proc:
+            procedure = proc
+            break
+
+    # 3) Process tables -> schema
+    structured_all: List[Dict[str, Any]] = []
+    for tb in doc_dict.get("tables", []) or []:
         grid = tb.get("data", {}).get("grid", [])
         if not grid:
             continue
-            
         header = [c.get("text", "").strip() for c in grid[0]]
         rows = [[c.get("text", "").strip() for c in r] for r in grid[1:]]
         schema = table_to_schema(header, rows)
         structured_all.append(schema)
 
+    # 4) Xác định type tổng (for JSON)
+    all_text_for_type = " ".join(text_blocks + [title, doc_text])
+    proc_type = detect_procedure_type(
+        (procedure or {}).get("full", ""),
+        (procedure or {}).get("title", ""),
+        all_text_for_type,
+    )
+
+    # 5) Build result JSON
     return {
         "Quytrinh": {
-            "title": doc_dict.get("title", "Unknown"),
-            "tables_structured": structured_all
+            "title": (procedure or {}).get("title") or "QUY TRÌNH KIỂM SOÁT CHI VÀ THANH TOÁN",
+            "code": (procedure or {}).get("code") or "1",
+            "full_title": (procedure or {}).get("full") or "QUY TRÌNH 1. KIỂM SOÁT CHI VÀ THANH TOÁN",
+            "original_title": title,
+            "type": proc_type,  # type tổng (tham khảo)
+            "tables_structured": structured_all,
         }
     }
 
@@ -122,27 +291,60 @@ def convert_docx_to_json(input_path: str, output_path: str) -> Dict[str, Any]:
     """Convert DOCX to structured JSON using Docling"""
     converter = DocumentConverter()
     result = converter.convert(input_path)
-    
-    # Process the conversion result
     doc_dict = result.document.model_dump()
     structured_data = process_docling_document(doc_dict)
-    
-    # Save to JSON file
     save_json(structured_data, output_path)
     return structured_data
 
+
+# ============================================================
+# Build GraphDocuments & gán type cho từng node
+# ============================================================
+
 def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
-    """Build GraphDocuments for Docling schema"""
-    root = payload.get("Quytrinh", {})
+    """
+    Build GraphDocuments từ JSON Docling
+    - Gán field 'type': 'domestic', 'foreign' hoặc 'other'
+      + 'foreign': chỉ có 'nước ngoài'
+      + 'domestic': chỉ có 'trong nước'
+      + 'other': có cả 'trong nước' và 'nước ngoài'
+      + nếu không phát hiện gì -> 'domestic'
+    """
+
+    # Hàm phụ: xác định type từ tiêu đề (bỏ dấu + lower)
+    def detect_type_from_title(title: str) -> str:
+        s = unidecode((title or "").strip()).lower()
+        has_foreign = bool(re.search(r"\bnuoc ngoai\b", s))
+        has_domestic = bool(re.search(r"\btrong nuoc\b", s))
+        if has_foreign and has_domestic:
+            return "other"
+        if has_foreign:
+            return "foreign"
+        if has_domestic:
+            return "domestic"
+        return "domestic"
+
+    root = payload.get("Quytrinh", {}) or {}
     proc_title = root.get("title", "Unknown")
-    tables = root.get("tables_structured", [])
+    proc_code = root.get("code", "0")
+    proc_full = root.get("full_title", proc_title)
+    tables = root.get("tables_structured", []) or []
 
     nodes: Dict[tuple, Node] = {}
     rels: List[Relationship] = []
 
-    # Node Quytrinh
-    q_id = f"Quytrinh|{proc_title}"
-    q_node = Node(type="Quytrinh", id=q_id, properties={"title": proc_title})
+    # Node Quytrinh (mặc định domestic)
+    q_id = f"Quytrinh|{proc_code}"
+    q_node = Node(
+        type="Quytrinh",
+        id=q_id,
+        properties={
+            "title": proc_title,
+            "code": proc_code,
+            "full_title": proc_full,
+            "type": "domestic",
+        },
+    )
     nodes[(q_node.type, q_node.id)] = q_node
 
     for tbl_idx, tbl in enumerate(tables):
@@ -154,7 +356,9 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
             if not ROMAN.match(sec_code):
                 continue
 
-            # Node Phamvi
+            # Gán type cho Section
+            sec_type = detect_type_from_title(sec_title)
+
             s_id = f"Phamvi|{proc_title}|{tbl_idx}|{sec_code}"
             s_node = Node(
                 type="Phamvi",
@@ -165,6 +369,7 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                     "code": sec_code,
                     "title": sec_title,
                     "label": sec_label,
+                    "type": sec_type,
                 },
             )
             nodes[(s_node.type, s_node.id)] = s_node
@@ -177,7 +382,19 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                 if not DIGIT.match(grp_code):
                     continue
 
-                # Node Thutuc
+                # Group ưu tiên tự detect; nếu không rõ thì kế thừa từ Section
+                grp_type_detected = detect_type_from_title(grp_title)
+                if grp_type_detected == "domestic" and sec_type in ("foreign", "other"):
+                    grp_type = sec_type
+                elif grp_type_detected == "foreign" and sec_type in ("domestic", "other"):
+                    grp_type = sec_type
+                elif grp_type_detected == "other":
+                    grp_type = "other"
+                else:
+                    # grp_type_detected == 'domestic' và sec_type == 'domestic' hoặc không xác định thêm
+                    grp_type = grp_type_detected or sec_type or "domestic"
+
+                # Node Group (Thutuc)
                 t_id = f"Thutuc|{proc_title}|{tbl_idx}|{sec_code}|{grp_code}"
                 t_node = Node(
                     type="Thutuc",
@@ -190,6 +407,7 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                         "title": grp_title,
                         "label": "Thutuc",
                         "level": "group",
+                        "type": grp_type,
                     },
                 )
                 nodes[(t_node.type, t_node.id)] = t_node
@@ -200,38 +418,65 @@ def build_graph_documents(payload: Dict[str, Any]) -> List[GraphDocument]:
                     if not item_code:
                         continue
 
-                    # Thanhphandutoan
+                    # Node Thanhphandutoan
                     for name in (itm.get("Thanhphandutoan") or []):
                         name = (name or "").strip()
                         if not name:
                             continue
                         tp_id = f"Thanhphandutoan|{name}"
-                        tp_node = Node(type="Thanhphandutoan", id=tp_id, properties={"name": name})
+                        tp_node = Node(
+                            type="Thanhphandutoan",
+                            id=tp_id,
+                            properties={"name": name, "type": grp_type},
+                        )
                         nodes[(tp_node.type, tp_node.id)] = tp_node
                         rels.append(
-                            Relationship(source=t_node, target=tp_node, type="REQUIRES", properties={"item": item_code})
+                            Relationship(
+                                source=t_node,
+                                target=tp_node,
+                                type="REQUIRES",
+                                properties={"item": item_code},
+                            )
                         )
 
-                    # Hosochungtu
+                    # Node Hosochungtu
                     for name in (itm.get("Hosochungtu") or []):
                         name = (name or "").strip()
                         if not name:
                             continue
                         hs_id = f"Hosochungtu|{name}"
-                        hs_node = Node(type="Hosochungtu", id=hs_id, properties={"name": name})
+                        hs_node = Node(
+                            type="Hosochungtu",
+                            id=hs_id,
+                            properties={"name": name, "type": grp_type},
+                        )
                         nodes[(hs_node.type, hs_node.id)] = hs_node
                         rels.append(
-                            Relationship(source=t_node, target=hs_node, type="REQUIRES", properties={"item": item_code})
+                            Relationship(
+                                source=t_node,
+                                target=hs_node,
+                                type="REQUIRES",
+                                properties={"item": item_code},
+                            )
                         )
 
-                    # Ghichu
+                    # Node Ghichu
                     note_text = (itm.get("Ghichu") or "").strip()
                     if note_text and note_text not in {"-", "—", "N/A", "n/a", "None", "null"}:
                         gh_id = f"Ghichu|{proc_title}|{tbl_idx}|{sec_code}|{grp_code}|{item_code}|{note_text}"
-                        gh_node = Node(type="Ghichu", id=gh_id, properties={"text": note_text})
+                        gh_node = Node(
+                            type="Ghichu",
+                            id=gh_id,
+                            properties={"text": note_text, "type": grp_type},
+                        )
                         nodes[(gh_node.type, gh_node.id)] = gh_node
                         rels.append(
-                            Relationship(source=t_node, target=gh_node, type="NOTE", properties={"item": item_code})
+                            Relationship(
+                                source=t_node,
+                                target=gh_node,
+                                type="NOTE",
+                                properties={"item": item_code},
+                            )
                         )
 
     src_doc = Document(page_content="Docling Import", metadata={})
