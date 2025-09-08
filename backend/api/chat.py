@@ -27,7 +27,8 @@ indexing_service = None
 class ChatRequest(BaseModel):
     message: str
     context: Optional[str] = None
-
+class SimpleChatRequest(BaseModel):
+    message: str
 class RelatedProcedure(BaseModel):
     id: int
     title: str
@@ -40,6 +41,9 @@ class ChatData(BaseModel):
 class ChatResponse(BaseModel):
     success: bool
     data: ChatData
+class SimpleChatResponse(BaseModel):
+    success: bool
+    data: dict
 
 # Router
 router = APIRouter(prefix="/chatbot", tags=["chatbot"])
@@ -147,7 +151,33 @@ async def ingest_existing_documents():
     except Exception as e:
         logging.error(f"Error during document ingestion: {e}")
         raise e
+@router.post("/ask-json")
+async def ask_question_json(
+    request: SimpleChatRequest,
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Chat endpoint for asking questions to the RAG system
+    
+    **Authentication Required**: Bearer token
+    """
+    try:
+        if not rag_agent:
+            await initialize_rag()
+            
+        filename = None
 
+        response = rag_agent.run(request.message, filename, stream=False)
+
+        return SimpleChatResponse(
+            success=True,
+            data={"response": response}
+        )
+
+    except Exception as e:
+        logging.error(f"Error during JSON chat: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    
 @router.post("/ask")
 async def ask_question(
     request: ChatRequest,
