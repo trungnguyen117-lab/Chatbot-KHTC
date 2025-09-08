@@ -10,8 +10,8 @@ NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "12345678")
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
 
 # File paths
-DOCLING_INPUT_PATH = "D:/KHTC/Chatbot-KHTC/backend/upload_file/22.4.2024 UET Quy che chi tieu noi bo TV.docx"
-DOCLING_OUTPUT_PATH = "D:/KHTC/Chatbot-KHTC/backend/json_output/chapter_3.json"
+DOCLING_INPUT_PATH = "E:/Github/Chatbot-KHTC/backend/upload_file/22.4.2024 UET Quy che chi tieu noi bo TV.docx"
+DOCLING_OUTPUT_PATH = "E:/Github/Chatbot-KHTC/backend/json_output/chapter_3.json"
 TEXT_JSON_PATH = "D:/KHTC/Chatbot-KHTC/backend/json_text/quytrinh.json"
 
 # LLM configurations

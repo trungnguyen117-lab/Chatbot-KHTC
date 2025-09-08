@@ -128,21 +128,22 @@ class Neo4jHandler:
             OPTIONAL MATCH (p)-[:HAS_KEYWORD]->(k:Keyword)
             OPTIONAL MATCH (p)-[:BELONGS_TO]->(c:Category)
             OPTIONAL MATCH (p)-[:RELATED_TO]->(r)
-            WHERE toLower(p.title) CONTAINS toLower($query)
-                OR toLower(p.description) CONTAINS toLower($query)
-                OR toLower(k.name) CONTAINS toLower($query)
-                OR toLower(c.name) CONTAINS toLower($query)
+            WHERE toLower(p.title) CONTAINS toLower($q)
+            OR toLower(p.description) CONTAINS toLower($q)
+            OR toLower(k.name) CONTAINS toLower($q)
+            OR toLower(c.name) CONTAINS toLower($q)
             RETURN p.id as id,
-                    p.title as title, 
-                    p.description as description,
-                    p.type as type,
-                    collect(DISTINCT k.name) as keywords,
-                    collect(DISTINCT c.name) as categories,
-                    collect(DISTINCT r.title) as related_procedures
+                p.title as title, 
+                p.description as description,
+                p.type as type,
+                collect(DISTINCT k.name) as keywords,
+                collect(DISTINCT c.name) as categories,
+                collect(DISTINCT r.title) as related_procedures
             ORDER BY size(collect(DISTINCT k.name)) DESC, p.title
             """
-            
-            results = session.run(cypher_query, query=query)
+
+            results = session.run(cypher_query, q=query)
+
             search_results = [dict(record) for record in results]
             
             return {
