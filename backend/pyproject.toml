@@ -36,4 +36,5 @@ dependencies = [
     "langchain-google-genai>=2.1.9",
     "unidecode>=1.4.0",
     "psycopg2>=2.9.10",
+    "unicode>=2.9",
 ]
