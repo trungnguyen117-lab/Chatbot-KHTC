@@ -1,3 +1,6 @@
 .env
 
 backend/.venv/
+
+backend/neo4j_data/
+backend/neo4j_logs/
