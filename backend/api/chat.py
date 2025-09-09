@@ -6,10 +6,10 @@ from typing import List, Optional
 import logging
 import json
 import os
-
+from config import settings
 from agent.vector_rag.rag import RAGAgent
 from agent.vector_rag.indexing import QdrantIndexing
-from agent.vector_rag.document_pre_processing import process_single_file, append_nodes_to_json
+from agent.vector_rag.document_pre_processing import process_single_file, pre_processing
 
 # Import auth utilities
 from auth import verify_token
@@ -62,7 +62,7 @@ async def initialize_rag():
         indexing_service = QdrantIndexing()
         
         # Check if collection exists
-        collection_name = os.getenv('COLLECTION_NAME')
+        collection_name = settings.collection_name
         try:
             collection_info = indexing_service.qdrant_client.get_collection(collection_name)
             logging.info(f"Collection '{collection_name}' already exists with {collection_info.points_count} points")
@@ -70,7 +70,8 @@ async def initialize_rag():
             # Collection doesn't exist, need to ingest documents
             logging.info(f"Collection '{collection_name}' doesn't exist. Starting document ingestion...")
             indexing_service.client_collection()
-            await ingest_existing_documents()
+            # await ingest_existing_documents()
+            await ingest()
         
         
         logging.info("RAG components initialized successfully")
@@ -151,6 +152,18 @@ async def ingest_existing_documents():
     except Exception as e:
         logging.error(f"Error during document ingestion: {e}")
         raise e
+async def ingest():
+    try:
+        pre_processing()
+        nodes_file = os.path.join(settings.output_folder, settings.nodes_file) 
+        indexing_service.load_nodes(nodes_file)
+        indexing_service.documents_insertion()
+        logging.info(f"Done ingested documents chunks into Qdrant")
+    except Exception as e:
+        logging.error(f"Error during ingestion: {e}")
+
+
+
 @router.post("/ask-json")
 async def ask_question_json(
     request: SimpleChatRequest,

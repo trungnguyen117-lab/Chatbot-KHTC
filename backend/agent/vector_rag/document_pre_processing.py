@@ -1,3 +1,4 @@
+from ntpath import exists
 import os
 import json
 import re
@@ -5,7 +6,7 @@ from datetime import datetime
 from llama_index.core.schema import Document
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core import SimpleDirectoryReader
-
+from config import settings
 class CustomTransformation:
     def __call__(self, documents):
         transformed_documents = []
@@ -61,6 +62,24 @@ def process_single_file(file_path, add_metadata=None):
     except Exception as e:
         print(f"Error processing file {file_path}: {e}")
         return []
+
+def pre_processing():
+        documents = SimpleDirectoryReader(input_dir=settings.uploaded_folder).load_data()
+        print(f"Loaded {len(documents)} documents")
+
+        if documents:
+            custom_transform = CustomTransformation()
+            documents = custom_transform(documents)
+            nodes = Sentence_Splitter_docs_into_nodes(documents)
+            
+            print(f"Created {len(nodes)} nodes")
+            output_dir = settings.output_folder
+            os.makedirs(output_dir, exist_ok = True)
+
+            output_file = os.path.join(output_dir, settings.nodes_file)
+            save_nodes(nodes, output_file)
+        else:
+            print("No documents to process.")
 
 def append_nodes_to_json(new_nodes, json_file_path):
     """Append new nodes to existing JSON file"""

@@ -13,7 +13,13 @@ class Settings(BaseSettings):
     
     # Application
     debug: bool = True
-    
+    uploaded_folder: str = "uploaded_files"
+    output_folder: str = "output"
+    nodes_file: str = "all_documents_nodes.json"
+
+    # Vector Database
+    qdrant_url: Optional[str] = "http://localhost:6333"
+    collection_name: Optional[str] = "j34"
     class Config:
         env_file = ".env"
         case_sensitive = False
