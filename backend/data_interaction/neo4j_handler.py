@@ -14,19 +14,13 @@ class Neo4jHandler:
             MATCH (root:{label})
             WHERE NOT EXISTS {{ MATCH ()-[:REQUIRES]->(root) }}
             OPTIONAL MATCH (root)-[:REQUIRES]->(child:Thutuc)
-            OPTIONAL MATCH (root)-[:REQUIRES]->(hs:Hosochungtu)
-            OPTIONAL MATCH (root)-[:REQUIRES]->(tp:Thanhphandutoan)
             RETURN
                 elementId(root) AS id,
                 elementId(root) AS internalId,
-                coalesce(root.title,'') AS title,
-                coalesce(root.description,'') AS description,
-                coalesce(toString(root.date),'') AS date,
-                [x IN (
-                    collect(child.title) +
-                    collect(hs.name) +
-                    collect(tp.name)
-                ) WHERE x IS NOT NULL] AS subItems
+                coalesce(root.title,'')        AS title,
+                coalesce(root.description,'')  AS description,
+                coalesce(toString(root.date),'') AS date,   // <-- ép string
+                [c IN collect(child.title) WHERE c IS NOT NULL] AS subItems
             ORDER BY title
             """
         else:
@@ -34,18 +28,12 @@ class Neo4jHandler:
             MATCH (root:Thutuc)
             WHERE NOT EXISTS { MATCH ()-[:REQUIRES]->(root) }
             OPTIONAL MATCH (root)-[:REQUIRES]->(child:Thutuc)
-            OPTIONAL MATCH (root)-[:REQUIRES]->(hs:Hosochungtu)
-            OPTIONAL MATCH (root)-[:REQUIRES]->(tp:Thanhphandutoan)
             RETURN
                 elementId(root) AS id,
-                coalesce(root.title,'') AS title,
-                coalesce(root.description,'') AS description,
-                coalesce(toString(root.date),'') AS date,
-                [x IN (
-                    collect(child.title) +
-                    collect(hs.name) +
-                    collect(tp.name)
-                ) WHERE x IS NOT NULL] AS subItems
+                coalesce(root.title,'')        AS title,
+                coalesce(root.description,'')  AS description,
+                coalesce(toString(root.date),'') AS date,   // <-- ép string
+                [c IN collect(child.title) WHERE c IS NOT NULL] AS subItems
             ORDER BY title
             """
 
@@ -140,21 +128,22 @@ class Neo4jHandler:
             OPTIONAL MATCH (p)-[:HAS_KEYWORD]->(k:Keyword)
             OPTIONAL MATCH (p)-[:BELONGS_TO]->(c:Category)
             OPTIONAL MATCH (p)-[:RELATED_TO]->(r)
-            WHERE toLower(p.title) CONTAINS toLower($query)
-                OR toLower(p.description) CONTAINS toLower($query)
-                OR toLower(k.name) CONTAINS toLower($query)
-                OR toLower(c.name) CONTAINS toLower($query)
+            WHERE toLower(p.title) CONTAINS toLower($q)
+            OR toLower(p.description) CONTAINS toLower($q)
+            OR toLower(k.name) CONTAINS toLower($q)
+            OR toLower(c.name) CONTAINS toLower($q)
             RETURN p.id as id,
-                    p.title as title, 
-                    p.description as description,
-                    p.type as type,
-                    collect(DISTINCT k.name) as keywords,
-                    collect(DISTINCT c.name) as categories,
-                    collect(DISTINCT r.title) as related_procedures
+                p.title as title, 
+                p.description as description,
+                p.type as type,
+                collect(DISTINCT k.name) as keywords,
+                collect(DISTINCT c.name) as categories,
+                collect(DISTINCT r.title) as related_procedures
             ORDER BY size(collect(DISTINCT k.name)) DESC, p.title
             """
-            
-            results = session.run(cypher_query, query=query)
+
+            results = session.run(cypher_query, q=query)
+
             search_results = [dict(record) for record in results]
             
             return {
@@ -214,11 +203,6 @@ class Neo4jHandler:
 
         return get_root_with_subitem(self, label)
 
-    #def search_procedures_in_graph(self, query: str, mode: str | int = "normal") -> Dict[str, Any]:
-    #     if mode == 0:
-    #         return search_normal_graph(query)
-    #     else:
-    #         return search_smart_graph(query)
     def search_procedures_in_graph(self, query: str, mode: str | int = "normal") -> Dict[str, Any]:
         # Chuẩn hoá mode
         m = str(mode).strip().lower() if mode is not None else "normal"
