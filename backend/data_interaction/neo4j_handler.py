@@ -13,27 +13,49 @@ class Neo4jHandler:
             query = f"""
             MATCH (root:{label})
             WHERE NOT EXISTS {{ MATCH ()-[:REQUIRES]->(root) }}
-            OPTIONAL MATCH (root)-[:REQUIRES]->(child:Thutuc)
+            OPTIONAL MATCH (q:Quytrinh)-[:HAS_SECTION]->(p:Phamvi)-[:HAS_ITEM]->(root)
+
+            OPTIONAL MATCH (root)-[:NOTE]->(note:Ghichu)
+            OPTIONAL MATCH (root)-[:REQUIRES]->(hs:Hosochungtu)
+            OPTIONAL MATCH (tp:Thanhphandutoan)-[:REQUIRES]->(root)
+
+            WITH root, q, p,
+                collect({{id: elementId(note), title: coalesce(note.title, note.description, '')}}) +
+                collect({{id: elementId(hs),   title: coalesce(hs.title, hs.description, '')}}) +
+                collect({{id: elementId(tp),   title: coalesce(tp.name, tp.description, tp.code, '')}}) AS subItems
             RETURN
                 elementId(root) AS id,
                 elementId(root) AS internalId,
-                coalesce(root.title,'')        AS title,
-                coalesce(root.description,'')  AS description,
-                coalesce(toString(root.date),'') AS date,   // <-- ép string
-                [c IN collect(child.title) WHERE c IS NOT NULL] AS subItems
+                coalesce(root.title,'') AS title,
+                coalesce(root.description,'') AS description,
+                coalesce(toString(root.date),'') AS date,
+                q.full_title AS quytrinh,
+                p.title AS phamvi,
+                subItems
             ORDER BY title
             """
         else:
             query = """
             MATCH (root:Thutuc)
             WHERE NOT EXISTS { MATCH ()-[:REQUIRES]->(root) }
-            OPTIONAL MATCH (root)-[:REQUIRES]->(child:Thutuc)
+            OPTIONAL MATCH (q:Quytrinh)-[:HAS_SECTION]->(p:Phamvi)-[:HAS_ITEM]->(root)
+
+            OPTIONAL MATCH (root)-[:NOTE]->(note:Ghichu)
+            OPTIONAL MATCH (root)-[:REQUIRES]->(hs:Hosochungtu)
+            OPTIONAL MATCH (tp:Thanhphandutoan)-[:REQUIRES]->(root)
+
+            WITH root, q, p,
+                collect({id: elementId(note), title: coalesce(note.title, note.description, '')}) +
+                collect({id: elementId(hs),   title: coalesce(hs.title, hs.description, '')}) +
+                collect({id: elementId(tp),   title: coalesce(tp.name, tp.description, tp.code, '')}) AS subItems
             RETURN
                 elementId(root) AS id,
-                coalesce(root.title,'')        AS title,
-                coalesce(root.description,'')  AS description,
-                coalesce(toString(root.date),'') AS date,   // <-- ép string
-                [c IN collect(child.title) WHERE c IS NOT NULL] AS subItems
+                coalesce(root.title,'') AS title,
+                coalesce(root.description,'') AS description,
+                coalesce(toString(root.date),'') AS date,
+                q.full_title AS quytrinh,
+                p.title AS phamvi,
+                subItems
             ORDER BY title
             """
 
@@ -41,14 +63,23 @@ class Neo4jHandler:
             results = session.run(query)
             data = []
             for record in results:
+                sub_items = []
+                for item in (record.get("subItems") or []):
+                    if item and item.get("id") and item.get("title"):
+                        sub_items.append({
+                            "id": item["id"],
+                            "title": item["title"]
+                        })
                 data.append({
                     "id": record.get("id"),
                     "title": record.get("title"),
                     "description": record.get("description"),
                     "date": record.get("date"),
-                    "subItems": record.get("subItems") or []
+                    "parent": f"{record.get('quytrinh') or ''} / {record.get('phamvi') or ''}",
+                    "subItems": sub_items
                 })
             return data
+
 
     def _generate_suggestions_graph(self, query: str, mode: str) -> List[str]:
         """Generate search suggestions based on the query"""
