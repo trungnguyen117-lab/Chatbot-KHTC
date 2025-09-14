@@ -273,9 +273,9 @@ def process_docling_document(doc_dict: Dict[str, Any]) -> Dict[str, Any]:
     # 5) Build result JSON
     return {
         "Quytrinh": {
-            "title": (procedure or {}).get("title") or "QUY TRÌNH KIỂM SOÁT CHI VÀ THANH TOÁN",
+            "title": (procedure or {}).get("title") or "QUY TRÌNH 1. THANH TOÁN HOẠT ĐỘNG THƯỜNG XUYÊN",
             "code": (procedure or {}).get("code") or "1",
-            "full_title": (procedure or {}).get("full") or "QUY TRÌNH 1. KIỂM SOÁT CHI VÀ THANH TOÁN",
+            "full_title": (procedure or {}).get("full") or "QUY TRÌNH 1. THANH TOÁN HOẠT ĐỘNG THƯỜNG XUYÊN",
             "original_title": title,
             "type": proc_type,  # type tổng (tham khảo)
             "tables_structured": structured_all,
