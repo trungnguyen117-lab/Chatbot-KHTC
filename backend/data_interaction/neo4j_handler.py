@@ -9,58 +9,96 @@ class Neo4jHandler:
         self.driver.close()
 
     def get_root_with_subitems(self, label: str | None = None):
-        if label:
-            query = f"""
-            MATCH (root:{label})
-            WHERE NOT EXISTS {{ MATCH ()-[:REQUIRES]->(root) }}
-            OPTIONAL MATCH (root)-[:REQUIRES]->(child:Thutuc)
-            OPTIONAL MATCH (root)-[:REQUIRES]->(hs:Hosochungtu)
-            OPTIONAL MATCH (root)-[:REQUIRES]->(tp:Thanhphandutoan)
-            RETURN
-                elementId(root) AS id,
-                elementId(root) AS internalId,
-                coalesce(root.title,'') AS title,
-                coalesce(root.description,'') AS description,
-                coalesce(toString(root.date),'') AS date,
-                [x IN (
-                    collect(child.title) +
-                    collect(hs.name) +
-                    collect(tp.name)
-                ) WHERE x IS NOT NULL] AS subItems
-            ORDER BY title
-            """
-        else:
-            query = """
-            MATCH (root:Thutuc)
-            WHERE NOT EXISTS { MATCH ()-[:REQUIRES]->(root) }
-            OPTIONAL MATCH (root)-[:REQUIRES]->(child:Thutuc)
-            OPTIONAL MATCH (root)-[:REQUIRES]->(hs:Hosochungtu)
-            OPTIONAL MATCH (root)-[:REQUIRES]->(tp:Thanhphandutoan)
-            RETURN
-                elementId(root) AS id,
-                coalesce(root.title,'') AS title,
-                coalesce(root.description,'') AS description,
-                coalesce(toString(root.date),'') AS date,
-                [x IN (
-                    collect(child.title) +
-                    collect(hs.name) +
-                    collect(tp.name)
-                ) WHERE x IS NOT NULL] AS subItems
-            ORDER BY title
-            """
-
         with self.driver.session() as session:
+            if label:
+                query = f"""
+                MATCH (root:{label})
+                WHERE NOT EXISTS {{ MATCH ()-[:REQUIRES]->(root) }}
+                // lấy 1 parent duy nhất (nếu có) để tránh trùng do nhiều đường match
+                OPTIONAL MATCH (q:Quytrinh)-[:HAS_SECTION]->(p:Phamvi)-[:HAS_ITEM]->(root)
+                WITH root,
+                    head(collect(DISTINCT q.full_title)) AS quytrinh,
+                    head(collect(DISTINCT p.title))      AS phamvi
+
+                // gom Hosochungtu
+                OPTIONAL MATCH (root)-[:REQUIRES]->(hs:Hosochungtu)
+                WITH root, quytrinh, phamvi,
+                    collect(DISTINCT {{ id: elementId(hs),
+                                        title: coalesce(hs.name, hs.title, hs.description, '') }}) AS hsItems
+
+                // gom Thanhphandutoan
+                OPTIONAL MATCH (root)-[:REQUIRES]->(tp:Thanhphandutoan)
+                WITH root, quytrinh, phamvi, hsItems,
+                    collect(DISTINCT {{ id: elementId(tp),
+                                        title: coalesce(tp.name, tp.description, tp.code, '') }}) AS tpItems
+
+                RETURN
+                    elementId(root)                        AS id,
+                    elementId(root)                        AS internalId,
+                    coalesce(root.title,'')                AS title,
+                    coalesce(root.description,'')          AS description,
+                    CASE WHEN root.date IS NOT NULL THEN toString(root.date) ELSE '' END AS date,
+                    quytrinh                               AS quytrinh,
+                    phamvi                                 AS phamvi,
+                    // chỉ trả id + title, bỏ rỗng
+                    [x IN (hsItems + tpItems) WHERE x.title <> ''] AS subItems
+                ORDER BY title
+                """
+            else:
+                query = """
+                MATCH (root:Thutuc)
+                WHERE NOT EXISTS { MATCH ()-[:REQUIRES]->(root) }
+                OPTIONAL MATCH (q:Quytrinh)-[:HAS_SECTION]->(p:Phamvi)-[:HAS_ITEM]->(root)
+                WITH root,
+                    head(collect(DISTINCT q.full_title)) AS quytrinh,
+                    head(collect(DISTINCT p.title))      AS phamvi
+
+                OPTIONAL MATCH (root)-[:REQUIRES]->(hs:Hosochungtu)
+                WITH root, quytrinh, phamvi,
+                    collect(DISTINCT { id: elementId(hs),
+                                        title: coalesce(hs.name, hs.title, hs.description, '') }) AS hsItems
+
+                OPTIONAL MATCH (root)-[:REQUIRES]->(tp:Thanhphandutoan)
+                WITH root, quytrinh, phamvi, hsItems,
+                    collect(DISTINCT { id: elementId(tp),
+                                        title: coalesce(tp.name, tp.description, tp.code, '') }) AS tpItems
+
+                RETURN
+                    elementId(root)                        AS id,
+                    coalesce(root.title,'')                AS title,
+                    coalesce(root.description,'')          AS description,
+                    CASE WHEN root.date IS NOT NULL THEN toString(root.date) ELSE '' END AS date,
+                    quytrinh                               AS quytrinh,
+                    phamvi                                 AS phamvi,
+                    [x IN (hsItems + tpItems) WHERE x.title <> ''] AS subItems
+                ORDER BY title
+                """
+
             results = session.run(query)
             data = []
             for record in results:
+                sub_items = []
+                for item in (record.get("subItems") or []):
+                    if item and item.get("id") and (item.get("title") or "").strip():
+                        sub_items.append({"id": item["id"], "title": item["title"]})
+
+                parent = f"{record.get('quytrinh') or ''} / {record.get('phamvi') or ''}".strip()
+                if parent.startswith(" /"):
+                    parent = parent[2:]
+                if parent.endswith(" /"):
+                    parent = parent[:-2]
+
                 data.append({
                     "id": record.get("id"),
                     "title": record.get("title"),
                     "description": record.get("description"),
                     "date": record.get("date"),
-                    "subItems": record.get("subItems") or []
+                    "parent": parent,
+                    "subItems": sub_items
                 })
             return data
+
+
 
     def _generate_suggestions_graph(self, query: str, mode: str) -> List[str]:
         """Generate search suggestions based on the query"""
@@ -140,21 +178,22 @@ class Neo4jHandler:
             OPTIONAL MATCH (p)-[:HAS_KEYWORD]->(k:Keyword)
             OPTIONAL MATCH (p)-[:BELONGS_TO]->(c:Category)
             OPTIONAL MATCH (p)-[:RELATED_TO]->(r)
-            WHERE toLower(p.title) CONTAINS toLower($query)
-                OR toLower(p.description) CONTAINS toLower($query)
-                OR toLower(k.name) CONTAINS toLower($query)
-                OR toLower(c.name) CONTAINS toLower($query)
+            WHERE toLower(p.title) CONTAINS toLower($q)
+            OR toLower(p.description) CONTAINS toLower($q)
+            OR toLower(k.name) CONTAINS toLower($q)
+            OR toLower(c.name) CONTAINS toLower($q)
             RETURN p.id as id,
-                    p.title as title, 
-                    p.description as description,
-                    p.type as type,
-                    collect(DISTINCT k.name) as keywords,
-                    collect(DISTINCT c.name) as categories,
-                    collect(DISTINCT r.title) as related_procedures
+                p.title as title, 
+                p.description as description,
+                p.type as type,
+                collect(DISTINCT k.name) as keywords,
+                collect(DISTINCT c.name) as categories,
+                collect(DISTINCT r.title) as related_procedures
             ORDER BY size(collect(DISTINCT k.name)) DESC, p.title
             """
-            
-            results = session.run(cypher_query, query=query)
+
+            results = session.run(cypher_query, q=query)
+
             search_results = [dict(record) for record in results]
             
             return {
@@ -214,11 +253,6 @@ class Neo4jHandler:
 
         return get_root_with_subitem(self, label)
 
-    #def search_procedures_in_graph(self, query: str, mode: str | int = "normal") -> Dict[str, Any]:
-    #     if mode == 0:
-    #         return search_normal_graph(query)
-    #     else:
-    #         return search_smart_graph(query)
     def search_procedures_in_graph(self, query: str, mode: str | int = "normal") -> Dict[str, Any]:
         # Chuẩn hoá mode
         m = str(mode).strip().lower() if mode is not None else "normal"

@@ -1,7 +1,7 @@
 from typing import Dict, Any, List, Optional
 import re
 
-from unidecode import unidecode  # pip install Unidecode
+from unidecode import unidecode 
 from docling.document_converter import DocumentConverter
 from langchain_community.graphs.graph_document import GraphDocument, Node, Relationship
 from langchain_core.documents import Document
@@ -273,9 +273,9 @@ def process_docling_document(doc_dict: Dict[str, Any]) -> Dict[str, Any]:
     # 5) Build result JSON
     return {
         "Quytrinh": {
-            "title": (procedure or {}).get("title") or "QUY TRÌNH KIỂM SOÁT CHI VÀ THANH TOÁN",
+            "title": (procedure or {}).get("title") or "QUY TRÌNH 1. THANH TOÁN HOẠT ĐỘNG THƯỜNG XUYÊN",
             "code": (procedure or {}).get("code") or "1",
-            "full_title": (procedure or {}).get("full") or "QUY TRÌNH 1. KIỂM SOÁT CHI VÀ THANH TOÁN",
+            "full_title": (procedure or {}).get("full") or "QUY TRÌNH 1. THANH TOÁN HOẠT ĐỘNG THƯỜNG XUYÊN",
             "original_title": title,
             "type": proc_type,  # type tổng (tham khảo)
             "tables_structured": structured_all,

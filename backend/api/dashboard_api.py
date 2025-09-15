@@ -1,9 +1,3 @@
-"""
-API hiển thị các thủ tục có sẵn
-GET /dashboard/procedures
-Headers: Authorization: Bearer <token>
-"""
-
 from data_interaction.neo4j_handler import Neo4jHandler
 
 from fastapi import APIRouter, Depends, HTTPException, Query, FastAPI, HTTPException
@@ -23,12 +17,17 @@ router = APIRouter()
 security = HTTPBearer()
 
 # Models
+class SubItem(BaseModel):
+    id: str
+    title: str
+    
 class Procedure(BaseModel):
     id: str
     title: str
     description: str
     date: str
-    subItems: List[str]
+    parent: str | None = None
+    subItems: list[SubItem] = [] 
 
 class ProceduresResponse(BaseModel):
     success: bool
@@ -54,14 +53,13 @@ class ErrorResponse(BaseModel):
 neo4j = Neo4jHandler(
     uri=os.getenv("NEO4J_URI", "bolt://localhost:7687"),
     user=os.getenv("NEO4J_USER", "neo4j"),
-    password=os.getenv("NEO4J_PASSWORD", "12345678")  # đổi đúng mật khẩu DB của bạn
+    password=os.getenv("NEO4J_PASSWORD", "12345678")  
 )
 
 
 def verify_token(token: str):
     """Verify JWT token"""
     try:
-        # Replace SECRET_KEY with your actual secret key from settings
         payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
         return payload
     except jwt.ExpiredSignatureError:
@@ -80,7 +78,6 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     payload = verify_token(token)
     return payload
 
-# API Endpoint for available procedures: done
 @router.get("/dashboard/procedures", response_model=ProceduresResponse)
 async def get_available_procedures(
     current_user: dict = Depends(get_current_user)
@@ -89,21 +86,20 @@ async def get_available_procedures(
     Lấy danh sách các thủ tục có sẵn
     """
 
-    # Mock data - thay thế bằng database query thực tế
     procedures = neo4j.get_root_with_subitems(label="Thutuc")
-    
-    # Convert to response format
+
     result = [
         Procedure(
             id=proc["id"],
             title=proc["title"],
             description=proc["description"],
             date=proc["date"],
-            subItems=proc["subItems"]
+            parent=proc.get("parent", ""),  
+            subItems=proc.get("subItems", [])  
         )
         for proc in procedures
     ]
-    
+
     return ProceduresResponse(success=True, data=result)
 
 # API Endpoint for search
