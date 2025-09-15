@@ -6,7 +6,7 @@ from database import engine
 from models import Base
 from config import settings
 import logging
-
+from agent.graph_rag.graph_knowledge.main import process_docling
 # Create database tables
 Base.metadata.create_all(bind=engine)
 
@@ -14,7 +14,8 @@ Base.metadata.create_all(bind=engine)
 async def lifespan(app: FastAPI):
     # Startup
     global rag_agent, indexing_service
-    
+    process_docling() 
+    logging.info("Graph docs done")
     try:
         await chat.initialize_rag()
         logging.info("API started successfully")
