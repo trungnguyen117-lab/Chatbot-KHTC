@@ -9,7 +9,7 @@ def process_docling():
     """Process DOCX document into knowledge graph"""
     print(f"Converting DOCX: {DOCLING_INPUT_PATH}")
     # data = convert_docx_to_json(DOCLING_INPUT_PATH, DOCLING_OUTPUT_PATH)
-    data = "json_output/chapter_3_final.json"
+    data = "json_output/chapter_3.json"
     print("Building graph documents...")
     graph_docs = build_graph_documents(data)
    
