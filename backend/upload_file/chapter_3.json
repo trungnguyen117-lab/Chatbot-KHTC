@@ -1,0 +1,846 @@
+{
+  "Quytrinh": {
+    "title": "QUY TRÌNH KIỂM SOÁT CHI VÀ THANH TOÁN",
+    "code": "1",
+    "full_title": "QUY TRÌNH 1. KIỂM SOÁT CHI VÀ THANH TOÁN",
+    "original_title": "",
+    "type": "domestic",
+    "tables_structured": [
+      {
+        "sections": []
+      },
+      {
+        "sections": [
+          {
+            "code": "I",
+            "title": "Công tác phí trong nước",
+            "label": "Phamvi",
+            "groups": [
+              {
+                "code": "1",
+                "title": "Tạm ứng kinh phí",
+                "label": "Thutuc",
+                "items": [
+                  {
+                    "code": "a",
+                    "Thanhphandutoan": [
+                      "Phụ cấp lưu trú",
+                      "cước phí taxi",
+                      "tiền thuê phòng nghỉ theo hình thức khoán",
+                      "các khoản chi khác"
+                    ],
+                    "label": "Thutuc",
+                    "Hosochungtu": [
+                      "Giấy đề nghị tạm ứng",
+                      "Dự trù kinh phí được duyệt (bpt)",
+                      "Thư mời/kế hoạch/thông báo/triệu tập (bg)",
+                      "Quyết định cử cán bộ đi công tác (bg)"
+                    ],
+                    "Ghichu": ""
+                  },
+                  {
+                    "code": "b",
+                    "Thanhphandutoan": [
+                      "Chi phí đi lại (thuê xe, vé máy bay)",
+                      "tiền thuê phòng nghỉ thanh toán theo thực tế"
+                    ],
+                    "label": "Thutuc",
+                    "Hosochungtu": [
+                      "Giấy đề nghị tạm ứng",
+                      "Dự trù kinh phí được duyệt (bpt)",
+                      "01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)",
+                      "03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ",
+                      "03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)",
+                      "Thư mời/kế hoạch/thông báo/triệu tập (bpt)",
+                      "Quyết định cử cán bộ đi công tác (bpt)",
+                      "Tờ trình xin đi công tác bằng phương tiện máy bay (nếu có)"
+                    ],
+                    "Ghichu": "Khoản mua có giá trị dưới 5 triệu đồng được tạm ứng bằng tiền mặt"
+                  }
+                ]
+              },
+              {
+                "code": "2",
+                "title": "Thanh toán/Thanh toán tạm ứng kinh phí",
+                "label": "Thutuc",
+                "items": [
+                  {
+                    "code": "a",
+                    "Thanhphandutoan": [
+                      "Phụ cấp lưu trú",
+                      "cước phí taxi",
+                      "dịch vụ đi lại công cộng",
+                      "tiền thuê phòng nghỉ theo hình thức khoán và các khoản chi khác"
+                    ],
+                    "label": "Thutuc",
+                    "Hosochungtu": [
+                      "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                      "Dự trù kinh phí được duyệt (bpt)",
+                      "Thư mời/kế hoạch/thông báo/triệu tập (bg)",
+                      "Quyết định cử cán bộ đi công tác (bg)",
+                      "Bảng kê nhận tiền phụ cấp lưu trú",
+                      "Giấy đi đường có xác nhận của nơi đến công tác",
+                      "Bảng kê nhận tiền thuê phòng nghỉ",
+                      "Biên lai taxi, cuống vé tàu, vé xe hợp lệ (nếu có)",
+                      "Phiếu thu/hóa đơn các loại phí tham dự hội nghị phải nộp theo yêu cầu (nếu có)",
+                      "Bảng kê thù lao làm việc ngoài giờ kèm theo Bảng chấm công hoặc Phân công công việc có xác nhận của lãnh đạo đơn vị yêu cầu làm ngoài giờ (nếu có)"
+                    ],
+                    "Ghichu": ""
+                  },
+                  {
+                    "code": "b",
+                    "Thanhphandutoan": [
+                      "Chi phí đi lại",
+                      "tiền thuê phòng nghỉ thanh toán theo thực tế"
+                    ],
+                    "label": "Thutuc",
+                    "Hosochungtu": [
+                      "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                      "Dự trù kinh phí được duyệt (bpt)",
+                      "01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)",
+                      "03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ",
+                      "03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản thanh lý Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)",
+                      "Thư mời/kế hoạch/thông báo/triệu tập (bpt)",
+                      "Quyết định cử cán bộ đi công tác (bpt)",
+                      "Tờ trình xin đi công tác bằng phương tiện máy bay (nếu có)",
+                      "Thẻ lên máy bay và vé điện tử",
+                      "Hóa đơn tài chính"
+                    ],
+                    "Ghichu": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "code": "II",
+            "title": "Công tác phí nước ngoài",
+            "label": "Phamvi",
+            "groups": [
+              {
+                "code": "1",
+                "title": "Tạm ứng kinh phí",
+                "label": "Thutuc",
+                "items": [
+                  {
+                    "code": "a",
+                    "Thanhphandutoan": [
+                      "Các khoản được thanh toán theo mức khoán:\n - Tiền thuê phòng nghỉ, tiền ăn và tiêu vặt\n - Tiền thuê phương tiện từ sân bay, ga tàu, bến xe, cửa khẩu khi nhập cảnh đến nơi ở nước đến công tác và ngược lại khi xuất cảnh\n - Tiền điện thoại, fax, internet"
+                    ],
+                    "label": "Thutuc",
+                    "Hosochungtu": [
+                      "Giấy đề nghị tạm ứng",
+                      "Quyết định cử đi công tác",
+                      "Dự toán kinh phí đoàn công tác",
+                      "Lịch trình công tác",
+                      "Thư mời có liên quan đến chi phí tài chính",
+                      "Lịch trình bay/phiếu đặt chỗ/vé máy bay (bản gốc)",
+                      "Đơn xin mua và mang ngoại tệ ra nước ngoài (P.KHTC thực hiện)"
+                    ],
+                    "Ghichu": "- Tạm ứng bằng ngoại tệ đối với các khoản chi tiêu ở nước đến công tác\n - Tạm ứng bằng VNĐ đối với các khoản chi ở Việt Nam (nếu cần)"
+                  },
+                  {
+                    "code": "b",
+                    "Thanhphandutoan": [
+                      "Các khoản thanh toán theo thực tế:\n - Vé máy bay\n - Thuê phương tiện đi lại trong nước\n - Thuê dịch vụ tổ chức sự kiện"
+                    ],
+                    "label": "Thutuc",
+                    "Hosochungtu": [
+                      "Giấy đề nghị tạm ứng",
+                      "Dự toán kinh phí đoàn công tác",
+                      "01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)",
+                      "03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ",
+                      "03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản thanh lý Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)",
+                      "Hồ sơ đặt chỗ của hãng hàng không"
+                    ],
+                    "Ghichu": "Riêng với vé máy bay: báo giá hợp lệ là của các công ty, đại lý cung cấp bảo đảm là báo giá của các hãng hàng không hoạt động hợp pháp tại Việt Nam"
+                  },
+                  {
+                    "code": "b",
+                    "Thanhphandutoan": [
+                      "Các khoản thanh toán theo thực tế:\n- Lệ phí sân bay trong và ngoài nước\n - tiền chờ đợi tại sân bay\n- cước hành lý\n- tài liệu mang theo\n - Tiền mua bảo hiểm\n - Lệ phí visa, cấp hộ chiếu\n - Thuê dịch thuật tại nước ngoài\n - Thuê địa điểm\n - Thuê phương tiện đi làm việc hàng ngày tại nơi đến công tác\n - Thuê các phương tiện vận chuyển khác tại nước ngoài"
+                    ],
+                    "label": "Thutuc",
+                    "Hosochungtu": [
+                      "Giấy đề nghị tạm ứng",
+                      "Quyết định cử đi công tác",
+                      "Dự toán kinh phí đoàn công tác",
+                      "Lịch trình công tác",
+                      "Thư mời có liên quan đến chi phí tài chính",
+                      "Hợp đồng mua bảo hiểm, thuê dịch thuật (nếu có)",
+                      "Đơn xin mua và mang ngoại tệ ra nước ngoài (P.KHTC thực hiện)"
+                    ],
+                    "Ghichu": ""
+                  },
+                  {
+                    "code": "2",
+                    "title": "Thanh toán/thanh toán tạm ứng kinh phí",
+                    "label": "Thutuc",
+                    "items": [
+                      {
+                        "code": "a",
+                        "Thanhphandutoan": [
+                          "Các khoản được thanh toán theo mức khoán:\n - Tiền thuê phòng nghỉ\n - Tiền ăn và tiêu vặt\n - Tiền thuê phương tiện từ sân bay, ga tàu, bến xe, cửa khẩu khi nhập cảnh đến nơi ở nước đến công tác và ngược lại khi xuất cảnh\n - Tiền điện thoại, fax, internet"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                          "Quyết định cử đi công tác",
+                          "Dự toán kinh phí đoàn công tác",
+                          "Lịch trình công tác",
+                          "Thư mời có liên quan đến chi phí tài chính",
+                          "Giấy biên nhận kinh phí",
+                          "Visa, hộ chiếu (bản gốc)",
+                          "Quyết toán kinh phí cho đoàn đi công tác nước ngoài",
+                          "Báo cáo kết quả công tác",
+                          "Bảng thông báo tỷ giá của Vietcombank"
+                        ],
+                        "Ghichu": "Báo cáo kết quả công tác được Phòng Tổ chức cán bộ lưu giữ theo quy định"
+                      },
+                      {
+                        "code": "b",
+                        "Thanhphandutoan": [
+                          "Các khoản thanh toán theo thực tế:\n - Vé máy bay\n - Thuê phương tiện đi lại trong nước\n - Thuê dịch vụ tổ chức sự kiện"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                          "Dự toán kinh phí đoàn công tác",
+                          "01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)",
+                          "03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ",
+                          "03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản thanh lý Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)",
+                          "Hóa đơn tài chính (nếu của nước ngoài kèm bản dịch ra tiếng Việt)",
+                          "Vé taxi, cuống tàu, vé xe (nếu có)",
+                          "Thẻ lên máy bay/vé điện tử"
+                        ],
+                        "Ghichu": "TH thuê đơn vị ở nước ngoài tổ chức sự kiện, lập phương án so sánh với mức giá thuê các đơn vị trong nước"
+                      },
+                      {
+                        "code": "b",
+                        "Thanhphandutoan": [
+                          "Các khoản thanh toán theo thực tế:\n- Lệ phí sân bay trong và ngoài nước\n - tiền chờ đợi tại sân bay\n- cước hành lý\n- tài liệu mang theo"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                          "Chứng từ thu hoặc hoá đơn thu tiền của hãng hàng không"
+                        ],
+                        "Ghichu": ""
+                      },
+                      {
+                        "code": "b",
+                        "Thanhphandutoan": [
+                          "Các khoản thanh toán theo thực tế: Tiền mua bảo hiểm"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                          "Hoá đơn bảo hiểm",
+                          "Chứng nhận bảo hiểm",
+                          "Hợp đồng, Thanh lý Hợp đồng bảo hiểm (nếu có)"
+                        ],
+                        "Ghichu": ""
+                      },
+                      {
+                        "code": "b",
+                        "Thanhphandutoan": [
+                          "Các khoản thanh toán theo thực tế: Lệ phí visa, cấp hộ chiếu"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                          "Phiếu thu hợp pháp của cơ quan lãnh sự trong và ngoài nước"
+                        ],
+                        "Ghichu": ""
+                      },
+                      {
+                        "code": "b",
+                        "Thanhphandutoan": [
+                          "Các khoản thanh toán theo thực tế: Thuê dịch thuật tại nước ngoài"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                          "Hợp đồng ký kết giữa Trưởng đoàn công tác và người dịch thuật (hoặc đơn vị cung cấp dịch thuật)",
+                          "Hoá đơn hoặc ký nhận thanh toán trọn gói cho người dịch thuật (hoặc đơn vị cung cấp dịch thuật)"
+                        ],
+                        "Ghichu": "Trường hợp hoá đơn, chứng từ bằng tiếng nước ngoài thì phải dịch ra tiếng Việt"
+                      },
+                      {
+                        "code": "b",
+                        "Thanhphandutoan": [
+                          "Các khoản thanh toán theo thực tế:\n- Thuê địa điểm\n - Thuê phương tiện đi làm việc hàng ngày tại nơi đến công tác\n- Thuê các phương tiện vận chuyển khác tại nước ngoài"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                          "Hợp đồng ký kết giữa Trưởng đoàn công tác với đơn vị cung cấp dịch vụ",
+                          "Hoá đơn, chứng từ trả tiền hợp pháp kèm theo cuống vé (nếu có);"
+                        ],
+                        "Ghichu": "Trường hợp hoá đơn, chứng từ bằng tiếng nước ngoài thì phải dịch ra tiếng Việt"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "code": "III",
+                "title": "Hội nghị, hội thảo trong nước",
+                "label": "Phamvi",
+                "groups": [
+                  {
+                    "code": "1",
+                    "title": "Tạm ứng kinh phí",
+                    "label": "Thutuc",
+                    "items": [
+                      {
+                        "code": "a",
+                        "Thanhphandutoan": [
+                          "- Thù lao giảng viên, báo cáo viên",
+                          "- Chi bù tiền ăn cho đại biểu là khách mời không trong danh sách trả lương: tiền thuê phòng nghỉ và tiền phương tiện đi lại.",
+                          "- Các khoản chi khác"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị tạm ứng",
+                          "Dự trù kinh phí được duyệt",
+                          "Tờ trình phê duyệt chủ trương/ Quyết định/Thông báo của Thủ trưởng đơn vị hoặc Lãnh đạo đơn vị cấp trên về việc tổ chức hội nghị, hội thảo (có quy định thành phần tham dự, nội dung, địa điểm, thời gian, nguồn kinh phí)",
+                          "Chương trình hội nghị, hội thảo (nếu có)",
+                          "Giấy mời/Giấy triệu tập tham dự hội nghị, hội thảo"
+                        ],
+                        "Ghichu": ""
+                      },
+                      {
+                        "code": "b",
+                        "Thanhphandutoan": [
+                          "- Thuê hội trường",
+                          "- Mua văn phòng phẩm",
+                          "- In, phô tô tài liệu",
+                          "- Chi giải khát giữa giờ",
+                          "- Tổ chức ăn tập trung",
+                          "- Trang trí hội trường",
+                          "- Tiền thuê phòng nghỉ",
+                          "- Tiền thuê phương tiện đi lại"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị tạm ứng",
+                          "Dự toán kinh phí",
+                          "01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)",
+                          "03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ",
+                          "03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)"
+                        ],
+                        "Ghichu": "Trường hợp thuê hội trường, dịch vụ phục vụ ăn, nghỉ, trang trí hội nghị đáp ứng khoản 2, điều 3, Quyết định 17/2019/QĐ-TTg thì quy trình thực hiện như khoản 1, điều 4, QĐ 17"
+                      }
+                    ]
+                  },
+                  {
+                    "code": "2",
+                    "title": "Thanh toán/ Thanh toán tạm ứng kinh phí",
+                    "label": "Thutuc",
+                    "items": [
+                      {
+                        "code": "a",
+                        "Thanhphandutoan": [
+                          "- Thù lao giảng viên, báo cáo viên",
+                          "- Chi bù tiền ăn cho đại biểu là khách mời không trong danh sách trả lương: tiền thuê phòng nghỉ và tiền phương tiện đi lại.",
+                          "- Chi làm thêm giờ",
+                          "- Các khoản chi khác"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                          "Dự trù kinh phí được duyệt",
+                          "Giấy biên nhận kinh phí của giảng viên, báo cáo viên",
+                          "Bảng kê chi tiền hội nghị, hội thảo",
+                          "Bảng kê nhận tiền/Giấy báo làm việc ngoài giờ",
+                          "Giấy biên nhận kinh phí phục vụ",
+                          "Giấy biên nhận kinh phí và Hóa đơn bán lẻ, Hóa đơn tài chính đối với các khoản chi nhỏ khác",
+                          "Văn bản phê duyệt chủ trương tổ chức; Giấy mời",
+                          "Biên bản Hội nghị, hội thảo",
+                          "Quyết toán kinh phí tổ chức hội nghị, hội thảo"
+                        ],
+                        "Ghichu": ""
+                      },
+                      {
+                        "code": "b",
+                        "Thanhphandutoan": [
+                          "- Thuê hội trường",
+                          "- Mua văn phòng phẩm",
+                          "- In, phô tô tài liệu",
+                          "- Chi giải khát giữa giờ",
+                          "- Tổ chức ăn tập trung",
+                          "- Trang trí hội trường",
+                          "- Tiền thuê phòng nghỉ",
+                          "- Tiền thuê phương tiện đi lại"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                          "Dự trù kinh phí được duyệt",
+                          "01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)",
+                          "03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ",
+                          "03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản nghiệm thu và thanh lý Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)",
+                          "Hóa đơn tài chính",
+                          "Danh sách khách tham dự",
+                          "Danh sách ký nhận tài liệu, văn phòng phẩm (nếu có)"
+                        ],
+                        "Ghichu": "Trường hợp thuê hội trường, dịch vụ phục vụ ăn, nghỉ, trang trí hội nghị đáp ứng khoản 2, điều 3, Quyết định 17/2019/QĐ-TTg thì quy trình thực hiện như khoản 1, điều 4, QĐ 17"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "code": "IV",
+                "title": "Hội nghị, hội thảo quốc tế tại Việt Nam do Nhà trường chủ trì tổ chức",
+                "label": "Phamvi",
+                "groups": []
+              },
+              {
+                "code": "V",
+                "title": "Kinh phí đón tiếp khách trong nước, nước ngoài đến làm việc tại Trường",
+                "label": "Phamvi",
+                "groups": [
+                  {
+                    "code": "1",
+                    "title": "Tạm ứng kinh phí",
+                    "label": "Thutuc",
+                    "items": [
+                      {
+                        "code": "a",
+                        "Thanhphandutoan": [
+                          "Khoản chi dưới 5 triệu, tạm ứng bằng tiền mặt"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Lịch công tác của Nhà trường",
+                          "Tờ trình xin chủ trương tiếp khách, tặng quà (nếu có chi phí ăn uống tiếp khách, tặng quà)",
+                          "Thư mời khách nước ngoài đến làm việc",
+                          "Chương trình làm việc của đoàn khách tại trường (nếu thời gian tiếp đón đoàn trên 01 ngày)",
+                          "Dự trù kinh phí"
+                        ],
+                        "Ghichu": ""
+                      },
+                      {
+                        "code": "b",
+                        "Thanhphandutoan": [
+                          "Khoản chi tiếp khách, tặng quà, thuê xe, phòng nghỉ trên 5 triệu"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Lịch công tác của Nhà trường",
+                          "Tờ trình xin chủ trương tiếp khách, tặng quà (nếu có chi phí ăn uống tiếp khách, tặng quà)",
+                          "Thư mời khách nước ngoài đến làm việc",
+                          "Chương trình làm việc của đoàn khách tại trường (nếu thời gian tiếp đón đoàn trên 01 ngày)",
+                          "Dự trù kinh phí",
+                          "03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ",
+                          "03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)"
+                        ],
+                        "Ghichu": ""
+                      }
+                    ]
+                  },
+                  {
+                    "code": "2",
+                    "title": "Thanh toán/thanh toán tạm ứng kinh phí",
+                    "label": "Thutuc",
+                    "items": [
+                      {
+                        "code": "a",
+                        "Thanhphandutoan": [
+                          "Khoản chi dưới 5 triệu, tạm ứng bằng tiền mặt"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Lịch công tác của Nhà trường",
+                          "Tờ trình xin chủ trương tiếp khách, tặng quà (nếu có chi phí ăn uống tiếp khách, tặng quà)",
+                          "Thư mời khách nước ngoài đến làm việc",
+                          "Chương trình làm việc của đoàn khách tại trường (nếu thời gian tiếp đón đoàn trên 01 ngày)",
+                          "Dự trù kinh phí",
+                          "Giấy biên nhận kinh phí (nếu có)",
+                          "01 Báo giá và Hóa đơn tài chính/Hóa đơn bán lẻ",
+                          "Quyết toán đoàn vào"
+                        ],
+                        "Ghichu": "Hóa đơn tiếp khách cần có chữ ký xác nhận của Lãnh đạo nhà trường (cấp cao nhất cùng tham dự buổi tiếp khách)"
+                      },
+                      {
+                        "code": "b",
+                        "Thanhphandutoan": [
+                          "Khoản chi tiếp khách, tặng quà, thuê xe, phòng nghỉ trên 5 triệu"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Lịch công tác của Nhà trường",
+                          "Tờ trình xin chủ trương tiếp khách, tặng quà (nếu có chi phí ăn uống tiếp khách, tặng quà)",
+                          "Thư mời khách nước ngoài đến làm việc",
+                          "Chương trình làm việc của đoàn khách tại trường (nếu thời gian tiếp đón đoàn trên 01 ngày)",
+                          "Dự trù kinh phí",
+                          "03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ",
+                          "03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản nghiệm thu và thanh lý hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)",
+                          "Hóa đơn tài chính",
+                          "Quyết toán đoàn vào"
+                        ],
+                        "Ghichu": "Hóa đơn tiếp khách cần có chữ ký xác nhận của Lãnh đạo nhà trường (cấp cao nhất cùng tham dự buổi tiếp khách)"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "code": "VI",
+                "title": "Văn phòng phẩm, mực in, mực máy phô tô, làm dấu và mực dấu",
+                "label": "Phamvi",
+                "groups": [
+                  {
+                    "code": "1",
+                    "title": "Văn phòng phẩm, mực in, mực máy phô tô, làm dấu và mực dấu",
+                    "label": "Thutuc",
+                    "items": [
+                      {
+                        "code": "a",
+                        "Thanhphandutoan": [
+                          "Văn phòng phẩm, mực in, mực máy phô tô, làm dấu và mực dấu"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng",
+                          "Dự trù kinh phí",
+                          "01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)",
+                          "03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ",
+                          "03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)",
+                          "Hóa đơn tài chính"
+                        ],
+                        "Ghichu": ""
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "code": "VII",
+                "title": "Dịch vụ chung",
+                "label": "Phamvi",
+                "groups": [
+                  {
+                    "code": "1",
+                    "title": "Tiền điện, nước",
+                    "label": "Thutuc",
+                    "items": [
+                      {
+                        "code": "a",
+                        "Thanhphandutoan": [
+                          "Tiền điện, nước"
+                        ],
+                        "label": "Thutuc",
+                        "Hosochungtu": [
+                          "Giấy đề nghị thanh toán",
+                          "Công văn thông báo thanh toán và xác nhận chỉ số công tơ của Văn phòng ĐHQGHN",
+                          "Đề nghị thanh toán, Hóa đơn và xác nhận chỉ số công tơ của đơn vị cung cấp dịch vụ khác"
+                        ],
+                        "Ghichu": ""
+                      },
+                      {
+                        "code": "2",
+                        "title": "Cước phí điện thoại, bưu chính, internet",
+                        "label": "Thutuc",
+                        "items": [
+                          {
+                            "code": "a",
+                            "Thanhphandutoan": [
+                              "Cước phí điện thoại, bưu chính, internet"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Giấy đề nghị thanh toán",
+                              "Thông báo thanh toán cước phí",
+                              "Hóa đơn cước điện thoại, internet (bổ sung sau khi đã chuyển tiền)",
+                              "Hóa đơn, Bảng tổng hợp cước phí bưu chính và Phiếu gửi tài liệu",
+                              "Hợp đồng, Phụ lục hợp đồng internet, Biên bản nghiệm thu, Biên bản thanh lý (nếu có)"
+                            ],
+                            "Ghichu": ""
+                          }
+                        ]
+                      },
+                      {
+                        "code": "3",
+                        "title": "Chi phí xăng xe, cầu đường, bến bãi và các chi phí khác liên quan đến sử dụng xe công",
+                        "label": "Thutuc",
+                        "items": [
+                          {
+                            "code": "a",
+                            "Thanhphandutoan": [
+                              "Chi phí xăng xe: Tạm ứng kinh phí"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Giấy đề nghị tạm ứng",
+                              "Quyết định chỉ định đơn vị cung cấp xăng và hồ sơ đấu thầu liên quan",
+                              "Hợp đồng mua nhiên liệu",
+                              "Đối chiếu/quyết toán kinh phí xăng xe quý trước với nhà cung cấp (bpt)"
+                            ],
+                            "Ghichu": ""
+                          },
+                          {
+                            "code": "a",
+                            "Thanhphandutoan": [
+                              "Chi phí xăng xe: Thanh toán/ thanh toán tạm ứng"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Giấy đề nghị thanh toán/thanh toán tạm ứng",
+                              "Lịch trình sử dụng xe kèm minh chứng",
+                              "Bảng tính số nhiên liệu tiêu hao",
+                              "Các Hóa đơn tiền xăng và bảng kê hóa đơn",
+                              "Quyết định chỉ định đơn vị cung cấp xăng và hồ sơ đấu thầu liên quan",
+                              "Hợp đồng mua nhiên liệu",
+                              "Thanh lý Hợp đồng (nếu có)"
+                            ],
+                            "Ghichu": ""
+                          },
+                          {
+                            "code": "b",
+                            "Thanhphandutoan": [
+                              "Chi phí bảo dưỡng, sửa chữa, thay thế phụ tùng, thiết bị dầu máy"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng",
+                              "Biên bản kiểm tra xác nhận tình trạng xe",
+                              "Dự trù kinh phí",
+                              "01 Báo giá hợp lệ (nếu chi phí dưới 5 triệu đồng)",
+                              "03 Báo giá hợp lệ (nếu chi phí từ 5 triệu đồng đến dưới 20 triệu đồng) và Thông tin tài khoản thanh toán của đơn vị cung cấp dịch vụ",
+                              "03 Báo giá hợp lệ, Biên bản xét chọn giá, Quyết định chỉ định đơn vị cung cấp, Hợp đồng, Biên bản nghiệm thu và thanh lý Hợp đồng (nếu chi phí từ 20 triệu đồng trở lên)",
+                              "Hóa đơn tài chính",
+                              "Biên bản nghiệm thu, xác nhận bảo hành (nếu có)"
+                            ],
+                            "Ghichu": ""
+                          },
+                          {
+                            "code": "c",
+                            "Thanhphandutoan": [
+                              "Chi phí đăng ký, đăng kiểm xe"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Hóa đơn tài chính",
+                              "Hợp đồng, thanh lý (nếu có)"
+                            ],
+                            "Ghichu": ""
+                          },
+                          {
+                            "code": "d",
+                            "Thanhphandutoan": [
+                              "Chi phí cầu đường",
+                              "bến bãi và các chi phí liên quan khác"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Giấy đề nghị thanh toán",
+                              "Cuống vé, phí và Bảng kê",
+                              "Lịch trình sử dụng xe kèm minh chứng"
+                            ],
+                            "Ghichu": ""
+                          }
+                        ]
+                      },
+                      {
+                        "code": "4",
+                        "title": "Chi phí tuyên truyền, quảng cáo, truyền thông",
+                        "label": "Thutuc",
+                        "items": [
+                          {
+                            "code": "a",
+                            "Thanhphandutoan": [
+                              "Thuê ngoài thực hiện"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Đơn vị xây dựng Dự trù kinh phí và thực hiện thanh toán theo Quy trình 1. Thanh toán mua sắm TS, HH, DV thuộc Dự toán mua sắm thường xuyên"
+                            ],
+                            "Ghichu": "Dự trù kinh phí có thể xây dựng riêng hoặc lồng ghép trong Dự trù sự kiện chung và có thể thanh toán riêng"
+                          },
+                          {
+                            "code": "b",
+                            "Thanhphandutoan": [
+                              "Tự thực hiện"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Giấy đề nghị tạm ứng/thanh toán/thanh toán tạm ứng",
+                              "Dự trù kinh phí",
+                              "Hợp đồng thuê khoán kèm Danh sách thành viên thực hiện chi tiết đến nội dung công việc và kinh phí tương ứng",
+                              "Biên bản nghiệm thu, bàn giao",
+                              "Biên bản thanh lý hợp đồng",
+                              "Bảng kê nhận tiền/Giấy biên nhận kinh phí"
+                            ],
+                            "Ghichu": ""
+                          }
+                        ]
+                      },
+                      {
+                        "code": "5",
+                        "title": "Chi phí phục vụ giảng đường, dịch vụ trông giữ xe",
+                        "label": "Thutuc",
+                        "items": [
+                          {
+                            "code": "a",
+                            "Thanhphandutoan": [
+                              "Chi phí phục vụ giảng đường, dịch vụ trông giữ xe"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Giấy đề nghị thanh toán",
+                              "Hợp đồng",
+                              "Biên bản xác nhận khối lượng sử dụng (trường hợp thanh toán chi phí điện, nước)",
+                              "Biên bản nghiệm thu (công tác phục vụ giảng đường)",
+                              "Biên bản nghiệm thu hàng tháng/hàng quý (dịch vụ trông giữ xe)",
+                              "Biên bản thanh lý (thanh toán đợt cuối khi kết thúc hợp đồng)",
+                              "Giấy biên nhận kinh phí (nếu có)",
+                              "Hóa đơn/Biên lai thu phí của đơn vị cung cấp DV"
+                            ],
+                            "Ghichu": ""
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "code": "VIII",
+                    "title": "Một số thanh toán khác cho cá nhân",
+                    "label": "Phamvi",
+                    "groups": [
+                      {
+                        "code": "1",
+                        "title": "Tiền hỗ trợ cho cán bộ, viên chức nhân dịp kỷ niệm các ngày lễ lớn",
+                        "label": "Thutuc",
+                        "items": [
+                          {
+                            "code": "a",
+                            "Thanhphandutoan": [
+                              "Tiền hỗ trợ cho cán bộ, viên chức nhân dịp kỷ niệm các ngày lễ lớn"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Tờ trình/Đề nghị chi của Ban Chấp hành Công đoàn trường được Ban Giám hiệu phê duyệt",
+                              "Danh sách cán bộ theo đối tượng hưởng có xác nhận của phòng Tổ chức cán bộ"
+                            ],
+                            "Ghichu": ""
+                          }
+                        ]
+                      },
+                      {
+                        "code": "2",
+                        "title": "Tiền thưởng thường xuyên và đột xuất cho cán bộ, viên chức",
+                        "label": "Thutuc",
+                        "items": [
+                          {
+                            "code": "a",
+                            "Thanhphandutoan": [
+                              "Tiền thưởng thường xuyên và đột xuất cho cán bộ, viên chức"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Đề nghị thanh toán",
+                              "Quyết định khen thưởng",
+                              "Bảng kê thanh toán"
+                            ],
+                            "Ghichu": ""
+                          }
+                        ]
+                      },
+                      {
+                        "code": "3",
+                        "title": "Tiền làm thêm giờ",
+                        "label": "Thutuc",
+                        "items": [
+                          {
+                            "code": "a",
+                            "Thanhphandutoan": [
+                              "Tiền làm thêm giờ"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Đề nghị thanh toán",
+                              "Kế hoạch làm việc ngoài giờ được người có thẩm quyền phê duyệt",
+                              "Bảng chấm công hoặc Giấy báo làm thêm giờ",
+                              "Biên nhận kinh phí (nếu có)"
+                            ],
+                            "Ghichu": ""
+                          }
+                        ]
+                      },
+                      {
+                        "code": "4",
+                        "title": "Thù lao hướng dẫn thử việc",
+                        "label": "Thutuc",
+                        "items": [
+                          {
+                            "code": "a",
+                            "Thanhphandutoan": [
+                              "Thù lao hướng dẫn thử việc"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Giấy đề nghị thanh toán",
+                              "Bảng kê thanh toán thù lao hướng dẫn",
+                              "Quyết định giao hướng dẫn, Báo cáo đánh giá và Xác nhận hoàn thành quá trình thử việc"
+                            ],
+                            "Ghichu": ""
+                          }
+                        ]
+                      },
+                      {
+                        "code": "5",
+                        "title": "Hỗ trợ cán bộ hoàn thành luận văn, luận án",
+                        "label": "Thutuc",
+                        "items": [
+                          {
+                            "code": "a",
+                            "Thanhphandutoan": [
+                              "Hỗ trợ cán bộ hoàn thành luận văn, luận án"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Giấy đề nghị thanh toán",
+                              "Giấy biên nhân kinh phí",
+                              "Quyết định cử cán bộ tham gia khóa học",
+                              "Văn bằng tốt nghiệp (bản công chứng)"
+                            ],
+                            "Ghichu": ""
+                          }
+                        ]
+                      },
+                      {
+                        "code": "6",
+                        "title": "Hỗ trợ cán bộ tham gia các lớp bồi dưỡng",
+                        "label": "Thutuc",
+                        "items": [
+                          {
+                            "code": "a",
+                            "Thanhphandutoan": [
+                              "Hỗ trợ cán bộ tham gia các lớp bồi dưỡng"
+                            ],
+                            "label": "Thutuc",
+                            "Hosochungtu": [
+                              "Giấy đề nghị thanh toán",
+                              "Bảng kê nhận tiền/Giấy biên nhận kinh phí hỗ trợ",
+                              "Hóa đơn/Biên lai/Phiếu thu kinh phí tham dự lớp bồi dưỡng",
+                              "Quyết định cử cán bộ tham gia",
+                              "Thông báo tổ chức lớp học và Lịch học"
+                            ],
+                            "Ghichu": ""
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
