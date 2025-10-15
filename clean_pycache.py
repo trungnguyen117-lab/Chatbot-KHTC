@@ -1,6 +1,6 @@
 import os
 import shutil
-
+   
 def delete_pycache(directory):
     """
     Quét và xóa tất cả các thư mục __pycache__ trong một thư mục chỉ định.
