@@ -1,5 +1,9 @@
 FROM python:3.13-slim
 
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+
+ADD . /app
 WORKDIR /app
 
 # Install system dependencies cho psycopg2 và other packages
@@ -8,15 +12,8 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install uv
-RUN pip install uv
+RUN uv sync
 
-# Copy dependency files
-COPY . .
-RUN uv sync --locked
-
-# Create necessary directories
-# Expose port
 EXPOSE 8000
 
 # Start command

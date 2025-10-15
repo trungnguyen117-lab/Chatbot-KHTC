@@ -9,94 +9,175 @@ class Neo4jHandler:
         self.driver.close()
 
     def get_root_with_subitems(self, label: str | None = None):
+        query = """
+        // Lấy mọi Thủ tục ở độ sâu 1-3 tính từ Phạm vi
+        MATCH (q:Quytrinh)-[:HAS_SECTION]->(p)
+        MATCH (p)-[:HAS_ITEM|HAS_SUBITEM*1..3]->(root:Thutuc)
+        OPTIONAL MATCH (root)-[:HAS_CATEGORY]->(c:category)
+        OPTIONAL MATCH (c)-[:HAS_ITEM]->(bc:budgets)
+        OPTIONAL MATCH (root)-[:HAS_BUDGET]->(bd:budgets)
+        OPTIONAL MATCH (root)-[:REQUIRES]->(d:docs)
+        OPTIONAL MATCH (root)-[:NOTE]->(n:note)
+        OPTIONAL MATCH (root)-[:HAS_SUBITEM]->(child)
+
+        WITH
+            q, p, root,
+            collect(DISTINCT c)  AS cats,
+            collect(DISTINCT {cat:c, bud:bc}) AS catPairs,
+            collect(DISTINCT bd) AS directBudgets,
+            [x IN collect(DISTINCT d) WHERE x IS NOT NULL AND coalesce(x.title,'') <> '' |
+                { id: elementId(x), title: x.title, type:'docs' }
+            ] AS docsItems,
+            head([x IN collect(DISTINCT n) WHERE x IS NOT NULL | coalesce(x.description,'')]) AS noteText,
+            [x IN collect(DISTINCT child) WHERE x IS NOT NULL AND coalesce(x.title,'') <> '' |
+                { id: elementId(x), title: x.title, type:'subitem' }
+            ] AS childrenItems
+
+        WITH
+            q, p, root, docsItems, noteText, childrenItems, cats, catPairs, directBudgets,
+            [cat IN cats WHERE cat IS NOT NULL |
+                {
+                    id: elementId(cat),
+                    title: coalesce(cat.name,''),
+                    type: 'category',
+                    children: [cp IN catPairs WHERE cp.cat = cat AND cp.bud IS NOT NULL |
+                        { id: elementId(cp.bud), title: coalesce(cp.bud.name,''), type:'budget' }
+                    ]
+                }
+            ] AS categoryBlocks,
+            [b IN directBudgets WHERE b IS NOT NULL AND coalesce(b.name,'') <> '' |
+                { id: elementId(b), title: b.name, type:'budget' }
+            ] AS directBudgetItems
+
+        WITH
+            q, p, root, docsItems, noteText, childrenItems, categoryBlocks, directBudgetItems,
+            CASE WHEN size(categoryBlocks) > 0 THEN categoryBlocks ELSE directBudgetItems END AS budgetBlock,
+            [cp IN catPairs WHERE cp.bud IS NOT NULL | coalesce(cp.bud.name,'')] +
+            [b IN directBudgets WHERE b IS NOT NULL | coalesce(b.name,'')] AS budgetNamesRaw
+
+        WITH
+            q, p, root, docsItems, noteText, childrenItems, budgetBlock,
+            reduce(acc = [], x IN [n IN budgetNamesRaw WHERE n <> ''] |
+                CASE WHEN x IN acc THEN acc ELSE acc + x END
+            ) AS budgetsAll
+
+        RETURN
+            elementId(root)                 AS internalId,
+            coalesce(root.id, '')           AS id,
+            coalesce(root.code, '')         AS code,
+            coalesce(root.title, '')        AS title,
+            coalesce(root.category, '')     AS category,
+            coalesce(noteText, '')          AS note,
+            budgetsAll                      AS budgets,
+            coalesce(q.full_title, '')      AS quytrinh,
+            coalesce(p.title, '')           AS phamvi,
+            coalesce(root.section_code, '') AS section_code,
+            coalesce(root.group_code, '')   AS group_code,
+            (docsItems + childrenItems + budgetBlock) AS subItems
+        ORDER BY code, section_code;
+        """
+
+        data_raw = []
         with self.driver.session() as session:
-            if label:
-                query = f"""
-                MATCH (root:{label})
-                WHERE NOT EXISTS {{ MATCH ()-[:REQUIRES]->(root) }}
-                // lấy 1 parent duy nhất (nếu có) để tránh trùng do nhiều đường match
-                OPTIONAL MATCH (q:Quytrinh)-[:HAS_SECTION]->(p:Phamvi)-[:HAS_ITEM]->(root)
-                WITH root,
-                    head(collect(DISTINCT q.full_title)) AS quytrinh,
-                    head(collect(DISTINCT p.title))      AS phamvi
+            for record in session.run(query):
+                rec = record.data()
+                sub_items = rec.get("subItems") or []
 
-                // gom Hosochungtu
-                OPTIONAL MATCH (root)-[:REQUIRES]->(hs:Hosochungtu)
-                WITH root, quytrinh, phamvi,
-                    collect(DISTINCT {{ id: elementId(hs),
-                                        title: coalesce(hs.name, hs.title, hs.description, '') }}) AS hsItems
+                # Docs
+                docs_ui = [
+                    {"id": it["id"], "title": (it["title"] or "").strip(), "label": "docs", "children": []}
+                    for it in sub_items
+                    if isinstance(it, dict) and it.get("type") == "docs" and it.get("id")
+                ]
 
-                // gom Thanhphandutoan
-                OPTIONAL MATCH (root)-[:REQUIRES]->(tp:Thanhphandutoan)
-                WITH root, quytrinh, phamvi, hsItems,
-                    collect(DISTINCT {{ id: elementId(tp),
-                                        title: coalesce(tp.name, tp.description, tp.code, '') }}) AS tpItems
+                # Budgets
+                category_blocks = [it for it in sub_items if isinstance(it, dict) and it.get("type") == "category"]
+                budgets_ui = []
+                if category_blocks:
+                    for cat in category_blocks:
+                        cat_title = (cat.get("title") or "").strip()
+                        if not cat_title:
+                            continue
+                        children = [
+                            {"id": ch["id"], "title": (ch["title"] or "").strip(), "label": "budgets", "children": []}
+                            for ch in (cat.get("children") or [])
+                            if isinstance(ch, dict) and ch.get("id")
+                        ]
+                        budgets_ui.append({
+                            "id": cat.get("id"),
+                            "title": cat_title,
+                            "label": "budgets",
+                            "children": children
+                        })
+                else:
+                    budgets_ui = [
+                        {"id": it["id"], "title": (it["title"] or "").strip(), "label": "budgets", "children": []}
+                        for it in sub_items
+                        if isinstance(it, dict) and it.get("type") == "budget" and it.get("id")
+                    ]
 
-                RETURN
-                    elementId(root)                        AS id,
-                    elementId(root)                        AS internalId,
-                    coalesce(root.title,'')                AS title,
-                    coalesce(root.description,'')          AS description,
-                    CASE WHEN root.date IS NOT NULL THEN toString(root.date) ELSE '' END AS date,
-                    quytrinh                               AS quytrinh,
-                    phamvi                                 AS phamvi,
-                    // chỉ trả id + title, bỏ rỗng
-                    [x IN (hsItems + tpItems) WHERE x.title <> ''] AS subItems
-                ORDER BY title
-                """
-            else:
-                query = """
-                MATCH (root:Thutuc)
-                WHERE NOT EXISTS { MATCH ()-[:REQUIRES]->(root) }
-                OPTIONAL MATCH (q:Quytrinh)-[:HAS_SECTION]->(p:Phamvi)-[:HAS_ITEM]->(root)
-                WITH root,
-                    head(collect(DISTINCT q.full_title)) AS quytrinh,
-                    head(collect(DISTINCT p.title))      AS phamvi
+                # Note
+                note_text = (rec.get("note") or "").strip()
+                note_ui = []
+                if note_text:
+                    note_ui.append({
+                        "id": f"{rec.get('internalId')}_note",
+                        "title": note_text,
+                        "label": "note",
+                        "children": []
+                    })
 
-                OPTIONAL MATCH (root)-[:REQUIRES]->(hs:Hosochungtu)
-                WITH root, quytrinh, phamvi,
-                    collect(DISTINCT { id: elementId(hs),
-                                        title: coalesce(hs.name, hs.title, hs.description, '') }) AS hsItems
+                parent = f"{rec.get('quytrinh') or ''} / {rec.get('phamvi') or ''}".strip().strip(" /")
 
-                OPTIONAL MATCH (root)-[:REQUIRES]->(tp:Thanhphandutoan)
-                WITH root, quytrinh, phamvi, hsItems,
-                    collect(DISTINCT { id: elementId(tp),
-                                        title: coalesce(tp.name, tp.description, tp.code, '') }) AS tpItems
-
-                RETURN
-                    elementId(root)                        AS id,
-                    coalesce(root.title,'')                AS title,
-                    coalesce(root.description,'')          AS description,
-                    CASE WHEN root.date IS NOT NULL THEN toString(root.date) ELSE '' END AS date,
-                    quytrinh                               AS quytrinh,
-                    phamvi                                 AS phamvi,
-                    [x IN (hsItems + tpItems) WHERE x.title <> ''] AS subItems
-                ORDER BY title
-                """
-
-            results = session.run(query)
-            data = []
-            for record in results:
-                sub_items = []
-                for item in (record.get("subItems") or []):
-                    if item and item.get("id") and (item.get("title") or "").strip():
-                        sub_items.append({"id": item["id"], "title": item["title"]})
-
-                parent = f"{record.get('quytrinh') or ''} / {record.get('phamvi') or ''}".strip()
-                if parent.startswith(" /"):
-                    parent = parent[2:]
-                if parent.endswith(" /"):
-                    parent = parent[:-2]
-
-                data.append({
-                    "id": record.get("id"),
-                    "title": record.get("title"),
-                    "description": record.get("description"),
-                    "date": record.get("date"),
+                data_raw.append({
+                    "internalId": rec.get("internalId"),
+                    "id": rec.get("id"),
+                    "code": rec.get("code") or "",
+                    "title": rec.get("title") or "",
                     "parent": parent,
-                    "subItems": sub_items
+                    "description": "",
+                    "date": "",
+                    "subItems": docs_ui + budgets_ui + note_ui
                 })
-            return data
+
+        # ✅ Gộp chỉ theo (title + parent)
+        grouped = {}
+        for item in data_raw:
+            key = f"{item['title'].lower()}::{item['parent'].lower()}"
+            code = item.get("code") or "(no code)"
+            if key not in grouped:
+                grouped[key] = {
+                    "id": item["internalId"],
+                    "title": item["title"],
+                    "description": "",
+                    "date": "",
+                    "parent": item["parent"],
+                    "_code_blocks": {}
+                }
+            if code not in grouped[key]["_code_blocks"]:
+                grouped[key]["_code_blocks"][code] = {
+                    "id": f"{item['internalId']}::code::{code}",
+                    "title": code,
+                    "label": "code",
+                    "children": []
+                }
+            grouped[key]["_code_blocks"][code]["children"].extend(item["subItems"])
+
+        # Xuất ra
+        data_final = []
+        for g in grouped.values():
+            codes = list(g["_code_blocks"].values())
+            data_final.append({
+                "id": g["id"],
+                "title": g["title"],
+                "description": g["description"],
+                "date": g["date"],
+                "parent": g["parent"],
+                "subItems": codes
+            })
+
+        data_final.sort(key=lambda x: (x["parent"].lower(), x["title"].lower()))
+        return data_final
 
 
 

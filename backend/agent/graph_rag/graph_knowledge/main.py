@@ -1,23 +1,32 @@
 from ..common.config import *
 from ..common.processors.docling import convert_docx_to_json, build_graph_documents
 from ..common.graph_builder import GraphBuilder
-from ..common.llm_helper import *
-from ..common.schema.docling_schema import DOCLING_SCHEMA, DOCLING_PROMPTS
-
+from pathlib import Path
+import json
 
 def process_docling():
-    """Process DOCX document into knowledge graph"""
-    print(f"Converting DOCX: {DOCLING_INPUT_PATH}")
-    data = convert_docx_to_json(DOCLING_INPUT_PATH, DOCLING_OUTPUT_PATH)
-   
-    print("Building graph documents...")
-    graph_docs = build_graph_documents(data)
-   
-    print("Importing to Neo4j...")
+    """Import chapter_5.json directly into Neo4j as Knowledge Graph."""
+    json_path = Path("./json_output/chapter_5.json")
+
+    if not json_path.exists():
+        raise FileNotFoundError(f"Không tìm thấy file JSON: {json_path}")
+
+    print(f"Importing DOCLING JSON directly from: {json_path}")
     graph = GraphBuilder(NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, NEO4J_DATABASE)
-    graph.import_documents(graph_docs, cleanup_query=CLEANUP_REMOVE_ID)
-   
-    print("Done!")
+
+    cleanup = globals().get("CLEANUP_REMOVE_ID", None)
+    try:
+        if cleanup:
+            print("Cleaning up old nodes using CLEANUP_REMOVE_ID...")
+            graph.import_documents(str(json_path), cleanup_query=cleanup)
+        else:
+            print("CLEANUP_REMOVE_ID not found. Importing without cleanup query...")
+            graph.import_documents(str(json_path))
+    except Exception as e:
+        print(f"❌ Lỗi khi import JSON: {e}")
+        raise
+
+    print("✅ Done!")
 
 
 def query_knowledge(question: str):
@@ -192,15 +201,15 @@ def chat_loop():
             print("Vui lòng thử lại với câu hỏi khác.")
 
 
-if __name__ == "__main__":
-    # Process documents first if needed
-    should_process = input("Bạn có muốn xử lý lại tài liệu không? (y/N): ").strip().lower()
-    if should_process == 'y':
-        process_docling()
-        print("\nĐã xử lý xong tài liệu!")
+# if __name__ == "__main__":
+#     # Process documents first if needed
+#     should_process = input("Bạn có muốn xử lý lại tài liệu không? (y/N): ").strip().lower()
+#     if should_process == 'y':
+#         process_docling()
+#         print("\nĐã xử lý xong tài liệu!")
    
-    # Start interactive chat
-    chat_loop()
+#     # Start interactive chat
+#     chat_loop()
 
 
 

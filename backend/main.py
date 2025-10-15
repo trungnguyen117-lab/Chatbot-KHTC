@@ -37,8 +37,13 @@ app = FastAPI(
     title="Fin Agent API",
     description="Financial Agent Backend API",
     version="1.0.0",
-    lifespan=lifespan
+    lifespan=lifespan,
+    root_path="/api/",        # <-- tất cả route map sau reverse proxy /api
+    docs_url="/docs",    # <-- Swagger UI
+    redoc_url="/api/redoc",  # <-- ReDoc
+    openapi_url="/api/openapi.json"
 )
+
 
 # Add CORS middleware
 app.add_middleware(
