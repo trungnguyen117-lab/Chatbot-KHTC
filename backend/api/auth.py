@@ -6,6 +6,8 @@ from crud import get_user_by_email, create_user, authenticate_user
 from auth import create_access_token
 from datetime import timedelta
 from config import settings
+from models import User
+from auth import get_current_user
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
@@ -59,6 +61,12 @@ async def register(register_data: RegisterRequest, db: Session = Depends(get_db)
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Email đã được sử dụng"
         )
+    print("="*50)
+    print(f"[RAW] Password received: {register_data.password}")
+    print(f"[RAW] Password length: {len(register_data.password)} chars")
+    print(f"[RAW] Password bytes: {len(register_data.password.encode('utf-8'))} bytes")
+    print(f"[RAW] Password repr: {repr(register_data.password)}")
+    print("="*50)
     
     # Create new user
     user = create_user(db, register_data.fullname, register_data.email, register_data.password, register_data.organization)
@@ -75,3 +83,11 @@ async def register(register_data: RegisterRequest, db: Session = Depends(get_db)
         },
         message="Đăng ký thành công"
     )
+
+@router.get("/me", response_model=UserResponse)
+async def read_users_me(current_user: User = Depends(get_current_user)):
+    """
+    Lấy thông tin của người dùng đang đăng nhập.
+    Cần gửi kèm "Authorization: Bearer <token>" trong header của request.
+    """
+    return current_user

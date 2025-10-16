@@ -6,7 +6,6 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
    "authlib>=1.6.5",
-   "bcrypt>=5.0.0",
    "docling>=2.55.1",
    "fastapi[standard]>=0.118.0",
    "fastembed>=0.4.2",
@@ -21,8 +20,8 @@ dependencies = [
    "llama-index-embeddings-huggingface>=0.6.1",
    "llama-index-llms-google-genai>=0.6.2",
    "neo4j>=5.28.2",
-   "onnxruntime==1.17.3",
-   "passlib>=1.7.4",
+   "onnxruntime>1.17.3",
+   "passlib[bcrypt]>=1.7.4",
    "pdf2docx>=0.5.8",
    "pdf2image>=1.17.0",
    "psycopg2>=2.9.10",

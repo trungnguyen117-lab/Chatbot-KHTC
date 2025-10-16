@@ -8,6 +8,9 @@ def get_user_by_email(db: Session, email: str) -> Optional[User]:
     """Get user by email."""
     return db.query(User).filter(User.email == email).first()
 
+def get_user_by_id(db: Session, user_id: int) -> Optional[User]:
+    """Lấy người dùng bằng ID."""
+    return db.query(User).filter(User.id == user_id).first()
 
 def create_user(db: Session, fullname:str, email: str, password: str, organization: str) -> User:
     """Create a new user."""
