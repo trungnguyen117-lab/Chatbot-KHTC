@@ -49,8 +49,9 @@ class QdrantIndexing:
         Args:
             input_file (str): The path to the JSON file.
         """
-        with open(input_file, 'r') as file:
+        with open(input_file, 'r', encoding='utf-8', errors='ignore') as file:
             self.nodes = json.load(file)
+
 
         for node in self.nodes:
             self.metadata.append(node['metadata'])

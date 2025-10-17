@@ -33,7 +33,6 @@ async def login(login_data: LoginRequest, db: Session = Depends(get_db)):
     # Prepare user data
     user_data = UserResponse(
         id=user.id,
-        fullname=user.fullname,
         email=user.email,
         role=user.role,
         department=user.department,
@@ -69,13 +68,12 @@ async def register(register_data: RegisterRequest, db: Session = Depends(get_db)
     print("="*50)
     
     # Create new user
-    user = create_user(db, register_data.fullname, register_data.email, register_data.password, register_data.organization)
+    user = create_user(db, register_data.email, register_data.password, register_data.organization)
     
     return RegisterResponse(
         success=True,
         data={
             "user": {
-                "fullname": user.fullname,
                 "id": user.id,
                 "email": user.email,
                 "organization": user.organization
