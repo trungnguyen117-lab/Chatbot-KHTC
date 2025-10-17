@@ -11,7 +11,7 @@ services:
       TZ: Asia/Bangkok
     volumes:
       - pg_data:/var/lib/postgresql/data/pgdata
-      - ./initdb:/docker-entrypoint-initdb.d:ro
+      - ./initdb/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql:ro  
     ports:
       - "5433:5432"
     healthcheck:
@@ -20,13 +20,14 @@ services:
       timeout: 3s
       retries: 20
 
+
   qdrant:
     image: qdrant/qdrant
     container_name: qdrant
     restart: unless-stopped
     ports:
-      - "6333:6333"  # REST / dashboard
-      - "6335:6334"  # gRPC
+      - "6333:6333"  
+      - "6335:6334" 
     volumes:
       - qdrant_data:/qdrant/storage
 

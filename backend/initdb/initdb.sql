@@ -13,5 +13,3 @@ CREATE TABLE public.users (
     updated_at TIMESTAMP WITH TIME ZONE
 );
 
--- PostgreSQL tự động tạo index cho khóa chính (PRIMARY KEY) và ràng buộc duy nhất (UNIQUE)
--- nên bạn không cần tạo lại index cho cột 'id' và 'email' một cách tường minh.

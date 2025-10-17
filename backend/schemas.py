@@ -10,6 +10,7 @@ class LoginRequest(BaseModel):
 
 
 class RegisterRequest(BaseModel):
+    fullname: str
     email: str
     password: str
     organization: str
@@ -18,7 +19,7 @@ class RegisterRequest(BaseModel):
 # Response schemas
 class UserResponse(BaseModel):
     id: int
-    name: Optional[str] = None
+    fullname: Optional[str] = None
     email: str
     role: str
     department: Optional[str] = None

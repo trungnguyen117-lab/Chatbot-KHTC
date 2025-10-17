@@ -12,10 +12,11 @@ def get_user_by_id(db: Session, user_id: int) -> Optional[User]:
     """Lấy người dùng bằng ID."""
     return db.query(User).filter(User.id == user_id).first()
 
-def create_user(db: Session, email: str, password: str, organization: str) -> User:
+def create_user(db: Session, fullname:str, email: str, password: str, organization: str) -> User:
     """Create a new user."""
     hashed_password = get_password_hash(password)
     db_user = User(
+        fullname = fullname,
         email=email,
         password_hash=hashed_password,
         organization=organization
