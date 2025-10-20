@@ -8,6 +8,7 @@ from typing import List, Optional
 import logging
 import json
 import os
+import asyncio
 from config import settings
 from agent.vector_rag.rag import RAGAgent
 from agent.vector_rag.indexing import QdrantIndexing
@@ -16,6 +17,7 @@ import models
 from schemas import ConversationResponse, PaginatedMessagesResponse, RenameConversationRequest
 # Import auth utilities
 from auth import verify_token
+from crud import get_user_by_id
 from database import get_db
 
 # Security
@@ -64,7 +66,17 @@ router = APIRouter(prefix="/chatbot", tags=["chatbot"])
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)):
     token = credentials.credentials
     payload = verify_token(token)
-    return payload
+    # token payload có 'user_id' (theo create_access_token), không phải 'id'
+    user_id = payload.get("user_id") or payload.get("id") or payload.get("sub")
+    if not user_id:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid user token")
+
+    user = get_user_by_id(db, user_id=user_id)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid user token")
+
+    # Trả về dict có 'id' để khớp các chỗ hiện tại trong [chat.py](http://_vscodecontentref_/6)
+    return {"id": user.id, "email": user.email, "role": user.role}
 
 # Initialize RAG components function
 async def initialize_rag():
@@ -243,8 +255,8 @@ async def ask_question_json(
 
         filename = None
 
-        # 4. Gọi RAG Agent (Code cũ của bạn)
-        response_text = rag_agent.run(request.message, filename, stream=False)
+        # 4. Gọi RAG Agent trong thread để tránh asyncio.run() trong event loop
+        response_text = await asyncio.to_thread(rag_agent.run, request.message, filename, False)
 
         # 5. LƯU TIN NHẮN CỦA CHATBOT (type='chatbot')
         bot_message = models.Message(
