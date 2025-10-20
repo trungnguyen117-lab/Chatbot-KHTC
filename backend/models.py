@@ -46,9 +46,10 @@ class Message(Base):
     id = Column(Integer, primary_key=True, index=True)
     conversation_id = Column(Integer, ForeignKey("conversations.id", ondelete="CASCADE"), nullable=False)
     content = Column(Text, nullable=False)
-    type = Column(Enum(MessageType), nullable=False) # 'user' hoặc 'chatbot'
-    metadata = Column(Text) # Hoặc JSONB nếu CSDL của bạn hỗ trợ
+    type = Column(Enum(MessageType), nullable=False)  # 'user' hoặc 'chatbot'
+    message_metadata = Column("metadata", Text)  # ✅ đổi tên thuộc tính Python, giữ tên cột DB
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Mối quan hệ ngược lại với Conversation
     conversation = relationship("Conversation", back_populates="messages")
+

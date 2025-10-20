@@ -2,6 +2,7 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional, List
 from datetime import datetime
 import models
+import enum
 
 # Request schemas
 class LoginRequest(BaseModel):
