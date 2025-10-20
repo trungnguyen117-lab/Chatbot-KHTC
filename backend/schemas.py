@@ -1,7 +1,7 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
-
+import models
 
 # Request schemas
 class LoginRequest(BaseModel):
@@ -19,7 +19,7 @@ class RegisterRequest(BaseModel):
 # Response schemas
 class UserResponse(BaseModel):
     id: int
-    name: Optional[str] = None
+    fullname: Optional[str] = None
     email: str
     role: str
     department: Optional[str] = None
@@ -46,3 +46,33 @@ class RegisterResponse(BaseModel):
 class ErrorResponse(BaseModel):
     success: bool
     message: str
+
+
+class MessageTypeEnum(str, enum.Enum):
+    user = "user"
+    chatbot = "chatbot"
+
+class MessageResponse(BaseModel):
+    id: int
+    content: str
+    type: MessageTypeEnum # Sử dụng Enum
+    created_at: datetime
+
+    class Config:
+        orm_mode = True # Tự động map từ object SQLAlchemy
+
+class ConversationResponse(BaseModel):
+    id: int
+    title: str
+    created_at: datetime
+    updated_at: Optional[datetime] # updated_at có thể là NULL ban đầu
+
+    class Config:
+        orm_mode = True
+
+class PaginatedMessagesResponse(BaseModel):
+    messages: List[MessageResponse]
+    total: int # Tổng số tin nhắn để frontend biết khi nào dừng
+
+class RenameConversationRequest(BaseModel):
+    title: str
