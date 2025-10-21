@@ -1,7 +1,8 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional, List
 from datetime import datetime
 import models
+import enum
 
 # Request schemas
 class LoginRequest(BaseModel):
@@ -46,6 +47,17 @@ class RegisterResponse(BaseModel):
 class ErrorResponse(BaseModel):
     success: bool
     message: str
+
+class UpdateUserRequest(BaseModel):
+    fullname: Optional[str] = None
+    email: Optional[EmailStr] = None
+    password: Optional[str] = None
+    department: Optional[str] = None
+    position: Optional[str] = None
+    role: Optional[str] = None
+    employee_id: Optional[str] = None
+    organization: Optional[str] = None
+    is_active: Optional[bool] = None
 
 
 class MessageTypeEnum(str, enum.Enum):

@@ -1,13 +1,15 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Body
 from sqlalchemy.orm import Session
 from database import get_db
-from schemas import LoginRequest, RegisterRequest, LoginResponse, RegisterResponse, ErrorResponse, UserResponse
+from schemas import LoginRequest, RegisterRequest, LoginResponse, RegisterResponse, ErrorResponse, UserResponse, UpdateUserRequest
 from crud import get_user_by_email, create_user, authenticate_user
 from auth import create_access_token
 from datetime import timedelta
 from config import settings
 from models import User
 from auth import get_current_user
+from datetime import datetime, timezone
+from auth import get_password_hash
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
@@ -91,3 +93,59 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
     Cần gửi kèm "Authorization: Bearer <token>" trong header của request.
     """
     return current_user
+
+@router.patch("/update_user/{user_id}", response_model=UserResponse)
+async def update_user(
+    user_id: int,
+    body: UpdateUserRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Update user information endpoint."""
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Không tìm thấy người dùng")
+
+    is_admin = (current_user.role or "").lower() == "admin"
+    if not is_admin and current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Bạn không có quyền cập nhật người dùng này")
+
+    data = body.model_dump(exclude_unset=True)
+
+    # --- xử lý email trùng ---
+    if "email" in data:
+        exists = db.query(User).filter(User.email == data["email"], User.id != user_id).first()
+        if exists:
+            raise HTTPException(status_code=400, detail="Email đã được sử dụng")
+        user.email = data["email"]
+
+    # --- hash mật khẩu ---
+    if "password" in data:
+        user.password_hash = get_password_hash(data.pop("password"))
+
+    # --- cập nhật các trường còn lại ---
+    for field in ["fullname", "department", "position", "role", "employee_id", "organization", "is_active"]:
+        if field in data:
+            setattr(user, field, data[field])
+
+    user.updated_at = datetime.now(timezone.utc)
+    db.commit()
+    db.refresh(user)
+
+    # --- chuẩn bị dữ liệu trả về ---
+    user_data = UserResponse(
+        id=user.id,
+        fullname=user.fullname,
+        email=user.email,
+        role=user.role,
+        department=user.department,
+        position=user.position,
+        employee_id=user.employee_id,
+        organization=user.organization
+    )
+
+    return UserResponse(
+        success=True,
+        data={"user": user_data},
+        message="Cập nhật người dùng thành công"
+    )

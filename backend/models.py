@@ -1,9 +1,14 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, DateTime, Text, ForeignKey, Enum
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, DateTime, Text, ForeignKey, Enum, DateTime, Text, ForeignKey, Enum
 from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
+import enum
 from sqlalchemy.orm import relationship
 import enum
 from database import Base
 
+class MessageType(enum.Enum):
+    user = "user"
+    chatbot = "chatbot"
 class MessageType(enum.Enum):
     user = "user"
     chatbot = "chatbot"

@@ -4,7 +4,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 import bcrypt
 from fastapi import HTTPException, status, Depends
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from config import settings
 import crud
 from database import get_db
@@ -13,7 +13,6 @@ from models import User
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a password against its hash."""
@@ -65,11 +64,10 @@ def verify_token(token: str) -> dict:
     except JWTError:
         raise credentials_exception
 
-def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
-    """
-    Dependency để xác thực token và lấy thông tin người dùng hiện tại.
-    Hàm này sẽ được dùng cho các endpoint cần bảo vệ.
-    """
+security = HTTPBearer()
+
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)) -> User:
+    token = credentials.credentials
     payload = verify_token(token)
     user_id: int = payload.get("user_id")
     

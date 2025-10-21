@@ -2,5 +2,6 @@
     "python.analysis.extraPaths": [
         "./backend/routes"
     ],
-    "python-envs.pythonProjects": []
+    "python-envs.pythonProjects": [],
+    "python-envs.defaultEnvManager": "ms-python.python:system"
 }
