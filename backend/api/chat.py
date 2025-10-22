@@ -14,7 +14,7 @@ from agent.vector_rag.rag import RAGAgent
 from agent.vector_rag.indexing import QdrantIndexing
 from agent.vector_rag.document_pre_processing import process_single_file, pre_processing
 import models
-from schemas import ConversationResponse, PaginatedMessagesResponse, RenameConversationRequest
+from schemas import ConversationResponse, PaginatedMessagesResponse, RenameConversationRequest, MessageResponse
 # Import auth utilities
 from auth import verify_token
 from crud import get_user_by_id
@@ -432,13 +432,13 @@ async def get_user_conversations(
     # Tự động map sang ConversationResponse nhờ orm_mode = True
     return conversations
 
-@router.get("/conversations/{conversation_id}/messages", response_model=PaginatedMessagesResponse) # <-- SỬA Ở ĐÂY
+@router.get("/conversations/{conversation_id}/messages", response_model=PaginatedMessagesResponse)
 async def get_conversation_messages(
     conversation_id: int,
     current_user: dict = Depends(get_current_user),
     db: Session = Depends(get_db),
-    page: int = 1, # Trang hiện tại (mặc định là 1)
-    page_size: int = 20 # Số tin nhắn mỗi trang (mặc định 20)
+    page: int = 1,
+    page_size: int = 20
 ):
     """
     Lấy danh sách tin nhắn trong một cuộc hội thoại (có phân trang).
@@ -464,12 +464,16 @@ async def get_conversation_messages(
     messages = db.query(models.Message).filter(
         models.Message.conversation_id == conversation_id
     ).order_by(
-        models.Message.created_at.asc() # Sắp xếp từ cũ đến mới
+        models.Message.created_at.asc()
     ).offset(
         (page - 1) * page_size
     ).limit(page_size).all()
 
-    return PaginatedMessagesResponse(messages=messages, total=total_messages)
+    # Chuyển đổi sang schema Pydantic
+    messages_response = [MessageResponse.model_validate(msg, from_attributes=True) for msg in messages]
+
+
+    return PaginatedMessagesResponse(messages=messages_response, total=total_messages)
 
 @router.patch("/conversations/{conversation_id}", response_model=ConversationResponse)
 async def rename_conversation(
