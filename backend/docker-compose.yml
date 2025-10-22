@@ -51,20 +51,27 @@ services:
       - neo4j_logs:/logs
       - neo4j_conf:/var/lib/neo4j/conf
       - neo4j_plugins:/plugins
-
-  # CLI tiện lợi để vào psql qua Compose (không cần cài psql trên Windows)
-  postgres-client:
-    image: postgres:16
-    container_name: postgres-client
+  
+# Backend FastAPI service
+  backend:
+    build: .
+    container_name: chatbot_backend
+    restart: unless-stopped
+    ports:
+      - "19101:8000" # Map port 19101 to container port 8000
     depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      PGPASSWORD: password
-    # Mở psql kết nối tới service 'postgres' trong mạng nội bộ Compose
-    entrypoint: ["bash", "-lc", "psql -h postgres -U postgres -d fin_agent"]
-    tty: true
-    stdin_open: true
+      - postgres
+      - neo4j
+      - qdrant
+    env_file:
+      - .env
+    volumes:
+      - ./upload_file:/app/upload_file
+      - ./uploaded_files:/app/uploaded_files
+      - ./json_output:/app/json_output
+      - ./json_text:/app/json_text
+      - /home/aigentic/.cache/huggingface/hub/models--BAAI--bge-m3:/root/.cache/huggingface/hub/models--BAAI--bge-m3
+      - /home/aigentic/.cache/huggingface/hub/models--BAAI--bge-reranker-base:/root/.cache/huggingface/hub/models--BAAI--bge-reranker-base
 
 volumes:
   pg_data:

@@ -246,7 +246,7 @@ async def ask_question_json(
             content=request.message,
             type='user'
         )
-        db.add(user_message)
+        db.add(user_message) 
         
         # --- THÊM DÒNG NÀY ---
         # Cập nhật timestamp để đưa hội thoại lên đầu ngay lập tức

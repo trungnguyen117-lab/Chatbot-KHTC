@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, DateTime, Text, ForeignKey, Enum, DateTime, Text, ForeignKey, Enum
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, DateTime, Text, ForeignKey, Enum
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 import enum
@@ -6,9 +6,6 @@ from sqlalchemy.orm import relationship
 import enum
 from database import Base
 
-class MessageType(enum.Enum):
-    user = "user"
-    chatbot = "chatbot"
 class MessageType(enum.Enum):
     user = "user"
     chatbot = "chatbot"
@@ -52,7 +49,7 @@ class Message(Base):
     conversation_id = Column(Integer, ForeignKey("conversations.id", ondelete="CASCADE"), nullable=False)
     content = Column(Text, nullable=False)
     type = Column(Enum(MessageType), nullable=False) # 'user' hoặc 'chatbot'
-    metadata = Column(Text) # Hoặc JSONB nếu CSDL của bạn hỗ trợ
+    meta_data = Column(Text) # Hoặc JSONB nếu CSDL của bạn hỗ trợ
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
     # Mối quan hệ ngược lại với Conversation
