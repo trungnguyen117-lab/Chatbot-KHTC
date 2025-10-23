@@ -30,7 +30,6 @@ indexing_service = None
 # Request/Response Models
 class ChatRequest(BaseModel):
     message: str
-    context: Optional[str] = None
     conversation_id: Optional[int] = None
 
 class SimpleChatRequest(BaseModel):
@@ -186,6 +185,31 @@ async def ingest():
     except Exception as e:
         logging.error(f"Error during ingestion: {e}")
 
+def get_formatted_chat_history(db: Session, conversation_id: int, limit: int = 10) -> str:
+    """
+    Lấy lịch sử chat đã định dạng từ DB cho một conversation_id.
+    """
+    if not conversation_id:
+        return ""
+
+    # Lấy 'limit' tin nhắn cuối cùng, sắp xếp từ cũ đến mới
+    messages = db.query(models.Message).filter(
+        models.Message.conversation_id == conversation_id
+    ).order_by(
+        models.Message.created_at.desc() # Lấy mới nhất trước
+    ).limit(limit).all()
+
+    # Vì lấy desc, chúng ta cần reverse lại để có thứ tự chronological (cũ -> mới)
+    messages.reverse() 
+
+    history_lines = []
+    for msg in messages:
+        role = "User" if msg.type == 'user' else "Bot"
+        history_lines.append(f"{role}: {msg.content}")
+
+    # Trả về một chuỗi context
+    return "\n".join(history_lines)
+
 # Hàm trợ giúp để tìm hoặc tạo cuộc hội thoại
 def get_or_create_conversation(db: Session, user_id: int, conversation_id: Optional[int], first_message: str) -> models.Conversation:
     if conversation_id:
@@ -240,6 +264,8 @@ async def ask_question_json(
         )
         current_conversation_id = conversation.id
 
+        chat_history_string = get_formatted_chat_history(db, current_conversation_id)
+
         # 3. LƯU TIN NHẮN CỦA USER (type='user')
         user_message = models.Message(
             conversation_id=current_conversation_id,
@@ -253,10 +279,14 @@ async def ask_question_json(
         conversation.updated_at = func.now()
         db.commit() # Lưu ngay
 
+        full_query = request.message
+        if chat_history_string:
+            full_query = f"**Lịch sử hội thoại trước đó (để tham khảo):**\n{chat_history_string}\n\n**Câu hỏi MỚI của người dùng:**\n{request.message}"
+
         filename = None
 
         # 4. Gọi RAG Agent trong thread để tránh asyncio.run() trong event loop
-        response_text = await asyncio.to_thread(rag_agent.run, request.message, filename, False)
+        response_text = await asyncio.to_thread(rag_agent.run, full_query, filename, False)
 
         # 5. LƯU TIN NHẮN CỦA CHATBOT (type='chatbot')
         bot_message = models.Message(
@@ -295,8 +325,6 @@ async def ask_question(
         if not rag_agent:
             await initialize_rag()
             
-        filename = request.context if request.context and request.context.strip() else None
-
         user_id = current_user.get("id")
         if not user_id:
             raise HTTPException(status_code=401, detail="Invalid user token")
@@ -309,6 +337,8 @@ async def ask_question(
         )
         current_conversation_id = conversation.id # Biến này sẽ được dùng trong token_gen
 
+        chat_history_string = get_formatted_chat_history(db, current_conversation_id)
+
         # LƯU TIN NHẮN CỦA USER
         user_message = models.Message(
             conversation_id=current_conversation_id,
@@ -319,10 +349,15 @@ async def ask_question(
         conversation.updated_at = func.now()
         db.commit()
 
+        full_query = request.message
+        if chat_history_string:
+            # Bạn có thể tùy chỉnh prompt này
+            full_query = f"**Lịch sử hội thoại trước đó (để tham khảo):**\n{chat_history_string}\n\n**Câu hỏi MỚI của người dùng:**\n{request.message}"
+
         def token_gen():
             full_response = []
             try:
-                for chunk in rag_agent.run(request.message, filename, stream=True):
+                for chunk in rag_agent.run(full_query, filename=None, stream=True):
                     chunk_str = str(chunk) # Đảm bảo là string
                     full_response.append(chunk_str)
                     # Nếu muốn SSE thì: yield f"data: {chunk}\n\n"
