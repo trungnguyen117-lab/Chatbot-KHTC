@@ -14,11 +14,17 @@ from agent.vector_rag.rag import RAGAgent
 from agent.vector_rag.indexing import QdrantIndexing
 from agent.vector_rag.document_pre_processing import process_single_file, pre_processing
 import models
+import re
+from langchain.schema import HumanMessage
+from langchain_google_genai import ChatGoogleGenerativeAI
 from schemas import ConversationResponse, PaginatedMessagesResponse, RenameConversationRequest, MessageResponse
 # Import auth utilities
 from auth import verify_token
 from crud import get_user_by_id
 from database import get_db
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Security
 security = HTTPBearer()
@@ -58,8 +64,109 @@ class SimpleChatResponse(BaseModel):
     success: bool
     data: SimpleChatData
 
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "key")
+
 # Router
 router = APIRouter(prefix="/chatbot", tags=["chatbot"])
+
+try:
+    title_llm = ChatGoogleGenerativeAI(
+        model="gemini-1.5-flash", # Dùng Flash cho tốc độ và chi phí
+        temperature=0.3,
+        google_api_key=GOOGLE_API_KEY,
+        client_options={"api_version": "v1"}
+    )
+except Exception as e:
+    logging.error(f"Không thể khởi tạo title_llm: {e}. Tính năng smart rename sẽ không hoạt động.")
+    title_llm = None
+
+async def generate_smart_title(user_message: str, bot_response: str) -> str:
+    """
+    (Async) Sử dụng LLM để tạo tiêu đề ngắn gọn từ câu hỏi và câu trả lời.
+    """
+    if not title_llm:
+        return user_message[:50] # Fallback nếu LLM lỗi
+
+    try:
+        prompt_template = f"""
+        Dựa trên đoạn hội thoại sau:
+        
+        Người dùng: "{user_message}"
+        Trợ lý: "{bot_response}"
+        
+        Hãy tạo ra một tiêu đề RẤT NGẮN GỌN (không quá 10 từ) và súc tích bằng Tiếng Việt để tóm tắt nội dung chính của cuộc hội thoại.
+        
+        Chỉ trả về tiêu đề, không thêm bất kỳ lời giải thích hay ký tự đặc biệt nào (như dấu ngoặc kép hay dấu hoa thị).
+        
+        Ví dụ: "Quy trình thanh toán chi phí", "Hỏi về công tác phí", "Phê duyệt chi tiêu".
+        
+        Tiêu đề:
+        """
+        
+        messages = [HumanMessage(content=prompt_template)]
+        
+        # Dùng .ainvoke() cho hàm async
+        response = await title_llm.ainvoke(messages)
+        
+        title = response.content.strip()
+        
+        # Dọn dẹp ký tự thừa (ví dụ: "Tiêu đề: ...")
+        title = re.sub(r'["*]', '', title).strip() # Bỏ dấu ngoặc kép, hoa thị
+        if title.lower().startswith("tiêu đề:"):
+             title = title[8:].strip()
+             
+        if not title:
+            return user_message[:50] # Fallback
+            
+        return title[:100] # Giới hạn 100 ký tự
+        
+    except Exception as e:
+        logging.error(f"Lỗi khi tạo smart title: {e}")
+        return user_message[:50] # Fallback khi có lỗi
+
+def generate_smart_title_sync(user_message: str, bot_response: str) -> str:
+    """
+    (Sync) Wrapper cho hàm async (dùng trong generator).
+    """
+    if not title_llm:
+        return user_message[:50]
+
+    try:
+        prompt_template = f"""
+        Dựa trên đoạn hội thoại sau:
+        
+        Người dùng: "{user_message}"
+        Trợ lý: "{bot_response}"
+        
+        Hãy tạo ra một tiêu đề RẤT NGẮN GỌN (không quá 7 từ) và súc tích bằng Tiếng Việt để tóm tắt nội dung chính của cuộc hội thoại.
+        
+        Chỉ trả về tiêu đề, không thêm bất kỳ lời giải thích hay ký tự đặc biệt nào (như dấu ngoặc kép hay dấu hoa thị).
+        
+        Ví dụ: "Quy trình thanh toán chi phí", "Hỏi về công tác phí", "Phê duyệt chi tiêu".
+        
+        Tiêu đề:
+        """
+        
+        messages = [HumanMessage(content=prompt_template)]
+        
+        # Dùng .invoke() cho hàm sync
+        response = title_llm.invoke(messages)
+        
+        title = response.content.strip()
+        
+        # Dọn dẹp
+        title = re.sub(r'["*]', '', title).strip()
+        if title.lower().startswith("tiêu đề:"):
+             title = title[8:].strip()
+             
+        if not title:
+            return user_message[:50]
+            
+        return title[:100]
+        
+    except Exception as e:
+        logging.error(f"Lỗi khi tạo smart title (sync): {e}")
+        return user_message[:50]
 
 # Dependency to get current user
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)):
@@ -211,7 +318,7 @@ def get_formatted_chat_history(db: Session, conversation_id: int, limit: int = 1
     return "\n".join(history_lines)
 
 # Hàm trợ giúp để tìm hoặc tạo cuộc hội thoại
-def get_or_create_conversation(db: Session, user_id: int, conversation_id: Optional[int], first_message: str) -> models.Conversation:
+def get_or_create_conversation(db: Session, user_id: int, conversation_id: Optional[int], first_message: str) -> tuple[models.Conversation, bool]:
     if conversation_id:
         # Nếu có ID, tìm nó
         convo = db.query(models.Conversation).filter(
@@ -221,7 +328,7 @@ def get_or_create_conversation(db: Session, user_id: int, conversation_id: Optio
         
         if not convo:
             raise HTTPException(status_code=404, detail="Conversation not found or access denied")
-        return convo
+        return convo, False
     else:
         # Nếu không có ID, tạo mới
         # Dùng 50 ký tự đầu của tin nhắn làm tiêu đề
@@ -232,7 +339,7 @@ def get_or_create_conversation(db: Session, user_id: int, conversation_id: Optio
         db.add(new_convo)
         db.commit()
         db.refresh(new_convo)
-        return new_convo
+        return new_convo, True
 
 @router.post("/ask-json")
 async def ask_question_json(
@@ -256,7 +363,7 @@ async def ask_question_json(
             raise HTTPException(status_code=401, detail="Invalid user token")
 
         # 2. Tìm hoặc tạo cuộc hội thoại
-        conversation = get_or_create_conversation(
+        conversation, is_new_convo = get_or_create_conversation(
             db=db,
             user_id=user_id,
             conversation_id=request.conversation_id,
@@ -298,6 +405,15 @@ async def ask_question_json(
         conversation.updated_at = func.now()
         db.commit()
 
+        if is_new_convo and title_llm:
+            logging.info(f"Đang tạo smart title cho convo: {current_conversation_id}")
+            # Dùng hàm async
+            smart_title = await generate_smart_title(request.message, response_text)
+            
+            conversation.title = smart_title
+            db.commit() # Commit tiêu đề mới
+            logging.info(f"Đã tạo xong smart title: {smart_title}")
+
         return SimpleChatResponse(
             success=True,
             data=SimpleChatData( # <-- Dùng SimpleChatData
@@ -329,7 +445,7 @@ async def ask_question(
         if not user_id:
             raise HTTPException(status_code=401, detail="Invalid user token")
 
-        conversation = get_or_create_conversation(
+        conversation, is_new_convo = get_or_create_conversation(
             db=db,
             user_id=user_id,
             conversation_id=request.conversation_id,
@@ -373,6 +489,16 @@ async def ask_question(
                 db.add(bot_message)
                 conversation.updated_at = func.now()
                 db.commit()
+
+                if is_new_convo and title_llm:
+                    logging.info(f"Đang tạo smart title cho convo: {current_conversation_id}")
+                    # Dùng hàm sync vì đang ở trong generator
+                    smart_title = generate_smart_title_sync(request.message, final_response_text)
+                    
+                    conversation.title = smart_title
+                    db.commit() # Commit tiêu đề mới
+                    logging.info(f"Đã tạo xong smart title: {smart_title}")
+
                 
             except Exception as e:
                 logging.error(f"Error in stream or saving bot message: {e}")
