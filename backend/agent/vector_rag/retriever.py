@@ -96,11 +96,8 @@ class HybridSearch():
             query_filter=metadata_filter,
             query=models.FusionQuery(fusion=models.Fusion.RRF), #Reciprocal Rerank Fusion
         )
-        
-        # Extract the text from the payload of each scored point
-        documents = [point.payload['text'] for point in results.points]
-
-        return documents
+    
+        return results.points
 
 if __name__ == '__main__':
     search = HybridSearch()
