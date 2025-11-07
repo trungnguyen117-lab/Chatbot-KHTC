@@ -11,6 +11,7 @@ import logging
 import os
 from .prompt import PROMPT
 from .prompt import FALLBACK_PROMPT
+from .prompt import HALLUCINATION_TRIGGERS
 load_dotenv()
 
 
@@ -32,11 +33,11 @@ class RAGAgent:
         self.search = HybridSearch()
         self.reranker = Reranking()
         
-        # === THAY ĐỔI Ở ĐÂY ===
         self.prompt_tmpl = PromptTemplate(PROMPT)
         self.fallback_prompt_tmpl = PromptTemplate(FALLBACK_PROMPT) 
         self.retriever_score_threshold = 0.69
-        # === KẾT THÚC THAY ĐỔI ===
+
+        self.hallucination_triggers = HALLUCINATION_TRIGGERS
 
         # QueryEngine streaming
         self.query_engine = RAGStringQueryEngine(llm=self.llm)
@@ -49,12 +50,9 @@ class RAGAgent:
             logging.info("Building prompt without filename filter (search all)")
             metadata_filter = None
 
-        # 1. `results` BÂY GIỜ LÀ List[ScoredPoint] NHỜ SỬA file `retriever.py`
         results = self.search.query_hybrid_search(query, metadata_filter) 
 
-        # === THAY ĐỔI QUAN TRỌNG: Logic kiểm tra score ===
         if not results or results[0].score < self.retriever_score_threshold:
-            # 2. KIỂM TRA ĐIỂM SỐ: Nếu rỗng HOẶC điểm thấp hơn ngưỡng
             
             top_score = results[0].score if results else "N/A"
             logging.warning(
@@ -62,31 +60,74 @@ class RAGAgent:
                 f"Score RRF cao nhất: {top_score} (Ngưỡng: {self.retriever_score_threshold})"
             )
             
-            # 3. TRẢ VỀ PROMPT FALLBACK
             return self.fallback_prompt_tmpl.format(query_str=query)
-        # === KẾT THÚC THAY ĐỔI ===
 
-        # 4. NẾU ĐIỂM ĐỦ CAO: Tiếp tục RAG bình thường
         logging.info(f"RAG Succeeded: Score {results[0].score} > {self.retriever_score_threshold}")
         
-        # 5. TRÍCH XUẤT TEXT từ List[ScoredPoint]
         documents_list = [point.payload['text'] for point in results]
 
-        # 6. Gửi List[str] cho Reranker
         context = "\n\n".join(self.reranker.rerank_documents(query, documents_list))
         
-        # 7. SỬ DỤNG PROMPT GỐC
         return self.prompt_tmpl.format(context_str=context, query_str=query)
 
     def run(self, query: str, filename: Optional[str] = None, stream: bool = True):
-        # Hàm build_prompt giờ sẽ tự động trả về 1 trong 2 prompt
+        
         prompt = self.build_prompt(query, filename)
+        
+        is_already_fallback = "### THÔNG BÁO TỪ HỆ THỐNG" in prompt 
 
+        response_text = None
+        is_hallucination = False
+        
+        if not is_already_fallback:
+            try:
+                response_text = self.llm.complete(prompt).text
+            except Exception as e:
+                logging.error(f"LLM generation failed: {e}")
+                response_text = f"Lỗi: Đã xảy ra sự cố khi tạo câu trả lời RAG. {e}"
+
+            response_text_lower = response_text.lower()
+            is_hallucination = any(trigger in response_text_lower for trigger in self.hallucination_triggers)
+        
+        final_prompt_for_llm_call = None
+        
+        if is_already_fallback:
+            final_prompt_for_llm_call = prompt
+            
+        elif is_hallucination:
+            logging.warning(
+                f"FALLBACK (Hallucination Guard): A trigger phrase was detected in the RAG response, initiating fallback protocol. Query: '{query}'"
+            )
+            final_prompt_for_llm_call = self.fallback_prompt_tmpl.format(query_str=query)
+        
         if stream:
-            return self.query_engine.query(prompt)  # generator
+            def final_generator():
+                if final_prompt_for_llm_call:
+                    try:
+                        for chunk in self.llm.stream_complete(final_prompt_for_llm_call):
+                            if chunk.delta:
+                                yield chunk.delta
+                    except Exception as e:
+                        logging.error(f"Fallback LLM stream failed: {e}")
+                        yield f"Lỗi: Đã xảy ra sự cố khi tạo câu trả lời fallback. {e}"
+                
+                else:
+                    chunk_size = 5 
+                    for i in range(0, len(response_text), chunk_size):
+                        yield response_text[i:i+chunk_size]
+                        
+            return final_generator() 
+
         else:
-            response = self.llm.complete(prompt)  # chờ full
-            return response.text
+            if final_prompt_for_llm_call:
+                try:
+                    return self.llm.complete(final_prompt_for_llm_call).text
+                except Exception as e:
+                    logging.error(f"Fallback LLM complete failed: {e}")
+                    return f"Lỗi: Đã xảy ra sự cố khi tạo câu trả lời fallback. {e}"
+            
+            else:
+                return response_text
 
     
 if __name__ == "__main__":
